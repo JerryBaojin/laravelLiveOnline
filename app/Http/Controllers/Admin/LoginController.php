@@ -1,48 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-use App\Http\Model\User;
+namespace App\Http\Controllers\admin;
+
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 
-require_once 'resources/org/code/Code.class.php';
-
-class LoginController extends CommonController
+class LoginController extends Controller
 {
-    public function login()
+    //
+    public function index()
     {
-        if($input = Input::all()){
-            $code = new \Code;
-            $_code = $code->get();
-            if(strtoupper($input['code'])!=$_code){
-                return back()->with('msg','验证码错误！');
-            }
-            $user = User::first();
-            if($user->user_name != $input['user_name'] || Crypt::decrypt($user->user_pass)!= $input['user_pass']){
-                return back()->with('msg','用户名或者密码错误！');
-            }
-            session(['user'=>$user]);
-            return redirect('admin/index');
+        return view('admin.login.index');
+    }
 
-        }else {
-            return view('admin.login');
+    public function check()
+    {
+        $input = Input::all();
+        $username = $input['logname'];
+        $pwd = $input['logpass'];
+
+        $table = DB::table('admin')->where(['name' => $username])->first();
+     if (empty($table)) {
+            return back() ->with('errorname', '用户名不存在!');
+        } elseif (Crypt::decrypt($table->password) != $pwd) {
+            return back() -> with('errorpwd', '密码错误!');
+        }else{
+        $time= date('Y-m-d H:i:s',time());
+
+            DB::table('admin')->update(['login_at'=>$time,'remember_token'=>$input['_token']]);
+            session(['user'=>$username]);
+            return redirect('admin');
         }
-    }
 
-    public function quit()
-    {
-        session(['user'=>null]);
-        return redirect('admin/login');
-    }
 
-    public function code()
-    {
-        $code = new \Code;
-        $code->make();
     }
-
 }
