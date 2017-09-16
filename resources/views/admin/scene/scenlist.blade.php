@@ -4,7 +4,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>现场管理</title>
-    <link rel="stylesheet" href="/css/ui.css">
+    <link rel="stylesheet" href="/css/main/ui.css">
 
 </head>
 <body>
@@ -55,15 +55,15 @@
                 <span class="fn-left pz-label label-normal tip-creater fn-ellipsis">直播账号：${creater}</span>
                 <a class="j-cut fn-right" data-id="${id}" style="color:#1a9fff;padding: 5px;">剪辑</a>
                 <div class="fn-hide">
-                    {@if streamState == 2}
+
                     <div class="pz-switch switch-close fn-right fn-w80" data-id="${id}">
                         <div class="switch-btn">关闭</div>
                     </div>
-                    {@else}
+
                     <div class="pz-switch switch-open fn-right fn-w80" data-id="${id}">
                         <div class="switch-btn">正常</div>
                     </div>
-                    {@/if}
+
                     <span class="fn-right pz-label label-normal label-transparent fn-pd0">当前直播状态：</span>
                 </div>
             </div>
