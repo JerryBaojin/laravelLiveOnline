@@ -3,16 +3,22 @@ var vue=new Vue({
     delimiters: ['[[', ']]'],
     el:'#app',
     data:{
-    page:"admin/scene/scenelist"
+    page:"scene/scenelist"
     },
     mounted:function(){
     console.log(165);
     },
     methods:{
        loopPage:function (e) {
-           console.log(this);
-           this.page='admin'+e.target.dataset.href.split('.')[0];
-           console.log(this.page);
+           //去除其他元素的classname
+           var dds=document.getElementById('j-nav').getElementsByTagName('dd');
+          for (var i=0;i<=dds.length;i++){
+              dds[i]=i;
+              dds[i].className='';
+          }
+            e.target.className='current';
+           this.page='/admin'+e.target.dataset.href.split('.')[0];
+
         }
     }
 })

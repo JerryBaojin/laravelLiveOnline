@@ -4,14 +4,15 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>创建现场</title>
-    <link rel="stylesheet" href="//static.xinhuaapp.com/css/datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/main/datetimepicker.css">
     <link rel="stylesheet" href="/css/main/ui.css">
 </head>
 <body>
 
 <div class="fn-pl40 fn-pr40 fn-pt30 fn-pb30 fn-clear">
     <div class="pz-form">
-        <form id="j-sceneform">
+        <form id="j-sceneform" enctype="multipart/form-data">
+            {{csrf_filed()}}
             <div class="wrap fn-clear">
                 <div class="group2">
                     <div class="row xcy-row">

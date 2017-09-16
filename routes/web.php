@@ -21,6 +21,7 @@ Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {
 
 
 Route::group(['middleware'=>['web'],'prefix'=>'admin','namespace'=>'Admin'], function () {
+          Route::get('/', 'IndexController@index');
         Route::group(['prefix'=>'scene'],function(){
             Route::get('/scenelist',function(){
                 return view('admin.scene.scenlist');
@@ -28,46 +29,46 @@ Route::group(['middleware'=>['web'],'prefix'=>'admin','namespace'=>'Admin'], fun
             Route::get('/reportlist',function(){
                 return view('admin.scene.reportlist');
             });
+            Route::get('/comment',function(){
+                return view('admin.scene.comment');
+            });
+            Route::get('/showscene',function(){
+                return view('admin.scene.showscene');
+            });
+            Route::get('/sceneadd',function(){
+                return view('admin.scene.sceneadd');
+            });
+            Route::get('/showscenelist',function(){
+                return view('admin.scene.showscenelist');
+            });
         });
+        Route::group(['prefix'=>'user'],function (){
+            Route::get('/info',function(){
+                return view('admin.user.info');
+            });
 
+            Route::get('/pwd',function(){
+                return view('admin.user.pwd');
+            });
+        });
+        Route::group(['prefix'=>'org'],function (){
+            Route::get('/info',function(){
+                return view('admin.org.info');
+            });
+            Route::get('/userlist',function(){
+                return view('admin.org.userlist');
+            });
+            Route::get('/acclist',function(){
+                return view('admin.org.acclist');
+            });
+        });
+        Route::group(['prefix'=>'count'],function(){
+            Route::get('/list',function(){
+                return view('admin.count.list');
+            });
+            Route::get('/general',function(){
+                return view('admin.count.general');
+            });
 
-    Route::get('/comment',function(){
-        return view('admin.scene.comment');
-    });
-    Route::get('/sceneadd',function(){
-        return view('admin.scene.sceneadd');
-    });
-    Route::get('/scenlist',function(){
-        return view('admin.scene.scenlist');
-    });
-    Route::get('/showscenelist',function(){
-        return view('admin.scene.showscenelist');
-    });
-/*
-    Route::get('/info',function(){
-        return view('admin.org.info');
-    });
-    Route::get('/acclist',function(){
-        return view('admin.org.acclist');
-    });
-    Route::get('/userlist',function(){
-        return view('admin.org.userlist');
-    });
-    Route::get('/scenlist',function(){
-        return view('admin.user.info');
-    });
-    Route::get('/acclist',function(){
-        return view('admin.user.pwd');
-    });
-    Route::get('/general',function(){
-        return view('admin.count.general');
-    });
-    Route::get('/list',function(){
-        return view('admin.count.list');
-    });
-*/
-    Route::get('/', 'IndexController@index');
+            });
 });
-
-/*
-Route::get('/','HomeController@index');*/
