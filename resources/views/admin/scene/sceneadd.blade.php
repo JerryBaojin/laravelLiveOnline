@@ -6,13 +6,14 @@
     <title>创建现场</title>
     <link rel="stylesheet" href="/css/main/datetimepicker.css">
     <link rel="stylesheet" href="/css/main/ui.css">
+    <script src="/js/jq.min.js"></script>
 </head>
 <body>
 
 <div class="fn-pl40 fn-pr40 fn-pt30 fn-pb30 fn-clear">
     <div class="pz-form">
         <form id="j-sceneform" enctype="multipart/form-data">
-            {{csrf_filed()}}
+            {{csrf_field()}}
             <div class="wrap fn-clear">
                 <div class="group2">
                     <div class="row xcy-row">
@@ -21,13 +22,13 @@
                     </div>
                     <div class="row xcy-row">
                         <div class="row-title">摘要<p class="j-remark-length fn-right"><span>0</span>/300</p></div>
-                        <div class="row-content" data-field="remark"><textarea name="remark" class="j-remark fn-h140"></textarea></div>
+                        <div class="row-content" data-field="remark"><textarea name="remark" required class="j-remark fn-h140"></textarea></div>
                     </div>
                 </div>
                 <div class="group2 fn-pl40">
                     <div class="row xcy-row">
                         <div class="row-title">现场类型</div>
-                        <div class="row-content" data-field="type"><div><label><input type="radio" name="type" value="4" checked=""> 视频直播</label><label><input type="radio" name="type" value="1"> 图文直播</label></div></div>
+                        <div class="row-content" data-field="type"><div><label><input type="radio" required name="type" value="4" checked=""> 视频直播</label><label><input type="radio" name="type" value="1"> 图文直播</label></div></div>
                     </div>
                     <div class="row xcy-row">
                         <div class="row-title">封面<em>（750px * 422px）</em></div>
@@ -40,7 +41,7 @@
                                         <p class="fn-textcenter fn-mt5">点击选择封面图片</p>
                                     </div>
                                     <div class="j-file-input fn-hide">
-                                        <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                        <input required type="file" id="image" name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
                                     </div>
                                 </label>
                             </div>
@@ -51,9 +52,55 @@
             <div class="actions actions-transparent fn-pt20">
                 <input type="submit" class="pz-btn btn-success btn-big" value="发布现场">
             </div>
+
         </form>
     </div>
 </div>
+<script>
+    $(function(e){
+        $('#image').on('change',function(e){
+            $('.fn-pt25').hide();
+            var imgUrl= window.URL.createObjectURL(this.files[0]);
+        $('#imgSrc').attr('src',imgUrl);
+           $('.upbtn').css(
+               {"background":"url(\""+(imgUrl)+"\") no-repeat center",
+                   "background-size":"100% 100%"
+               }
+               );
+        })
+
+        $("#j-sceneform").on('submit', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: "{{url('Api/sceneAdd')}}",
+                type: "POST",
+                data:  new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                // 显示加载图片
+                success: function (data) {
+                    data=eval('('+data+')')
+    console.log(data)
+                },
+                error: function(){}
+            });
+        });
+       /* $("#j-sceneform").on('submit',function (e) {
+            var data = new FormData($('#j-sceneform')[0]);
+            console.log(data);
+            e.preventDefault();
+            $.ajax({
+               url:'{{url("/Api/sceneAdd")}}',
+                type:'POST',
+                data: data,//$("#j-sceneform").serialize()
+                success:function (res) {
+                    console.log(res);
+                }
+            })
+        })*/
+    })
+</script>
 
 
 </body></html>

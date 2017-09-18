@@ -42,7 +42,10 @@ return [
     */
 
     'disks' => [
-
+        'uploads'=>[
+          'driver'=>'local',//本地驱动
+          'root'=>  storage_path('app/uploads')
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

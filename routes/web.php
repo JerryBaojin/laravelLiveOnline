@@ -10,10 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], function () {
+    Route::post('/sceneAdd','SceneController@SceneAdd');
+});
+
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {
-    //Route::get('/', 'Home\IndexController@index');
-    //Route::get('/cate/{cate_id}', 'Home\IndexController@cate');
-    //Route::get('/a/{art_id}', 'Home\IndexController@article');
+
     Route::get('/login', 'Admin\LoginController@index');
     Route::post('/login', 'Admin\LoginController@check');
   //  Route::get('admin/code', 'Admin\LoginController@code');

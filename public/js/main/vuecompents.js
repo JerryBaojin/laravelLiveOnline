@@ -3,7 +3,8 @@ var vue=new Vue({
     delimiters: ['[[', ']]'],
     el:'#app',
     data:{
-    page:"scene/scenelist"
+        test:'test',
+        page:"scene/sceneadd"
     },
     mounted:function(){
     console.log(165);

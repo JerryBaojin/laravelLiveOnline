@@ -9,6 +9,14 @@
 </head>
 <body>
 
+<div id="scenlist">
+    [[test]]
+    <script>
+        var scenlist=new Vue({
+            el:'#scenlist'
+        })
+    </script>
+</div>
 <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
     <div class="row-content" data-field="keyword">
         <input type="text" id="j-keyword" name="keyword" class="input-search" placeholder="请输入标题关键字">

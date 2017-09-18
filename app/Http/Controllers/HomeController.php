@@ -22,6 +22,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public  function  uploadImages(Request $request){
+        $path = $request->file('avatar')->store('avatars');
+
+        return $path;
+    }
     public function index()
     {
      echo 156;
