@@ -4,13 +4,14 @@ var vue=new Vue({
     el:'#app',
     data:{
         test:'test',
-        page:"scene/sceneadd"
+        page:"scene/scenelist"
     },
     mounted:function(){
-    console.log(165);
+
     },
     methods:{
        loopPage:function (e) {
+          // console.log(document.getElementById('inframe').contentWindow.document.getElementById('test'));
            //去除其他元素的classname
            var dds=document.getElementById('j-nav').getElementsByTagName('dd');
           for (var i=0;i<=dds.length;i++){
@@ -19,6 +20,21 @@ var vue=new Vue({
           }
             e.target.className='current';
            this.page='/admin'+e.target.dataset.href.split('.')[0];
+        },
+        editUser:function (e) {
+
+       if (e.target.dataset.href=='logout'){
+            function clearCookie(){
+                var keys=document.cookie.match(/[^ =;]+(?=\=)/g);
+                if (keys) {
+                    for (var i = keys.length; i--;)
+                        document.cookie=keys[i]+'=0;expires=' + new Date( 0).toUTCString()
+                }
+            }
+            clearCookie();
+       }else{
+           this.page='/admin'+e.target.dataset.href.split('.')[0];
+       }
 
         }
     }

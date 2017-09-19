@@ -21,12 +21,12 @@
             <span id="j-user">大海</span>
             <em class="pz-icon icon-moreunfold"></em>
             <div class="itemselect">
-                <div class="itemoption">
+                <div class="itemoption" @click="editUser($event)">
                     <em class="arrow"></em>
                     <em class="arrowbg"></em>
                     <span class="j-optionlink" data-href="/user/info.html">基本信息</span>
-                    <span class="j-optionlink" data-href="/user/pwd.html">修改密码</span>
-                    <span id="j-logout">安全退出</span>
+                    <span class="j-optionlink"  data-href="/user/pwd.html">修改密码</span>
+                    <span id="j-logout"  data-href="logout">安全退出</span>
                 </div>
             </div>
         </div>
@@ -63,12 +63,13 @@
 </div>
 
 <div id="j-mainIframe" class="xcy-main">
-    <iframe frameborder="0" scrolling="auto" name="mainIframe0" :src="[[page]]" style="display: block;"></iframe>
+    <iframe frameborder="0" id="inframe" scrolling="auto" name="mainIframe0" :src="[[page]]" style="display: block;"></iframe>
 </div>
 </div>
 </body>
 <footer>
 </footer>
+
 <script src="/js/vue-min.js"></script>
 <script src="/js/vue-resource.js"></script>
 {{--<script src="js/main/borwer-min.js"></script>--}}

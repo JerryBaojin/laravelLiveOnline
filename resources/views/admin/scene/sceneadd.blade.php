@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<div id="test">1</div>
 <div class="fn-pl40 fn-pr40 fn-pt30 fn-pb30 fn-clear">
     <div class="pz-form">
         <form id="j-sceneform" enctype="multipart/form-data">
@@ -57,6 +58,8 @@
     </div>
 </div>
 <script>
+    var test=parent.document.getElementById('j-org');
+    console.log(test);
     $(function(e){
         $('#image').on('change',function(e){
             $('.fn-pt25').hide();
@@ -80,25 +83,15 @@
                 processData: false,
                 // 显示加载图片
                 success: function (data) {
-                    data=eval('('+data+')')
-    console.log(data)
+  if(data==1){
+      alert('添加成功');
+  }else{
+      alert('添加失败！请重新检查')
+  }
                 },
                 error: function(){}
             });
         });
-       /* $("#j-sceneform").on('submit',function (e) {
-            var data = new FormData($('#j-sceneform')[0]);
-            console.log(data);
-            e.preventDefault();
-            $.ajax({
-               url:'{{url("/Api/sceneAdd")}}',
-                type:'POST',
-                data: data,//$("#j-sceneform").serialize()
-                success:function (res) {
-                    console.log(res);
-                }
-            })
-        })*/
     })
 </script>
 
