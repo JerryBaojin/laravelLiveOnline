@@ -11,8 +11,6 @@ var vue=new Vue({
     },
     methods:{
        loopPage:function (e) {
-          // console.log(document.getElementById('inframe').contentWindow.document.getElementById('test'));
-           //去除其他元素的classname
            var dds=document.getElementById('j-nav').getElementsByTagName('dd');
           for (var i=0;i<=dds.length;i++){
               dds[i]=i;

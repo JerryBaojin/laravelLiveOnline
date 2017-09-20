@@ -24,7 +24,8 @@
         <span class="pz-sort"></span>
     </div>
     <div class="row-content fn-ml30">
-        <select id="j-state">
+
+        <select v-model="filterList" id="j-state">
             <option value="0">全部现场</option>
             <option value="1">待审现场</option>
             <option value="16">直播中</option>
@@ -39,14 +40,15 @@
         <li v-for="(item,index) in scenLists ">
 
             <div class="picbar">
-                <div class="j-edit pic" data-id=" [[item.id]]"><img :src="www.oa.com/[[item.coverPic]]"></div>
+
+                <div class="j-edit pic" data-id=" [[item.id]]"><img :src="'http://www.oa.com/'+item.coverPic"></div>
                 <span class="top j-stick" @click="setTop(item.id)"><i class="pz-icon icon-top"></i> 置顶</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>
                 <div class="title fn-ellipsis">[[item.title]]</div>
             </div>
             <div class="action fn-clear">
-                <span class="pz-label label-normal fn-left fn-ellipsis creater"><i class="pz-icon icon-account"></i> [[item]]</span>
+                <span class="pz-label label-normal fn-left fn-ellipsis creater"><i class="pz-icon icon-account"></i> [[item.seter]]</span>
                 <span class="pz-label label-normal fn-left fn-pl0 fn-pr0"><i class="pz-icon icon-clock"></i>[[item.createAt]]</span>
-                <a class="j-view" href="javascript:void(0)" data-id="150574775309060" data-creater="大海" data-poster="https://xcycdn.zhongguowangshi.com/live-img/20170918/1505747709152_87.jpeg" data-url="rtmp://xinhualive.zhongguowangshi.com/zbcb/150574775309060?auth_key=1537283753-0-0-176452a1c3e0d1da06607e9700f613c7" data-streamstate="1">预览</a>
+                <a class="j-view" @click="view(item.id)" href="javascript:void(0)" data-id="150574775309060" data-creater="大海" data-poster="https://xcycdn.zhongguowangshi.com/live-img/20170918/1505747709152_87.jpeg" data-url="rtmp://xinhualive.zhongguowangshi.com/zbcb/150574775309060?auth_key=1537283753-0-0-176452a1c3e0d1da06607e9700f613c7" data-streamstate="1">预览</a>
                 <a class="j-stop" href="javascript:void(0)" data-id="150574775309060">结束现场</a>
             </div>
         </li>
@@ -61,11 +63,30 @@ var list=new Vue({
     delimiters: ['[[', ']]'],
     el:'#app',
     data:{
-        scenLists:null
+        scenLists:null,
+        filterList:0,
+        bakArr:null
+    },
+    methods:{
+        view:function (id) {
+                document.getElementById('j-list').innerHTML=document.getElementById('j-overlay-view').innerHTML;
+        },
+        setTop:function (id) {
+            console.log(id);
+        }
+    },
+    watch:{
+        filterList:function(newValue,old){
+            this.scenLists=this.bakArr.filter(function (value) {
+                return value.status==newValue;
+            })
+        }
     },
     created:function () {
         this.$http.post('/Api/scenelist',{act:"getList",'_token':'{{csrf_token()}}'}).then(function (res) {
             this.scenLists=eval(res.body);
+            //备份一份数组
+            this.bakArr=this.scenLists;
         },function (error) {
             console.log(error);
         })

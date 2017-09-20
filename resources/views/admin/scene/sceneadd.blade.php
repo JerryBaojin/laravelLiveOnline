@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<div id="test">1</div>
 <div class="fn-pl40 fn-pr40 fn-pt30 fn-pb30 fn-clear">
     <div class="pz-form">
         <form id="j-sceneform" enctype="multipart/form-data">
@@ -59,7 +58,7 @@
 </div>
 <script>
     var test=parent.document.getElementById('j-org');
-    console.log(test);
+
     $(function(e){
         $('#image').on('change',function(e){
             $('.fn-pt25').hide();
