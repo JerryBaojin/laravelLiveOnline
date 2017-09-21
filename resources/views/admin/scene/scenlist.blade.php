@@ -38,18 +38,16 @@
 <div id="j-card" class="xcy-card fn-pt30 fn-pb30 fn-pl40 fn-clear">
     <ul>
         <li v-for="(item,index) in scenLists ">
-
             <div class="picbar">
-
                 <div class="j-edit pic" data-id=" [[item.id]]"><img :src="'http://www.oa.com/'+item.coverPic"></div>
-                <span class="top j-stick" @click="setTop(item.id)"><i class="pz-icon icon-top"></i> 置顶</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>
+                <span :class="[(item.setTop!=0?'nowtop top j-stick':'top j-stick') ]" @click="setTop(item.id,$event,index)"><i class="pz-icon icon-top"></i> [[item.setTop==0?'置顶':'取消置顶']]</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>
                 <div class="title fn-ellipsis">[[item.title]]</div>
             </div>
             <div class="action fn-clear">
                 <span class="pz-label label-normal fn-left fn-ellipsis creater"><i class="pz-icon icon-account"></i> [[item.seter]]</span>
                 <span class="pz-label label-normal fn-left fn-pl0 fn-pr0"><i class="pz-icon icon-clock"></i>[[item.createAt]]</span>
-                <a class="j-view" @click="view(item.id)" href="javascript:void(0)" data-id="150574775309060" data-creater="大海" data-poster="https://xcycdn.zhongguowangshi.com/live-img/20170918/1505747709152_87.jpeg" data-url="rtmp://xinhualive.zhongguowangshi.com/zbcb/150574775309060?auth_key=1537283753-0-0-176452a1c3e0d1da06607e9700f613c7" data-streamstate="1">预览</a>
-                <a class="j-stop" href="javascript:void(0)" data-id="150574775309060">结束现场</a>
+                <a class="j-view" @click="view(item.id)" href="javascript:void(0)" data-id="" data-creater="" data-poster="https://xcycdn.zhongguowangshi.com/live-img/20170918/1505747709152_87.jpeg" data-url="rtmp://xinhualive.zhongguowangshi.com/zbcb/150574775309060?auth_key=1537283753-0-0-176452a1c3e0d1da06607e9700f613c7" data-streamstate="1">预览</a>
+                <a class="j-stop" @click="endScence(item.id,$event,index)" href="javascript:void(0)" data-id=""> [[item.status==32?'恢复直播':item.status==1?'待审核现场':item.status==16?'直播中':item.status==64?'回收站':'直播结束']]</a>
             </div>
         </li>
     </ul>
@@ -65,21 +63,64 @@ var list=new Vue({
     data:{
         scenLists:null,
         filterList:0,
-        bakArr:null
+        bakArr:null,
+        setCurrent:0
     },
     methods:{
+        endScence:function (id,e,index) {
+            this.$http.post('/Api/scenelist',{act:"end",'id':id,'_token':'{{csrf_token()}}'}).then(function (res) {
+                if (res.data==1){
+                    this.bakArr[index]['status']=0;
+                }
+            },function (error) {
+                console.log(error);
+            })
+        },
         view:function (id) {
                 document.getElementById('j-list').innerHTML=document.getElementById('j-overlay-view').innerHTML;
         },
-        setTop:function (id) {
-            console.log(id);
+        setTop:function (id,e,index) {
+            var n=JSON.stringify(this.bakArr);
+            n=JSON.parse(n);
+          function viewSynchronize(arr) {
+            arr.sort(function (x,y) {
+                return y['setTop']-x['setTop'];
+            })
+        }
+
+            var classArr=e.target.className.indexOf('nowtop');
+        if (classArr==-1){//如果为-1则不存在
+            this.$http.post('/Api/scenelist',{act:"setTop",'id':id,'_token':'{{csrf_token()}}'}).then(function (res) {
+                if (res.data==1){
+                    ++this.bakArr[index]['setTop'];
+                }
+            },function (error) {
+                console.log(error);
+            })
+        }else{
+            this.$http.post('/Api/scenelist',{act:"cancelTop",'id':id,'_token':'{{csrf_token()}}'}).then(function (res) {
+                if (res.data==1){
+                    this.bakArr[index]['setTop']=0;
+                }
+            },function (error) {
+                console.log(error);
+            })
+        }
+            viewSynchronize(n);
+//        this.scenLists=n;
+
         }
     },
     watch:{
         filterList:function(newValue,old){
-            this.scenLists=this.bakArr.filter(function (value) {
-                return value.status==newValue;
-            })
+            if (newValue==0){
+                this.scenLists=this.bakArr;
+            }else{
+                this.scenLists=this.bakArr.filter(function (value) {
+                    return value.status==newValue;
+                })
+            }
+
         }
     },
     created:function () {
@@ -90,8 +131,6 @@ var list=new Vue({
         },function (error) {
             console.log(error);
         })
-
-
     }
 
 

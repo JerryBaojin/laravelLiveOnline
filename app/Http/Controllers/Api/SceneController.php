@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
 class SceneController extends Controller
@@ -33,9 +34,31 @@ class SceneController extends Controller
        }
     }
     public function getScenelist(Request $request){
+        $id=Input::get('id');//对应的id
           if ($request->input('act')=='getList'){
-              $re=DB::table('createscene')->get();
-         return json_encode($re);
+              $re=DB::table('createscene')->orderby('setTop','desc')->get();
+             return json_encode($re);
+          }elseif ($request->input('act')=='setTop'){
+            //setTop 选找出最大数，然后+1
+              $maxSet=DB::table('createscene')->max('setTop');
+
+              if(DB::table('createscene')->where('id',$id)->update(['setTop'=>++$maxSet])){
+                  return 1;
+              }else{
+                  return 0;
+              }
+          }elseif($request->input('act')=='cancelTop'){
+              if(DB::table('createscene')->where('id',$id)->update(['settop'=>0])){
+                  return 1;
+              }else{
+                  return 0;
+              }
+          }elseif($request->input('act')=='end'){
+              if(DB::table('createscene')->where('id',$id)->update(['status'=>0])){
+                  return 1;
+              }else{
+                  return 0;
+              }
           }
     }
 }
