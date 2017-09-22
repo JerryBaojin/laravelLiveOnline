@@ -8,6 +8,20 @@
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
 </head>
+<style>
+    .pz-overlay{
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0,0,0,.75);
+        position: fixed;
+        right: 0;
+        display: block !important;
+        z-index: 999;
+    }
+</style>
+
+
 <body>
 <div id="app">
 <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
@@ -38,6 +52,7 @@
 <div id="j-card" class="xcy-card fn-pt30 fn-pb30 fn-pl40 fn-clear">
     <ul>
         <li v-for="(item,index) in scenLists ">
+
             <div class="picbar">
                 <div class="j-edit pic" data-id=" [[item.id]]"><img :src="'http://www.oa.com/'+item.coverPic"></div>
                 <span :class="[(item.setTop!=0?'nowtop top j-stick':'top j-stick') ]" @click="setTop(item.id,$event,index)"><i class="pz-icon icon-top"></i> [[item.setTop==0?'置顶':'取消置顶']]</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>
@@ -53,10 +68,14 @@
     </ul>
 </div>
 <div id="j-list" class="fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide">
-
+    <component :is="currentView" :dir="scenLists"></component>
 </div>
 </div>
 <script>
+    //controller the main frame
+    // window.parent.document.getElementsByTagName('footer')[0]['className']="pz-overlay";
+    //document.getElementById('j-list').style='display:block';
+
 var list=new Vue({
     delimiters: ['[[', ']]'],
     el:'#app',
@@ -64,7 +83,57 @@ var list=new Vue({
         scenLists:null,
         filterList:0,
         bakArr:null,
-        setCurrent:0
+        setCurrent:0,
+        currentView:"",
+        singleTag:null
+    },
+    components:{
+      viewScen:{//#j-overlay-view
+          template:"<div style='margin-left: 28%'>\n" +
+          "    <div class=\"pz-boxhead fn-w520\">\n" +
+          "        <em class=\"icon pz-icon icon-warning\"></em>\n" +
+          "        <span class=\"title\">现场直播画面预览</span>\n" +
+          "        <span class=\"close j-overlay-close\">\n" +
+          "    <em class=\"pz-icon icon-close\" @click=\"closeView($event)\"></em>\n" +
+          "  </span>\n" +
+          "\n" +
+          "[[currentView]]"+
+          "    </div>\n" +
+          "    <div class=\"pz-boxbody fn-w520\">\n" +
+          "        <div class=\"pz-form\">\n" +
+          "            <div class=\"wrap fn-pd20 fn-fs16\">\n" +
+          "                <div id=\"j-viewvideo\" style=\"width:480px;height:270px;background:#000;\"></div>\n" +
+          "            </div>\n" +
+          "            <div class=\"actions fn-pd10 fn-clear\">\n" +
+          "                <span class=\"fn-left pz-label label-normal tip-creater fn-ellipsis\">直播账号：大海</span>\n" +
+          "                <a class=\"j-cut fn-right\" data-id=\"${id}\" style=\"color:#1a9fff;padding: 5px;\">剪辑</a>\n" +
+          "                <div class=\"fn-hide\">\n" +
+          "                    <div class=\"p  n z-switch switch-close fn-right fn-w80\" data-id=\"${id}\">\n" +
+          "                        <div class=\"switch-btn\">关闭</div>\n" +
+          "                    </div>\n" +
+          "                    <div class=\"pz-switch switch-open fn-right fn-w80\" data-id=\"${id}\">\n" +
+          "                        <div class=\"switch-btn\">正常</div>\n" +
+          "                    </div>\n" +
+          "\n" +
+          "                    <span class=\"fn-right pz-label label-normal label-transparent fn-pd0\">当前直播状态：</span>\n" +
+          "                </div>\n" +
+          "            </div>\n" +
+          "        </div>\n" +
+          "    </div>\n" +
+          "    </div>",
+          props:['currentView']
+      } ,
+      checkScen:{//#j-overlay-verify
+          delimiters: ['[[', ']]'],
+          template:'<span>5546[[dir]]</span>',
+          props:['dir']
+      },
+      endScen:{
+          template:'#j-overlay-stop'
+      },
+        recover:{
+          template:'#j-overlay-restart'
+        }
     },
     methods:{
         endScence:function (id,e,index) {
@@ -77,17 +146,19 @@ var list=new Vue({
             })
         },
         view:function (id) {
-                document.getElementById('j-list').innerHTML=document.getElementById('j-overlay-view').innerHTML;
+                this.currentView="checkScen";
+            document.getElementById('j-list').className='pz-overlay';
+            this.singleTag=
         },
         setTop:function (id,e,index) {
             var n=JSON.stringify(this.bakArr);
             n=JSON.parse(n);
+
           function viewSynchronize(arr) {
             arr.sort(function (x,y) {
                 return y['setTop']-x['setTop'];
             })
         }
-
             var classArr=e.target.className.indexOf('nowtop');
         if (classArr==-1){//如果为-1则不存在
             this.$http.post('/Api/scenelist',{act:"setTop",'id':id,'_token':'{{csrf_token()}}'}).then(function (res) {
@@ -107,8 +178,6 @@ var list=new Vue({
             })
         }
             viewSynchronize(n);
-//        this.scenLists=n;
-
         }
     },
     watch:{
@@ -120,7 +189,6 @@ var list=new Vue({
                     return value.status==newValue;
                 })
             }
-
         }
     },
     created:function () {
@@ -133,43 +201,9 @@ var list=new Vue({
         })
     }
 
-
 })
 </script>
 
-
-<script type="text/template" id="j-overlay-view">
-    <div class="pz-boxhead fn-w520">
-        <em class="icon pz-icon icon-warning"></em>
-        <span class="title">现场直播画面预览</span>
-        <span class="close j-overlay-close">
-    <em class="pz-icon icon-close"></em>
-  </span>
-    </div>
-    <div class="pz-boxbody fn-w520">
-        <div class="pz-form">
-            <div class="wrap fn-pd20 fn-fs16">
-                <div id="j-viewvideo" style="width:480px;height:270px;background:#000;"></div>
-            </div>
-            <div class="actions fn-pd10 fn-clear">
-                <span class="fn-left pz-label label-normal tip-creater fn-ellipsis">直播账号：${creater}</span>
-                <a class="j-cut fn-right" data-id="${id}" style="color:#1a9fff;padding: 5px;">剪辑</a>
-                <div class="fn-hide">
-
-                    <div class="pz-switch switch-close fn-right fn-w80" data-id="${id}">
-                        <div class="switch-btn">关闭</div>
-                    </div>
-
-                    <div class="pz-switch switch-open fn-right fn-w80" data-id="${id}">
-                        <div class="switch-btn">正常</div>
-                    </div>
-
-                    <span class="fn-right pz-label label-normal label-transparent fn-pd0">当前直播状态：</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</script>
 <script type="text/template" id="j-overlay-verify">
     <div class="pz-boxhead fn-w520">
         <em class="icon pz-icon icon-warning"></em>

@@ -67,7 +67,7 @@
 </div>
 </div>
 </body>
-<footer>
+<footer class="test">
 </footer>
 
 <script src="/js/vue-min.js"></script>
