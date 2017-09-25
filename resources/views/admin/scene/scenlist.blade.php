@@ -7,8 +7,18 @@
     <link rel="stylesheet" href="/css/main/ui.css">
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
+    <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
+
 </head>
 <style>
+    .video-js .vjs-big-play-button{
+        top: 41%;
+        left: 39%;
+    }
+    .pz-overlay .overlay-content{
+        top: 15%;
+        left: 23%;
+    }
     .pz-overlay{
         top: 0;
         bottom: 0;
@@ -19,10 +29,15 @@
         display: block !important;
         z-index: 999;
     }
+    .video-js{
+        width:100%;
+        height:100%;
+    }
 </style>
 
 
 <body>
+
 <div id="app">
 <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
     <div class="row-content" data-field="keyword">
@@ -61,14 +76,48 @@
             <div class="action fn-clear">
                 <span class="pz-label label-normal fn-left fn-ellipsis creater"><i class="pz-icon icon-account"></i> [[item.seter]]</span>
                 <span class="pz-label label-normal fn-left fn-pl0 fn-pr0"><i class="pz-icon icon-clock"></i>[[item.createAt]]</span>
-                <a class="j-view" @click="view(item.id)" href="javascript:void(0)" data-id="" data-creater="" data-poster="https://xcycdn.zhongguowangshi.com/live-img/20170918/1505747709152_87.jpeg" data-url="rtmp://xinhualive.zhongguowangshi.com/zbcb/150574775309060?auth_key=1537283753-0-0-176452a1c3e0d1da06607e9700f613c7" data-streamstate="1">预览</a>
+                <a class="j-view" @click="view(item.id,index)" href="javascript:void(0)" data-id="" data-creater="" data-poster="https://xcycdn.zhongguowangshi.com/live-img/20170918/1505747709152_87.jpeg" data-url="rtmp://xinhualive.zhongguowangshi.com/zbcb/150574775309060?auth_key=1537283753-0-0-176452a1c3e0d1da06607e9700f613c7" data-streamstate="1">预览</a>
                 <a class="j-stop" @click="endScence(item.id,$event,index)" href="javascript:void(0)" data-id=""> [[item.status==32?'恢复直播':item.status==1?'待审核现场':item.status==16?'直播中':item.status==64?'回收站':'直播结束']]</a>
             </div>
         </li>
     </ul>
 </div>
+
 <div id="j-list" class="fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide">
-    <component :is="currentView" :dir="scenLists"></component>
+
+    <div class="overlay-content" style="">
+        <div class="pz-boxhead fn-w520">
+            <em class="icon pz-icon icon-warning"></em>
+            <span class="title">现场直播画面预览</span>
+            <span class="close j-overlay-close">
+                <em class="pz-icon icon-close"></em>
+            </span>
+        </div>
+        <div class="pz-boxbody fn-w520">
+            <div class="pz-form">
+                <div class="wrap fn-pd20 fn-fs16">
+                    <div id="j-viewvideo" style="width:480px;height:270px;background:#000;">
+                        <video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+                            <source src="rtmp://220.166.83.187:1935/live/59c075f837c4f" type="rtmp/flv">
+                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                        </video>
+                    </div>
+                </div>
+                <div class="actions fn-pd10 fn-clear">
+                    <span class="fn-left pz-label label-normal tip-creater fn-ellipsis">直播账号：大海</span>
+                    <a class="j-cut fn-right" data-id="150632699300148" style="color:#1a9fff;padding: 5px;">剪辑</a>
+                    <div class="fn-hide">
+                        <div class="pz-switch switch-open fn-right fn-w80" data-id="150632699300148">
+                            <div class="switch-btn">正常</div>
+                        </div>
+                        <span class="fn-right pz-label label-normal label-transparent fn-pd0">当前直播状态：</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <component :is="currentView" :dir="arrHolder"></component>
 </div>
 </div>
 <script>
@@ -85,47 +134,21 @@ var list=new Vue({
         bakArr:null,
         setCurrent:0,
         currentView:"",
+        arrHolder:'',
         singleTag:null
     },
     components:{
       viewScen:{//#j-overlay-view
-          template:"<div style='margin-left: 28%'>\n" +
-          "    <div class=\"pz-boxhead fn-w520\">\n" +
-          "        <em class=\"icon pz-icon icon-warning\"></em>\n" +
-          "        <span class=\"title\">现场直播画面预览</span>\n" +
-          "        <span class=\"close j-overlay-close\">\n" +
-          "    <em class=\"pz-icon icon-close\" @click=\"closeView($event)\"></em>\n" +
-          "  </span>\n" +
-          "\n" +
-          "[[currentView]]"+
-          "    </div>\n" +
-          "    <div class=\"pz-boxbody fn-w520\">\n" +
-          "        <div class=\"pz-form\">\n" +
-          "            <div class=\"wrap fn-pd20 fn-fs16\">\n" +
-          "                <div id=\"j-viewvideo\" style=\"width:480px;height:270px;background:#000;\"></div>\n" +
-          "            </div>\n" +
-          "            <div class=\"actions fn-pd10 fn-clear\">\n" +
-          "                <span class=\"fn-left pz-label label-normal tip-creater fn-ellipsis\">直播账号：大海</span>\n" +
-          "                <a class=\"j-cut fn-right\" data-id=\"${id}\" style=\"color:#1a9fff;padding: 5px;\">剪辑</a>\n" +
-          "                <div class=\"fn-hide\">\n" +
-          "                    <div class=\"p  n z-switch switch-close fn-right fn-w80\" data-id=\"${id}\">\n" +
-          "                        <div class=\"switch-btn\">关闭</div>\n" +
-          "                    </div>\n" +
-          "                    <div class=\"pz-switch switch-open fn-right fn-w80\" data-id=\"${id}\">\n" +
-          "                        <div class=\"switch-btn\">正常</div>\n" +
-          "                    </div>\n" +
-          "\n" +
-          "                    <span class=\"fn-right pz-label label-normal label-transparent fn-pd0\">当前直播状态：</span>\n" +
-          "                </div>\n" +
-          "            </div>\n" +
-          "        </div>\n" +
-          "    </div>\n" +
-          "    </div>",
-          props:['currentView']
+          delimiters: ['[[', ']]'],
+          template:"",
+          props:['dir']
       } ,
       checkScen:{//#j-overlay-verify
           delimiters: ['[[', ']]'],
-          template:'<span>5546[[dir]]</span>',
+          template:'  <video id="example_video_1" class="video-js vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">\n' +
+          '      <source src="rtmp://220.166.83.187:1935/live/59c075f837c4f" type="rtmp/flv">\n' +
+          '    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>\n' +
+          '  </video>',
           props:['dir']
       },
       endScen:{
@@ -145,10 +168,22 @@ var list=new Vue({
                 console.log(error);
             })
         },
-        view:function (id) {
-                this.currentView="checkScen";
+        view:function (id,index) {
+            this.currentView="";
+                    var that=this;
+                    var index=parseInt(index);
+                this.bakArr.map(function (item,index) {
+                    if(item.id==id){
+                      var rtmpUrls=item.rtmpUrl.split("|||");
+                            that.arrHolder=that.bakArr[index];
+                        rtmpUrls[0]=rtmpUrls[0]+ rtmpUrls[1].split('?')[0];
+                        that.arrHolder["rtmpUrl"]= rtmpUrls[0];
+                        console.log(that.arrHolder);
+                    }
+                })
             document.getElementById('j-list').className='pz-overlay';
-            this.singleTag=
+            this.singleTag=''
+
         },
         setTop:function (id,e,index) {
             var n=JSON.stringify(this.bakArr);
@@ -192,6 +227,7 @@ var list=new Vue({
         }
     },
     created:function () {
+
         this.$http.post('/Api/scenelist',{act:"getList",'_token':'{{csrf_token()}}'}).then(function (res) {
             this.scenLists=eval(res.body);
             //备份一份数组
@@ -203,6 +239,7 @@ var list=new Vue({
 
 })
 </script>
+
 
 <script type="text/template" id="j-overlay-verify">
     <div class="pz-boxhead fn-w520">
@@ -222,6 +259,7 @@ var list=new Vue({
         </div>
     </div>
 </script>
+<script src="http://vjs.zencdn.net/5.20.1/video.js"></script>
 <script type="text/template" id="j-overlay-stop">
     <div class="pz-boxhead fn-w520">
         <em class="icon pz-icon icon-warning"></em>
