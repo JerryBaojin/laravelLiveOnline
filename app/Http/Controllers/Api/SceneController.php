@@ -23,7 +23,6 @@ class SceneController extends Controller
             $path= 'uploads/'.$filename;
         }
         $dates=$request->input();
-
     $rtmpUrl="rtmp://220.166.83.187:1935/live/|||".uniqid()."?pass=njrb";
         //处理字段
         $insertStatus=DB::table('createscene')->insert(['title'=>$dates['topic'],'content'=>$dates['remark'],'coverPic'=>$path,'type'=>$dates['type'],'rtmpUrl'=>$rtmpUrl,'createAt'=>date('Y-m-d H:i',time())]);
@@ -41,7 +40,6 @@ class SceneController extends Controller
           }elseif ($request->input('act')=='setTop'){
             //setTop 选找出最大数，然后+1
               $maxSet=DB::table('createscene')->max('setTop');
-
               if(DB::table('createscene')->where('id',$id)->update(['setTop'=>++$maxSet])){
                   return 1;
               }else{
@@ -59,6 +57,34 @@ class SceneController extends Controller
               }else{
                   return 0;
               }
+          }elseif($request->input('act')=='pushLive'){
+              if(DB::table('createscene')->where('id',$id)->update(['status'=>16])){
+                  return 1;
+              }else{
+                  return 0;
+              }
+          }elseif($request->input('act')=='pushLive'){
+              if(DB::table('createscene')->where('id',$id)->update(['status'=>16])){
+                  return 1;
+              }else{
+                  return 0;
+              }
+          }elseif($request->input('del')=='del'){
+              //9.26 删除场景  暂时未能处理
+              /*
+              if(DB::table('createscene')->where('id',$id)->update(['status'=>16])){
+                  return 1;
+              }else{
+                  return 0;
+              }*/
           }
+    }
+    public function getDetails(Request $request)
+    {
+        $id=$request->input('id');
+        if($request->input('act')=='getDetail'){
+            $res=DB::table('createscene')->where('id',$id)->get();
+            return json_encode($res);
+        }
     }
 }

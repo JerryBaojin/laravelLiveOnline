@@ -8,10 +8,15 @@
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
     <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
-
 </head>
 <style>
-
+    .video-js .vjs-big-play-button{
+        top: 39%;
+        left: 37%;
+    }
+    .end{
+        background:#eee;
+    }
     .pz-overlay .overlay-content{
         top: 15%;
         left: 23%;
@@ -38,7 +43,7 @@
 <div id="app">
 <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
     <div class="row-content" data-field="keyword">
-        <input type="text" id="j-keyword" name="keyword" class="input-search" placeholder="请输入标题关键字">
+        <input type="text" id="j-keyword" name="keyword" class="input-search" placeholder="请输入标题关键字(暂时未启用)">
     </div>
     <div class="actions">
         <input id="j-searchbtn" type="button" class="pz-btn pz-icon btn-search" value="">
@@ -66,15 +71,15 @@
         <li v-for="(item,index) in scenLists ">
 
             <div class="picbar">
-                <div class="j-edit pic" data-id=" [[item.id]]"><img :src="'http://www.oa.com/'+item.coverPic"></div>
+                <div class="j-edit pic" @click="goDetails(item.id)"><img :src="'http://www.oa.com/'+item.coverPic"></div>
                 <span :class="[(item.setTop!=0?'nowtop top j-stick':'top j-stick') ]" @click="setTop(item.id,$event,index)"><i class="pz-icon icon-top"></i> [[item.setTop==0?'置顶':'取消置顶']]</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>
                 <div class="title fn-ellipsis">[[item.title]]</div>
             </div>
-            <div class="action fn-clear">
+            <div :class="item.status==32?'end action fn-clear ':'action fn-clear '">
                 <span class="pz-label label-normal fn-left fn-ellipsis creater"><i class="pz-icon icon-account"></i> [[item.seter]]</span>
                 <span class="pz-label label-normal fn-left fn-pl0 fn-pr0"><i class="pz-icon icon-clock"></i>[[item.createAt]]</span>
                 <a class="j-view" @click="view(item.id,index)" href="javascript:void(0)" data-id="" data-creater="" data-poster="https://xcycdn.zhongguowangshi.com/live-img/20170918/1505747709152_87.jpeg" data-url="rtmp://xinhualive.zhongguowangshi.com/zbcb/150574775309060?auth_key=1537283753-0-0-176452a1c3e0d1da06607e9700f613c7" data-streamstate="1">预览</a>
-                <a class="j-stop" @click="endScence(item.id,$event,index)" href="javascript:void(0)" data-id=""> [[item.status==32?'恢复直播':item.status==1?'待审核现场':item.status==16?'直播中':item.status==64?'回收站':'直播结束']]</a>
+                <a class="j-stop" @click="endScence(item.id,$event,index)" href="javascript:void(0)" :data-status="item.status"> [[item.status==32?'恢复直播':item.status==1?'待审核现场':item.status==16?'直播中':item.status==64?'回收站':'直播结束']]</a>
             </div>
         </li>
     </ul>
@@ -95,13 +100,9 @@
             <div class="pz-form">
                 <div class="wrap fn-pd20 fn-fs16">
                     <div id="j-viewvideo" style="width:480px;height:270px;background:#000;">
-                        <video id="example_video_1" class="video-js  vjs-big-play-centered vjs-default-skin" controls preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                            <source src="rtmp://220.166.83.187:1935/live/59c075f837c4f" type="rtmp/flv">
-                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-                        </video>
                     </div>
                 </div>
-                <div class="actions fn-pd10 fn-clear">
+                <div class="actions fn-pd10 fn-clear"  >
                     <span class="fn-left pz-label label-normal tip-creater fn-ellipsis">直播账号：大海</span>
                     <a class="j-cut fn-right"   @click="fullScreen"  data-id="150632699300148" style="color:#1a9fff;padding: 5px;">全屏</a>
                     <div class="fn-hide">
@@ -141,14 +142,6 @@ var list=new Vue({
           template:"",
           props:['dir']
       } ,
-      checkScen:{//#j-overlay-verify
-          delimiters: ['[[', ']]'],
-          template:'  <video id="example_video_1" class="video-js vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">\n' +
-          '      <source src="rtmp://220.166.83.187:1935/live/59c075f837c4f" type="rtmp/flv">\n' +
-          '    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>\n' +
-          '  </video>',
-          props:['dir']
-      },
       endScen:{
           template:'#j-overlay-stop'
       },
@@ -157,51 +150,93 @@ var list=new Vue({
         }
     },
     methods:{
+        goDetails:function (id) {
+           parent.document.getElementById('inframe').dataset.pid=id
+            parent.document.getElementById('inframe').src="scene/scenDetails"
+        },
         fullScreen:function () {
-
             /* still not work
             var myPlayer=videojs("example_video_1");
             myPlayer.enterFullScreen();*/
         },
         close:function () {
             document.getElementById('j-list').className='fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide';
+
             var myPlayer=videojs("example_video_1");
-            myPlayer.pause();
+            myPlayer.dispose();
+
         },
         endScence:function (id,e,index) {
-            this.$http.post('/Api/scenelist',{act:"end",'id':id,'_token':'{{csrf_token()}}'}).then(function (res) {
+            //判断当前状态
+            var act =null;
+            var test=null;
+
+           switch (parseInt(e.target.dataset.status)){
+               case 1:
+                   test="确定更改为直播中吗？";
+                   act ='pushLive';
+                   break;
+               case 16:
+                   test="确定结束直播吗？"
+                   act ='end';
+                   break;
+               case 32:
+                   test="确定放入回收站吗？";
+                   act ='del';
+                   break;
+           }
+        if (test==null)return false;
+        if(!confirm(test)){
+               return false;
+        }
+            this.$http.post('/Api/scenelist',{act:act,'id':id,'_token':'{{csrf_token()}}'}).then(function (res) {
                 if (res.data==1){
-                    this.bakArr[index]['status']=0;
+                    switch (parseInt(e.target.dataset.status)){
+                        case 1:
+                            this.bakArr[index]['status']=16;
+                            break;
+                        case 16:
+                            this.bakArr[index]['status']=32;
+                            break;
+                        case 32:
+                            this.bakArr[index]['status']=64;
+                            break;
+                    }
                 }
             },function (error) {
                 console.log(error);
             })
         },
         view:function (id,index) {
+            var      placeHappen= document.getElementById('j-list');
+            document.getElementById('j-viewvideo').innerHTML='  <video id="example_video_1" class="video-js vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">\n' +
+                '      <source src="rtmp://220.166.83.187:1935/live/59c075f837c4f" type="rtmp/flv">\n' +
+                '    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>\n' +
+                '  </video>';
+
             this.currentView="";
                     var that=this;
                     var index=parseInt(index);
                 this.bakArr.map(function (item,index) {
                     if(item.id==id){
                       var rtmpUrls=item.rtmpUrl.split("|||");
-                            that.arrHolder=that.bakArr[index];
-                        rtmpUrls[0]=rtmpUrls[0]+ rtmpUrls[1].split('?')[0];
-                        that.arrHolder["rtmpUrl"]= rtmpUrls[0];
-
+                      if (item.rtmpUrl.indexOf("|||")>=0){
+                          that.arrHolder=that.bakArr[index];
+                          rtmpUrls[0]=rtmpUrls[0]+ rtmpUrls[1].split("?")[0];
+                          that.arrHolder["rtmpUrl"]= rtmpUrls[0];
+                      }else{
+                          that.arrHolder["rtmpUrl"]= rtmpUrls[0];
+                      }
                     }
                 })
-
             var myPlayer=videojs("example_video_1");
                 myPlayer.src(that.arrHolder["rtmpUrl"]);
                 myPlayer.load(that.arrHolder["rtmpUrl"]);
-
-            document.getElementById('j-list').className='pz-overlay fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide';
-
+            placeHappen .className='pz-overlay fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide';
         },
         setTop:function (id,e,index) {
             var n=JSON.stringify(this.bakArr);
             n=JSON.parse(n);
-
           function viewSynchronize(arr) {
             arr.sort(function (x,y) {
                 return y['setTop']-x['setTop'];
@@ -234,13 +269,12 @@ var list=new Vue({
                 this.scenLists=this.bakArr;
             }else{
                 this.scenLists=this.bakArr.filter(function (value) {
-                    return value.status==newValue;
+                    return value.status==parseInt(newValue);
                 })
             }
         }
     },
     created:function () {
-
         this.$http.post('/Api/scenelist',{act:"getList",'_token':'{{csrf_token()}}'}).then(function (res) {
             this.scenLists=eval(res.body);
             //备份一份数组

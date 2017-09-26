@@ -15,6 +15,7 @@
 Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], function () {
     Route::post('/sceneAdd','SceneController@SceneAdd');
     Route::post('/scenelist','SceneController@getScenelist');
+    Route::post('/getDetails','SceneController@getDetails');
 });
 
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {
@@ -42,6 +43,9 @@ Route::group(['middleware'=>['web'],'prefix'=>'admin','namespace'=>'Admin'], fun
             });
             Route::get('/sceneadd',function(){
                 return view('admin.scene.sceneadd');
+            });
+            Route::get('/scenDetails',function(){
+                return view('admin.scene.scenDetails');
             });
             Route::get('/showscenelist',function(){
                 return view('admin.scene.showscenelist');
