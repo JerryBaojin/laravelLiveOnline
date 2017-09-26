@@ -11,7 +11,10 @@
 
 </head>
 <style>
-
+    .video-js .vjs-big-play-button{
+        top: 41%;
+        left: 39%;
+    }
     .pz-overlay .overlay-content{
         top: 15%;
         left: 23%;
@@ -86,7 +89,7 @@
         <div class="pz-boxhead fn-w520">
             <em class="icon pz-icon icon-warning"></em>
             <span class="title">现场直播画面预览</span>
-            <span class="close j-overlay-close" @click="close">
+            <span class="close j-overlay-close" :click="close">
                 <em class="pz-icon icon-close"></em>
             </span>
         </div>
@@ -95,15 +98,15 @@
             <div class="pz-form">
                 <div class="wrap fn-pd20 fn-fs16">
                     <div id="j-viewvideo" style="width:480px;height:270px;background:#000;">
-                        <video id="example_video_1" class="video-js  vjs-big-play-centered vjs-default-skin" controls preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                            <source src="rtmp://220.166.83.187:1935/live/59c075f837c4f" type="rtmp/flv">
+                        <video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+                            <source :src="arrHolder.rtmpUrl" type="rtmp/flv">
                             <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                         </video>
                     </div>
                 </div>
                 <div class="actions fn-pd10 fn-clear">
                     <span class="fn-left pz-label label-normal tip-creater fn-ellipsis">直播账号：大海</span>
-                    <a class="j-cut fn-right"   @click="fullScreen"  data-id="150632699300148" style="color:#1a9fff;padding: 5px;">全屏</a>
+                    <a class="j-cut fn-right" data-id="150632699300148" style="color:#1a9fff;padding: 5px;">剪辑</a>
                     <div class="fn-hide">
                         <div class="pz-switch switch-open fn-right fn-w80" data-id="150632699300148">
                             <div class="switch-btn">正常</div>
@@ -157,16 +160,8 @@ var list=new Vue({
         }
     },
     methods:{
-        fullScreen:function () {
-
-            /* still not work
-            var myPlayer=videojs("example_video_1");
-            myPlayer.enterFullScreen();*/
-        },
         close:function () {
-            document.getElementById('j-list').className='fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide';
-            var myPlayer=videojs("example_video_1");
-            myPlayer.pause();
+            document.getElementById('j-list').className='';
         },
         endScence:function (id,e,index) {
             this.$http.post('/Api/scenelist',{act:"end",'id':id,'_token':'{{csrf_token()}}'}).then(function (res) {
@@ -187,15 +182,11 @@ var list=new Vue({
                             that.arrHolder=that.bakArr[index];
                         rtmpUrls[0]=rtmpUrls[0]+ rtmpUrls[1].split('?')[0];
                         that.arrHolder["rtmpUrl"]= rtmpUrls[0];
-
+                        console.log(that.arrHolder);
                     }
                 })
-
-            var myPlayer=videojs("example_video_1");
-                myPlayer.src(that.arrHolder["rtmpUrl"]);
-                myPlayer.load(that.arrHolder["rtmpUrl"]);
-
-            document.getElementById('j-list').className='pz-overlay fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide';
+            document.getElementById('j-list').className='pz-overlay';
+            this.singleTag=''
 
         },
         setTop:function (id,e,index) {
@@ -272,9 +263,7 @@ var list=new Vue({
         </div>
     </div>
 </script>
-{{--<script src="http://vjs.zencdn.net/5.20.1/video.js"></script>--}}
-
-<script src="/js/video.min.js"></script>
+<script src="http://vjs.zencdn.net/5.20.1/video.js"></script>
 <script type="text/template" id="j-overlay-stop">
     <div class="pz-boxhead fn-w520">
         <em class="icon pz-icon icon-warning"></em>
