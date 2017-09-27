@@ -82,11 +82,12 @@
                 processData: false,
                 // 显示加载图片
                 success: function (data) {
-  if(data==1){
-      alert('添加成功');
-  }else{
-      alert('添加失败！请重新检查')
-  }
+                  if(data==1){
+                      alert('添加成功');
+                      parent.document.getElementById('inframe').src="scene/scenelist"
+                  }else{
+                      alert('添加失败！请重新检查')
+                  }
                 },
                 error: function(){}
             });

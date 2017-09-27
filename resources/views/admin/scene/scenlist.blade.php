@@ -71,7 +71,7 @@
         <li v-for="(item,index) in scenLists ">
 
             <div class="picbar">
-                <div class="j-edit pic" @click="goDetails(item.id)"><img :src="'http://www.oa.com/'+item.coverPic"></div>
+                <div class="j-edit pic" @click="goDetails(item.id)"><img :src="'/'+item.coverPic"></div>
                 <span :class="[(item.setTop!=0?'nowtop top j-stick':'top j-stick') ]" @click="setTop(item.id,$event,index)"><i class="pz-icon icon-top"></i> [[item.setTop==0?'置顶':'取消置顶']]</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>
                 <div class="title fn-ellipsis">[[item.title]]</div>
             </div>
@@ -217,6 +217,7 @@ var list=new Vue({
             this.currentView="";
                     var that=this;
                     var index=parseInt(index);
+                    console.log(this.bakArr);
                 this.bakArr.map(function (item,index) {
                     if(item.id==id){
                       var rtmpUrls=item.rtmpUrl.split("|||");
@@ -309,46 +310,6 @@ var list=new Vue({
 {{--<script src="http://vjs.zencdn.net/5.20.1/video.js"></script>--}}
 
 <script src="/js/video.min.js"></script>
-<script type="text/template" id="j-overlay-stop">
-    <div class="pz-boxhead fn-w520">
-        <em class="icon pz-icon icon-warning"></em>
-        <span class="title">结束直播</span>
-        <span class="close j-overlay-close">
-    <em class="pz-icon icon-close"></em>
-  </span>
-    </div>
-    <div class="pz-boxbody fn-w520">
-        <div class="pz-form">
-            <div class="wrap fn-pd30 fn-fs16">
-                确定要结束直播？
-            </div>
-            <div class="actions fn-pd10 fn-textright">
-                <input type="button" class="pz-btn fn-mr10 j-overlay-close" value="取消">
-                <input type="button" class="pz-btn btn-success j-true" data-id="${id}" value="确定">
-            </div>
-        </div>
-    </div>
-</script>
-<script type="text/template" id="j-overlay-restart">
-    <div class="pz-boxhead fn-w520">
-        <em class="icon pz-icon icon-warning"></em>
-        <span class="title">恢复直播</span>
-        <span class="close j-overlay-close">
-    <em class="pz-icon icon-close"></em>
-  </span>
-    </div>
-    <div class="pz-boxbody fn-w520">
-        <div class="pz-form">
-            <div class="wrap fn-pd30 fn-fs16">
-                将现场恢复为直播中的状态。如需使用导播台，请重新设置
-            </div>
-            <div class="actions fn-pd10 fn-textright">
-                <input type="button" class="pz-btn fn-mr10 j-overlay-close" value="取消">
-                <input type="button" class="pz-btn btn-success j-true" data-id="${id}" value="确定">
-            </div>
-        </div>
-    </div>
-</script>
 
 
 

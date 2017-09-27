@@ -10,12 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//前台播放
+Route::group(['middleware' => ['web'],'prefix'=>'scen','namespace'=>'Front'], function () {
+    Route::any('/{id}','IndexController@index');
+});
 
 
 Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], function () {
     Route::post('/sceneAdd','SceneController@SceneAdd');
     Route::post('/scenelist','SceneController@getScenelist');
     Route::post('/getDetails','SceneController@getDetails');
+    Route::post('/changePwd','SceneController@changePwd');
 });
 
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {
@@ -26,7 +31,7 @@ Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {
 });
 
 
-Route::group(['middleware'=>['web'],'prefix'=>'admin','namespace'=>'Admin'], function () {
+Route::group(['middleware'=>['web','admin.login'],'prefix'=>'admin','namespace'=>'Admin'], function () {
           Route::get('/', 'IndexController@index');
         Route::group(['prefix'=>'scene'],function(){
             Route::get('/scenelist',function(){

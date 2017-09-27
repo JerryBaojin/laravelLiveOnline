@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -23,6 +24,7 @@ class LoginController extends Controller
         $pwd = $input['logpass'];
 
         $table = DB::table('admin')->where(['name' => $username])->first();
+
      if (empty($table)) {
             return back() ->with('errorname', '用户名不存在!');
         } elseif (Crypt::decrypt($table->password) != $pwd) {
@@ -32,6 +34,8 @@ class LoginController extends Controller
 
             DB::table('admin')->update(['login_at'=>$time,'remember_token'=>$input['_token']]);
             session(['user'=>$username]);
+
+         Cache::forever('user', $username );
             return redirect('admin');
         }
 

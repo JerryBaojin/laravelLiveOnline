@@ -15,7 +15,6 @@ class CheckAuth
      */
     public function handle($request, Closure $next)
     {
-
         if(!session('user')){
             return redirect('admin/login');
         }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +27,9 @@ class SceneController extends Controller
         $dates=$request->input();
     $rtmpUrl="rtmp://220.166.83.187:1935/live/|||".uniqid()."?pass=njrb";
         //处理字段
-        $insertStatus=DB::table('createscene')->insert(['title'=>$dates['topic'],'content'=>$dates['remark'],'coverPic'=>$path,'type'=>$dates['type'],'rtmpUrl'=>$rtmpUrl,'createAt'=>date('Y-m-d H:i',time())]);
+        $pid=time();
+        $viewUrl=$_ENV['SITENAME'].'/scen/'.(string)$pid;
+        $insertStatus=DB::table('createscene')->insert(['title'=>$dates['topic'],'pid'=>$pid,'viewUrl'=>$viewUrl,'content'=>$dates['remark'],'coverPic'=>$path,'type'=>$dates['type'],'rtmpUrl'=>$rtmpUrl,'createAt'=>date('Y-m-d H:i',time())]);
        if ($insertStatus){
            return 1;
        }else{
@@ -79,6 +83,7 @@ class SceneController extends Controller
               }*/
           }
     }
+
     public function getDetails(Request $request)
     {
         $id=$request->input('id');
@@ -86,5 +91,52 @@ class SceneController extends Controller
             $res=DB::table('createscene')->where('id',$id)->get();
             return json_encode($res);
         }
+    }
+
+    public  function changePwd(Request $request){
+
+       $table=null;
+        $username=\cache('user');
+            if (cache('user')!=''&& cache('user')=='admin'){
+                $table="admin";
+            }else{
+                $table='adminuser';
+            }
+
+        $table=DB::table($table)->where(['name' => $username])->get();
+
+        if(!empty($table)){
+            if (Crypt::decrypt($table[0]->password)==$request->input('ypw')){
+                if ($request->input('xpw')!=$request->input('qrpw')){
+                    return json_encode(array(
+                        'status'=>0,
+                        'details'=>'密码不一致'
+                    ));
+                }else{
+                    $newPwd=Crypt::encrypt($request->input('xpw'));
+                    $r=DB::table($table)->where('id',1)->update(['password'=>'test']);
+                        if($r){
+                            Cache::forget('user');
+                            session(['user'=>'']);
+                            return json_encode(array(
+                                'status'=>6,
+                                'details'=>'成功'
+                            ));
+                        }else{
+                            return json_encode(array(
+                                'status'=>5,
+                                'details'=>'重试'
+                            ));
+                        }
+                }
+            }else{
+                return json_encode(array(
+                    'status'=>1,
+                    'details'=>'原密码错误'
+                ));
+            }
+        }
+
+      //  return $dbs->password;
     }
 }
