@@ -94,7 +94,6 @@ class SceneController extends Controller
     }
 
     public  function changePwd(Request $request){
-
        $table=null;
         $username=\cache('user');
             if (cache('user')!=''&& cache('user')=='admin'){

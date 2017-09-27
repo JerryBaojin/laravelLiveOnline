@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="814d1aad-b3f6-4cef-b14c-4eb66bfba7fd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/LoginController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/LoginController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckAuth.php" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckAuth.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/main/vuecompents.js" afterPath="$PROJECT_DIR$/public/js/main/vuecompents.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/user/pwd.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/user/pwd.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <ignored path="blog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -125,8 +116,8 @@
               <file leaf-file-name="SceneController.php" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="338">
-                      <caret line="116" column="54" lean-forward="false" selection-start-line="116" selection-start-column="54" selection-end-line="116" selection-end-column="54" />
+                    <state relative-caret-position="53">
+                      <caret line="95" column="49" lean-forward="false" selection-start-line="95" selection-start-column="49" selection-end-line="95" selection-end-column="49" />
                       <folding>
                         <element signature="e#384#1332#0#PHP" expanded="false" />
                         <element signature="e#3152#3407#0#PHP" expanded="false" />
@@ -628,7 +619,7 @@
       <workItem from="1506323318638" duration="5859000" />
       <workItem from="1506387697912" duration="21882000" />
       <workItem from="1506472445125" duration="6317000" />
-      <workItem from="1506479590012" duration="18425000" />
+      <workItem from="1506479590012" duration="18536000" />
     </task>
     <task id="LOCAL-00001" summary="build main frame">
       <created>1505535253240</created>
@@ -655,7 +646,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="333339000" />
+    <option name="totallyTimeSpent" value="333450000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-576" y="184" width="1940" height="997" extended-state="0" />
@@ -1037,8 +1028,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="116" column="54" lean-forward="false" selection-start-line="116" selection-start-column="54" selection-end-line="116" selection-end-column="54" />
+        <state relative-caret-position="53">
+          <caret line="95" column="49" lean-forward="false" selection-start-line="95" selection-start-column="49" selection-end-line="95" selection-end-column="49" />
           <folding>
             <element signature="e#384#1332#0#PHP" expanded="false" />
             <element signature="e#3152#3407#0#PHP" expanded="false" />
