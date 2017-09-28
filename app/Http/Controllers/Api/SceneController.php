@@ -194,4 +194,19 @@ class SceneController extends Controller
             return json_encode($dates);
         }
     }
+    public function setAUser(Request $request){
+        switch ($request->input('act')){
+            case 'setStatus':
+                $active=$request->input('active');
+                if ($active==0){
+                    $active=1;
+                }else{
+                    $active=0;
+                }
+                $set=DB::table('adminuser')->where(['id'=>$request->input('id')])->update(['active'=>$active]);
+              return 1;
+                break;
+        }
+
+    }
 }

@@ -37,7 +37,7 @@
                 <td class="fn-textcenter">[[item.role]]</td>
                 <td class="fn-textcenter">[[item.createtime]]</td>
                 <td class="fn-textcenter">
-                    <a class="j-stop pz-color-red" href="javascript:void(0)" @click="ban(item.id)">禁用</a>
+                    <a :class="item.active==1?'pz-color-red j-stop':'j-open pz-color-green'" href="javascript:void(0)" @click="ban(item.id,item.active,index)">[[item.active==1?'禁用':'激活']]</a>
                     <a class="j-edit fn-ml15" href="javascript:void(0)" @click="edit(item.id)">编辑</a>
                     <a class="j-delete fn-ml15 pz-color-red" href="javascript:void(0)" @click="del(item.id)">删除</a>
                 </td>
@@ -59,11 +59,25 @@
             creatCount:function () {
                 parent.document.getElementById('inframe').src="/admin/org/accedit"
             },
-            ban:function (id) {
-                console.log(id)
+            ban:function (id,active,index) {
+                this.$http.post('/Api/setAUser',{'act':'setStatus','id':id,'active':active,'_token':'{{csrf_token()}}'}).then(function (res) {
+                 //   var arrs=eval('('+res.body+')');
+                if (res.body=='1'){
+                    if (active==1){
+                        active =0
+                    }else{
+                        active=1;
+                    }
+                    this.arrs[index]['active']=active;
+                }
+                },function (e) {
+                    console.log(e)
+                })
             },
             edit:function (id) {
-                console.log(id)
+                parent.document.getElementById('inframe').dataset.userid=id;
+                parent.document.getElementById('inframe').src="/admin/org/accedit";
+
             },
             del:function (id) {
                 console.log(id)

@@ -21,20 +21,31 @@
                         <div class="row-title">账号</div>
                         <div class="row-content" data-field="mobile"><input  type="text" maxlength="11" name="mobile" class="fn-rate50" required="" placeholder="请输入手机号"></div>
                     </div>
-                    <div class="row xcy-row j-row-hasPwd" style="display: none;">
+                    <div class="row xcy-row j-row-hasPwd" v-if="!show">
                         <div class="row-title">修改密码</div>
-                        <div class="row-content" data-field="hasPwd"><div><label><input  required="" type="radio" name="hasPwd" value="0" checked=""> 不修改密码</label><label><input type="radio" name="hasPwd" value="1"> 修改密码</label></div></div>
+                        <div class="row-content" data-field="hasPwd">
+                            <div>
+                                <label>
+                                    <input  required="" type="radio" name="hasPwd" value="0" checked=""> 不修改密码
+                                </label>
+                                <label>
+                                    <input type="radio" name="hasPwd" value="1"> 修改密码
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row xcy-row j-row-userPwd">
+
+                    <div v-if="show" class="row xcy-row j-row-userPwd">
                         <div class="row-title">密码</div>
                         <div class="row-content" data-field="password"><input @focus="clear"  required="" type="password" maxlength="20" name="password" class="fn-rate50" placeholder="请输入6-20位字符"></div>
                     </div>
-                    <div class="row xcy-row j-row-userPwd2">
+                    <div v-if="show" class="row xcy-row j-row-userPwd2">
                         <div class="row-title">确认密码</div>
                         <div class="row-content" data-field="password2"><input @focus="clear"  required="" type="password" maxlength="20" name="password2" class="fn-rate50" placeholder="请输入6-20位字符"></div>
                         [[notSame]]
 
                     </div>
+
                 </div>
                 <div class="group2 fn-pl40">
                     <div class="row xcy-row">
@@ -55,17 +66,26 @@
 </div>
 </div>
 <script>
-    new Vue({
+   var vue= new Vue({
         delimiters: ['[[', ']]'],
         el:'#app',
         data:{
-            notSame:''
+            notSame:'',
+            show:true,
+            message : "xuxiao is boy"
         },
+       watch:{
+           show:function (newvalue,old) {
+            console.log(newvalue);
+            console.log(old);
+           }
+       },
         methods:{
             back:function () {
                 window.history.go(-1)
             },
             clear:function () {
+                console.log(15);
               this.notSame=''
             },
             submit:function (e) {
@@ -91,7 +111,26 @@
                 },function (e) {
                     console.log(e)
                 })
+            },
+            beforeMount:function () {
+
             }
+        }
+    })
+</script>
+<script>
+    window.addEventListener('load',function () {
+        console.log(vue.show,444444444);
+        var p=parent.document.getElementById('inframe').dataset.userid;
+        //获取到了 马上销毁
+        parent.document.getElementById('inframe').dataset.userid='';
+        console.log(p);
+        if (p){
+            console.log(1)
+            vue.show=false;
+        }else{
+            console.log(2)
+            vue.show=true;
         }
     })
 </script>
