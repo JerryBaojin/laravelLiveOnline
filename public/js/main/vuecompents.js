@@ -4,7 +4,7 @@ var vue=new Vue({
     el:'#app',
     data:{
         test:'test',
-        page:"/admin/user/pwd"
+        page:"/admin/org/acclist"
     },
     mounted:function(){
 

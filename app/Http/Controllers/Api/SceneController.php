@@ -83,7 +83,6 @@ class SceneController extends Controller
               }*/
           }
     }
-
     public function getDetails(Request $request)
     {
         $id=$request->input('id');
@@ -92,7 +91,6 @@ class SceneController extends Controller
             return json_encode($res);
         }
     }
-
     public  function changePwd(Request $request){
        $table=null;
         $username=\cache('user');
@@ -102,10 +100,12 @@ class SceneController extends Controller
                 $table='adminuser';
             }
 
-        $table=DB::table($table)->where(['name' => $username])->get();
+       $re=DB::table($table)->where(['name' => $username])->get();
 
-        if(!empty($table)){
-            if (Crypt::decrypt($table[0]->password)==$request->input('ypw')){
+            //TEST
+
+        if(!empty($re)){
+            if (Crypt::decrypt($re[0]->password)==$request->input('ypw')){
                 if ($request->input('xpw')!=$request->input('qrpw')){
                     return json_encode(array(
                         'status'=>0,
@@ -113,8 +113,9 @@ class SceneController extends Controller
                     ));
                 }else{
                     $newPwd=Crypt::encrypt($request->input('xpw'));
-                    $r=DB::table($table)->where('id',1)->update(['password'=>'test']);
-                        if($r){
+
+                    $r=DB::table($table)->where(['name' => $username])->update(['password'=>$newPwd]);
+                        if($r==1){
                             Cache::forget('user');
                             session(['user'=>'']);
                             return json_encode(array(
@@ -134,8 +135,63 @@ class SceneController extends Controller
                     'details'=>'原密码错误'
                 ));
             }
+        }else{
+            return json_encode(array(
+                'status'=>5,
+                'details'=>'重试'
+            ));
         }
 
       //  return $dbs->password;
+    }
+    public function  addUser(Request $request){
+        $postDates=$request->all();
+        $rArrs=null;
+        foreach ($postDates as $key=>$value){
+            if ($value=='' ||$value ==null){
+                $rArrs=array(
+                    'status'=>0,
+                   'content'=> '输入不能有空'
+                );
+                return json_encode($rArrs);
+            }
+        }
+        if ($postDates['password']!=$postDates['password2']){
+            $rArrs=array(
+                'status'=>1,
+                'content'=> '俩次密码不一致'
+            );
+            return json_encode($rArrs);
+        }
+        //writeInto disk
+        $re=DB::table('adminuser')->insert([
+            'count'=>$postDates['mobile'],
+            'password'=>$postDates['password2'],
+            'name'=>$postDates['nick'],
+            'role'=>$postDates['role']
+        ]);
+        if ($re){
+            $rArrs=array(
+                'status'=>6,
+                'content'=> '成功'
+            );
+        }else{
+            $rArrs=array(
+                'status'=>7,
+                'content'=> '重试'
+            );
+        }
+        return json_encode($rArrs);
+    }
+    public function getAUser(Request $request){
+        if ($request->input('act')!='getAdminUsers'){
+            return json_encode(array(
+                'status'=>403,
+                'content'=>'not Allowed'
+            ));
+        }else{
+            $dates=DB::table('adminuser')->get();
+            return json_encode($dates);
+        }
     }
 }
