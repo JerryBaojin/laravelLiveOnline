@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="814d1aad-b3f6-4cef-b14c-4eb66bfba7fd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/font/fontawesome-webfont.woff2" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/font/fontawesome-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/fron_live.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/front/amaui.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/front/base.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/video.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/front/live_detail.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/front/live_detail.blade.php-bak" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/IndexController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/org/accedit.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/org/accedit.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/org/acclist.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/org/acclist.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
-    </list>
+    <list default="true" id="814d1aad-b3f6-4cef-b14c-4eb66bfba7fd" name="Default" comment="" />
     <ignored path="blog.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -283,8 +266,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="185" />
-    <option name="y" value="289" />
+    <option name="x" value="-443" />
+    <option name="y" value="305" />
     <option name="width" value="1940" />
     <option name="height" value="799" />
   </component>
@@ -528,7 +511,7 @@
       <workItem from="1506472445125" duration="6317000" />
       <workItem from="1506479590012" duration="18651000" />
       <workItem from="1506559680135" duration="17215000" />
-      <workItem from="1506648448430" duration="29551000" />
+      <workItem from="1506648448430" duration="29639000" />
     </task>
     <task id="LOCAL-00001" summary="build main frame">
       <created>1505535253240</created>
@@ -555,11 +538,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="380331000" />
+    <option name="totallyTimeSpent" value="380419000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="185" y="289" width="1940" height="799" extended-state="0" />
-    <editor active="true" />
+    <frame x="-443" y="305" width="1940" height="799" extended-state="0" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2027027" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
