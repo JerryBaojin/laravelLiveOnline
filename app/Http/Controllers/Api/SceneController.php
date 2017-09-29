@@ -12,8 +12,32 @@ use Illuminate\Support\Facades\Storage;
 
 class SceneController extends Controller
 {
-    public function  index(){
-
+    public function  editScene(Request $request){
+       $img=$request->file('pic');
+        if ($img!=null &&$img->isValid()){
+            $type=$img->getClientOriginalExtension();
+            $filename=date('His').'-'.uniqid().".".$type;
+            $path=$img->move(base_path().'/public/uploads',$filename);
+            $path= '/uploads/'.$filename;
+        }else{
+            $path=$request->input('opic');
+        }
+        $type=$request->input('type');
+        $topic=$request->input('topic');
+        $content=$request->input('remark');
+        $partakeState=$request->input('partakeState');
+        $re=DB::table('createscene')->where(['id'=>$request->input('id')])->update(
+            [
+                'content'=>$content,
+                'coverPic'=>$path,
+                'type'=>$type,
+                'title'=>$topic,
+                'partakeState'=>$partakeState
+            ]
+        );
+        if ($re){
+            return 1;
+        }
     }
     public function SceneAdd(Request $request){
     $image=$request->file('image');
@@ -22,7 +46,7 @@ class SceneController extends Controller
             $original=$image->getRealPath();//临时绝对路径
             $filename=date('His').'-'.uniqid().".".$type;
            $path=$image->move(base_path().'/public/uploads',$filename);
-            $path= 'uploads/'.$filename;
+            $path= '/uploads/'.$filename;
         }
         $dates=$request->input();
     $rtmpUrl="rtmp://220.166.83.187:1935/live/|||".uniqid()."?pass=njrb";
@@ -168,6 +192,7 @@ class SceneController extends Controller
             'count'=>$postDates['mobile'],
             'password'=>$postDates['password2'],
             'name'=>$postDates['nick'],
+            'createtime'=>date('Y-m-d H-i-s',time()),
             'role'=>$postDates['role']
         ]);
         if ($re){
@@ -189,8 +214,11 @@ class SceneController extends Controller
                 'status'=>403,
                 'content'=>'not Allowed'
             ));
+        }elseif($request->input('id')!=null){
+            $dates=DB::table('adminuser')->where(['id'=>$request->input('id')])->get();
+            return json_encode($dates);
         }else{
-            $dates=DB::table('adminuser')->get();
+            $dates=DB::table('adminuser')->orderBy('id','desc')->get();
             return json_encode($dates);
         }
     }
@@ -205,6 +233,9 @@ class SceneController extends Controller
                 }
                 $set=DB::table('adminuser')->where(['id'=>$request->input('id')])->update(['active'=>$active]);
               return 1;
+                break;
+            case 'editInfo':
+                var_dump($request->all());
                 break;
         }
 

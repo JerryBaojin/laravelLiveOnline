@@ -71,7 +71,7 @@
         <li v-for="(item,index) in scenLists ">
 
             <div class="picbar">
-                <div class="j-edit pic" @click="goDetails(item.id)"><img :src="'/'+item.coverPic"></div>
+                <div class="j-edit pic" @click="goDetails(item.id)"><img :src="item.coverPic"></div>
                 <span :class="[(item.setTop!=0?'nowtop top j-stick':'top j-stick') ]" @click="setTop(item.id,$event,index)"><i class="pz-icon icon-top"></i> [[item.setTop==0?'置顶':'取消置顶']]</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>
                 <div class="title fn-ellipsis">[[item.title]]</div>
             </div>
@@ -152,7 +152,7 @@ var list=new Vue({
     methods:{
         goDetails:function (id) {
            parent.document.getElementById('inframe').dataset.pid=id
-            parent.document.getElementById('inframe').src="scene/scenDetails"
+            parent.document.getElementById('inframe').src="/admin/scene/scenDetails"
         },
         fullScreen:function () {
             /* still not work

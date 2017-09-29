@@ -4,8 +4,12 @@
     <list default="true" id="814d1aad-b3f6-4cef-b14c-4eb66bfba7fd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/main/vuecompents.js" afterPath="$PROJECT_DIR$/public/js/main/vuecompents.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/org/accedit.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/org/accedit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/org/acclist.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/org/acclist.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <ignored path="blog.iws" />
@@ -41,28 +45,18 @@
     <favorites_list name="blog" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.68497473">
+    <splitter split-orientation="horizontal" split-proportion="0.70870113">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.6759003">
+        <splitter split-orientation="horizontal" split-proportion="0.7976827">
           <split-first>
             <splitter split-orientation="vertical" split-proportion="0.9">
               <split-first>
                 <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-                  <file leaf-file-name="scenDetails.blade.php" pinned="false" current-in-tab="false">
-                    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php">
+                  <file leaf-file-name="welcome.blade.php" pinned="false" current-in-tab="false">
+                    <entry file="file://$PROJECT_DIR$/resources/views/admin/welcome.blade.php">
                       <provider selected="true" editor-type-id="text-editor">
-                        <state relative-caret-position="95">
-                          <caret line="338" column="27" lean-forward="true" selection-start-line="338" selection-start-column="27" selection-end-line="338" selection-end-column="27" />
-                          <folding />
-                        </state>
-                      </provider>
-                    </entry>
-                  </file>
-                  <file leaf-file-name="pwd.blade.php" pinned="false" current-in-tab="false">
-                    <entry file="file://$PROJECT_DIR$/resources/views/admin/user/pwd.blade.php">
-                      <provider selected="true" editor-type-id="text-editor">
-                        <state relative-caret-position="285">
-                          <caret line="48" column="28" lean-forward="false" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="33" />
+                        <state relative-caret-position="532">
+                          <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
                           <folding />
                         </state>
                       </provider>
@@ -71,12 +65,9 @@
                   <file leaf-file-name="acclist.blade.php" pinned="false" current-in-tab="false">
                     <entry file="file://$PROJECT_DIR$/resources/views/admin/org/acclist.blade.php">
                       <provider selected="true" editor-type-id="text-editor">
-                        <state relative-caret-position="451">
-                          <caret line="85" column="28" lean-forward="true" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
-                          <folding>
-                            <element signature="e#2376#2938#0#HTML" expanded="false" />
-                            <element signature="e#3386#4154#0#HTML" expanded="false" />
-                          </folding>
+                        <state relative-caret-position="623">
+                          <caret line="101" column="25" lean-forward="true" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+                          <folding />
                         </state>
                       </provider>
                     </entry>
@@ -84,23 +75,12 @@
                   <file leaf-file-name="accedit.blade.php" pinned="false" current-in-tab="true">
                     <entry file="file://$PROJECT_DIR$/resources/views/admin/org/accedit.blade.php">
                       <provider selected="true" editor-type-id="text-editor">
-                        <state relative-caret-position="195">
-                          <caret line="123" column="47" lean-forward="true" selection-start-line="123" selection-start-column="47" selection-end-line="123" selection-end-column="47" />
+                        <state relative-caret-position="393">
+                          <caret line="138" column="13" lean-forward="true" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
                           <folding>
-                            <element signature="n#div#2;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                            <element signature="n#div#3;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                            <element signature="e#4050#4910#0#HTML" expanded="false" />
+                            <element signature="e#3857#4172#0#HTML" expanded="false" />
+                            <element signature="e#4955#5655#0#HTML" expanded="false" />
                           </folding>
-                        </state>
-                      </provider>
-                    </entry>
-                  </file>
-                  <file leaf-file-name="welcome.blade.php" pinned="false" current-in-tab="false">
-                    <entry file="file://$PROJECT_DIR$/resources/views/admin/welcome.blade.php">
-                      <provider selected="true" editor-type-id="text-editor">
-                        <state relative-caret-position="532">
-                          <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
-                          <folding />
                         </state>
                       </provider>
                     </entry>
@@ -112,8 +92,8 @@
                   <file leaf-file-name="scenDetails.blade.php" pinned="false" current-in-tab="true">
                     <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php">
                       <provider selected="true" editor-type-id="text-editor">
-                        <state relative-caret-position="17">
-                          <caret line="352" column="10" lean-forward="false" selection-start-line="352" selection-start-column="10" selection-end-line="352" selection-end-column="10" />
+                        <state relative-caret-position="4">
+                          <caret line="377" column="10" lean-forward="false" selection-start-line="377" selection-start-column="10" selection-end-line="377" selection-end-column="10" />
                           <folding />
                         </state>
                       </provider>
@@ -125,33 +105,40 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="scenlist.blade.php" pinned="false" current-in-tab="true">
+              <file leaf-file-name="scenlist.blade.php" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="494">
-                      <caret line="266" column="10" lean-forward="true" selection-start-line="266" selection-start-column="10" selection-end-line="266" selection-end-column="10" />
+                    <state relative-caret-position="86">
+                      <caret line="73" column="79" lean-forward="false" selection-start-line="73" selection-start-column="79" selection-end-line="73" selection-end-column="79" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="SceneController.php" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="395">
+                      <caret line="230" column="20" lean-forward="true" selection-start-line="230" selection-start-column="20" selection-end-line="230" selection-end-column="20" />
                       <folding>
-                        <element signature="e#5785#6049#0#HTML" expanded="false" />
-                        <element signature="e#6063#10821#0#HTML" expanded="false" />
+                        <element signature="e#347#1303#0#PHP" expanded="false" />
+                        <element signature="e#1308#2257#0#PHP" expanded="false" />
+                        <element signature="e#2262#4071#0#PHP" expanded="false" />
+                        <element signature="e#4076#4331#0#PHP" expanded="false" />
+                        <element signature="e#4336#6118#0#PHP" expanded="false" />
+                        <element signature="e#6123#7322#0#PHP" expanded="false" />
+                        <element signature="e#6232#6504#0#PHP" expanded="false" />
+                        <element signature="e#6513#6724#0#PHP" expanded="false" />
+                        <element signature="e#7327#7867#0#PHP" expanded="false" />
                       </folding>
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="SceneController.php" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="323">
-                      <caret line="196" column="27" lean-forward="false" selection-start-line="196" selection-start-column="27" selection-end-line="196" selection-end-column="27" />
-                      <folding>
-                        <element signature="e#384#1332#0#PHP" expanded="false" />
-                        <element signature="e#1337#3146#0#PHP" expanded="false" />
-                        <element signature="e#3151#3406#0#PHP" expanded="false" />
-                        <element signature="e#3411#5193#0#PHP" expanded="false" />
-                        <element signature="e#5198#6343#0#PHP" expanded="false" />
-                        <element signature="e#6348#6692#0#PHP" expanded="false" />
-                      </folding>
-                    </state>
+              <file leaf-file-name="023146-59cdb0924589c.jpg" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/public/uploads/023146-59cdb0924589c.jpg">
+                  <provider selected="true" editor-type-id="images">
+                    <state />
                   </provider>
                 </entry>
               </file>
@@ -181,8 +168,8 @@
               <file leaf-file-name="sceneadd.blade.php" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="1292">
-                      <caret line="68" column="48" lean-forward="false" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+                    <state relative-caret-position="423">
+                      <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
@@ -191,8 +178,8 @@
               <file leaf-file-name="vuecompents.js" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/public/js/main/vuecompents.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="38">
-                      <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+                    <state relative-caret-position="114">
+                      <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
                       <folding />
                     </state>
                   </provider>
@@ -207,10 +194,10 @@
           <file leaf-file-name="web.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/routes/web.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="25" column="46" lean-forward="false" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+                <state relative-caret-position="285">
+                  <caret line="24" column="26" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="26" />
                   <folding>
-                    <element signature="e#1393#3436#1#PHP" expanded="false" />
+                    <element signature="e#1452#3495#1#PHP" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -284,6 +271,8 @@
       <find>原</find>
       <find>确认</find>
       <find>hout</find>
+      <find>pz-icon icon-back</find>
+      <find>子账号</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -337,16 +326,16 @@
         <option value="$PROJECT_DIR$/public/js/components/ScenDetail.js" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Front/IndexController.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/LoginController.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/CheckAuth.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/user/pwd.blade.php" />
         <option value="$PROJECT_DIR$/public/js/main/vuecompents.js" />
+        <option value="$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/org/acclist.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/org/accedit.blade.php" />
       </list>
     </option>
@@ -361,11 +350,11 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="245" />
-    <option name="y" value="277" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-144" />
+    <option name="y" value="366" />
     <option name="width" value="1940" />
-    <option name="height" value="857" />
+    <option name="height" value="866" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -412,66 +401,13 @@
             <path>
               <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
               <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Api" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Auth" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Front" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Middleware" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
               <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WWW" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="main" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="uploads" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="WWW" type="b2602c69:ProjectViewProjectNode" />
@@ -673,7 +609,8 @@
       <workItem from="1506387697912" duration="21882000" />
       <workItem from="1506472445125" duration="6317000" />
       <workItem from="1506479590012" duration="18651000" />
-      <workItem from="1506559680135" duration="16249000" />
+      <workItem from="1506559680135" duration="17215000" />
+      <workItem from="1506648448430" duration="10063000" />
     </task>
     <task id="LOCAL-00001" summary="build main frame">
       <created>1505535253240</created>
@@ -700,17 +637,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="349814000" />
+    <option name="totallyTimeSpent" value="360843000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="245" y="277" width="1940" height="857" extended-state="0" />
+    <frame x="-144" y="366" width="1940" height="866" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16632016" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16580042" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.01039501" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.00987526" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -753,11 +690,11 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/routes/web.php</url>
-          <line>28</line>
+          <line>29</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php</url>
-          <line>85</line>
+          <line>109</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
@@ -766,15 +703,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/components/Example.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="59" lean-forward="false" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/laravel/index.html" />
-    <entry file="file://$PROJECT_DIR$/node_modules/babel-core/lib/helpers/resolve.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/babel-core/lib/api/browser.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/babel-core/lib/api/node.js" />
     <entry file="file://$PROJECT_DIR$/public/js/main/borwer-min.js">
@@ -973,14 +901,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1292">
-          <caret line="68" column="48" lean-forward="false" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1064">
@@ -1016,10 +936,71 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/common.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="124" column="18" lean-forward="false" selection-start-line="124" selection-start-column="18" selection-end-line="124" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/main/vuecompents.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="114">
+          <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/sceneadd.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="73" column="79" lean-forward="false" selection-start-line="73" selection-start-column="79" selection-end-line="73" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/uploads/023146-59cdb0924589c.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4">
+          <caret line="377" column="10" lean-forward="false" selection-start-line="377" selection-start-column="10" selection-end-line="377" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/org/info.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="46" lean-forward="false" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/user/info.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/user/pwd.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="841">
+          <caret line="85" column="18" lean-forward="true" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1032,85 +1013,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/user/pwd.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="48" column="28" lean-forward="false" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="25" column="46" lean-forward="false" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+        <state relative-caret-position="285">
+          <caret line="24" column="26" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="26" />
           <folding>
-            <element signature="e#1393#3436#1#PHP" expanded="false" />
+            <element signature="e#1452#3495#1#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="196" column="27" lean-forward="false" selection-start-line="196" selection-start-column="27" selection-end-line="196" selection-end-column="27" />
-          <folding>
-            <element signature="e#384#1332#0#PHP" expanded="false" />
-            <element signature="e#1337#3146#0#PHP" expanded="false" />
-            <element signature="e#3151#3406#0#PHP" expanded="false" />
-            <element signature="e#3411#5193#0#PHP" expanded="false" />
-            <element signature="e#5198#6343#0#PHP" expanded="false" />
-            <element signature="e#6348#6692#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="338" column="27" lean-forward="true" selection-start-line="338" selection-start-column="27" selection-end-line="338" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/common.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="124" column="18" lean-forward="false" selection-start-line="124" selection-start-column="18" selection-end-line="124" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/org/acclist.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="85" column="28" lean-forward="true" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
-          <folding>
-            <element signature="e#2376#2938#0#HTML" expanded="false" />
-            <element signature="e#3386#4154#0#HTML" expanded="false" />
-          </folding>
+        <state relative-caret-position="623">
+          <caret line="101" column="25" lean-forward="true" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="266" column="10" lean-forward="true" selection-start-line="266" selection-start-column="10" selection-end-line="266" selection-end-column="10" />
+        <state relative-caret-position="395">
+          <caret line="230" column="20" lean-forward="true" selection-start-line="230" selection-start-column="20" selection-end-line="230" selection-end-column="20" />
           <folding>
-            <element signature="e#5785#6049#0#HTML" expanded="false" />
-            <element signature="e#6063#10821#0#HTML" expanded="false" />
+            <element signature="e#347#1303#0#PHP" expanded="false" />
+            <element signature="e#1308#2257#0#PHP" expanded="false" />
+            <element signature="e#2262#4071#0#PHP" expanded="false" />
+            <element signature="e#4076#4331#0#PHP" expanded="false" />
+            <element signature="e#4336#6118#0#PHP" expanded="false" />
+            <element signature="e#6123#7322#0#PHP" expanded="false" />
+            <element signature="e#6232#6504#0#PHP" expanded="false" />
+            <element signature="e#6513#6724#0#PHP" expanded="false" />
+            <element signature="e#7327#7867#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/org/accedit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="123" column="47" lean-forward="true" selection-start-line="123" selection-start-column="47" selection-end-line="123" selection-end-column="47" />
+        <state relative-caret-position="393">
+          <caret line="138" column="13" lean-forward="true" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
           <folding>
-            <element signature="n#div#2;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="e#4050#4910#0#HTML" expanded="false" />
+            <element signature="e#3857#4172#0#HTML" expanded="false" />
+            <element signature="e#4955#5655#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>

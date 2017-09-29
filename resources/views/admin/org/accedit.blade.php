@@ -19,18 +19,19 @@
                 <div class="group2">
                     <div class="row xcy-row">
                         <div class="row-title">账号</div>
-                        <div class="row-content" data-field="mobile"><input  type="text" maxlength="11" name="mobile" class="fn-rate50" required="" placeholder="请输入手机号"></div>
+                        <div class="row-content" data-field="mobile"><input v-model="phone"  type="text" maxlength="11" name="mobile" class="fn-rate50" required="" placeholder="请输入手机号"></div>
                     </div>
-                    <div class="row xcy-row j-row-hasPwd" v-if="!show">
+                    <div class="row xcy-row j-row-hasPwd" v-if="!show || cpwd">
                         <div class="row-title">修改密码</div>
                         <div class="row-content" data-field="hasPwd">
                             <div>
                                 <label>
-                                    <input  required="" type="radio" name="hasPwd" value="0" checked=""> 不修改密码
+                                    <input  required="" v-model="a" type="radio" name="hasPwd" value="0" checked=""> 不修改密码
                                 </label>
                                 <label>
-                                    <input type="radio" name="hasPwd" value="1"> 修改密码
+                                    <input type="radio" v-model="a" name="hasPwd" value="1"> 修改密码
                                 </label>
+
                             </div>
                         </div>
                     </div>
@@ -50,11 +51,11 @@
                 <div class="group2 fn-pl40">
                     <div class="row xcy-row">
                         <div class="row-title">姓名</div>
-                        <div class="row-content" data-field="nick"><input @focus="clear" type="text" required="" maxlength="16" name="nick" class="fn-rate50" required="" placeholder="请输入姓名"></div>
+                        <div class="row-content" data-field="nick"><input @focus="clear" v-model="name"  type="text" required="" maxlength="16" name="nick" class="fn-rate50" required="" placeholder="请输入姓名"></div>
                     </div>
                     <div class="row xcy-row">
                         <div class="row-title">角色</div>
-                        <div class="row-content" data-field="role"><select @focus="clear"  required="" name="role"><option value="approver">编辑人员</option><option value="director">导播员</option><option value="reporter">记者</option></select></div>
+                        <div class="row-content" data-field="role"><select @focus="clear" v-model="role"  required="" name="role"><option value="approver">编辑人员</option><option value="director">导播员</option><option value="reporter">记者</option></select></div>
                     </div>
                 </div>
             </div>
@@ -72,67 +73,94 @@
         data:{
             notSame:'',
             show:true,
-            message : "xuxiao is boy"
+            a:0,
+            phone:'',
+            name:'',
+            role:'director',
+            cpwd:false,
+            swtichTag:false
         },
        watch:{
-           show:function (newvalue,old) {
-            console.log(newvalue);
-            console.log(old);
+           a:function (newvalue,old) {
+               console.log(newvalue);
+               if (newvalue=='1'){
+                   this.cpwd=true;
+                   this.show=true;
+               }else{
+                   this.cpwd=true;
+                   this.show=false;
+               }
            }
        },
-        methods:{
+       methods:{
             back:function () {
                 window.history.go(-1)
             },
             clear:function () {
-                console.log(15);
               this.notSame=''
             },
             submit:function (e) {
                 var tag=document.getElementById('j-editform');
                 e.preventDefault();
-                this.$http.post('/Api/addUser',new FormData(tag)).then(function (res) {
-                    var dates=eval('('+res.body+')');
-                    switch (dates.status){
-                        case 0:
-                            alert('输入不能有空');
-                            break;
-                        case 1:
-                            this.notSame='俩次密码不一致！'
-                            break;
-                        case 6:
-                            alert("添加成功！");
-                            break;
-                        case 7:
-                           alert("请重试！");
-                            break;
+                if(this.swtichTag){
+                    var dates=new FormData(tag);
+                    dates.append('act','editInfo')
+                    this.$http.post('/Api/setAUser',dates).then(function (res) {
+                        console.log(res)
+                    },function (e) {
+                        console.log(e)
+                    })
+                }else{
+                    this.$http.post('/Api/addUser',new FormData(tag)).then(function (res) {
+                        var dates=eval('('+res.body+')');
+                        switch (dates.status){
+                            case 0:
+                                alert('输入不能有空');
+                                break;
+                            case 1:
+                                this.notSame='俩次密码不一致！'
+                                break;
+                            case 6:
+                                alert("添加成功！");
+                                tag.reset();
+                                break;
+                            case 7:
+                                alert("请重试！");
+                                break;
 
-                    }
-                },function (e) {
-                    console.log(e)
-                })
+                        }
+                    },function (e) {
+                        console.log(e)
+                    })
+                }
             },
             beforeMount:function () {
 
             }
-        }
+        },
+       mounted:function () {
+            var vm=this;
+           var p=parent.document.getElementById('inframe').dataset.userid;
+           //获取到了 马上销毁
+           parent.document.getElementById('inframe').dataset.userid='';
+           if (p){
+               this.show=false;
+               this.swtichTag=true;
+               this.$http.post('/Api/getAUser',{'id':p,'_token':'{{csrf_token()}}','act':'getAdminUsers'}).then(function (res) {
+                   var dates=eval('('+res.body+')');
+                  vm.name=dates[0]['name'];
+                  vm.phone=dates[0]['count']
+                   vm.role=dates[0]['role']
+               },function (e) {
+                   console.log(e)
+               })
+           }else{
+               this.show=true;
+           }
+           //获取信息
+       }
     })
 </script>
-<script>
-    window.addEventListener('load',function () {
-        console.log(vue.show,444444444);
-        var p=parent.document.getElementById('inframe').dataset.userid;
-        //获取到了 马上销毁
-        parent.document.getElementById('inframe').dataset.userid='';
-        console.log(p);
-        if (p){
-            console.log(1)
-            vue.show=false;
-        }else{
-            console.log(2)
-            vue.show=true;
-        }
-    })
-</script>
+
 
 </body></html>

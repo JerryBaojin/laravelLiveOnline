@@ -4,7 +4,7 @@ var vue=new Vue({
     el:'#app',
     data:{
         test:'test',
-        page:"/admin/org/acclist"
+        page:"/admin/scene/scenelist"
     },
     mounted:function(){
 
@@ -12,9 +12,9 @@ var vue=new Vue({
     methods:{
        loopPage:function (e) {
            var dds=document.getElementById('j-nav').getElementsByTagName('dd');
-          for (var i=0;i<=dds.length;i++){
+          for (var i=0;i<dds.length;i++){
               dds[i]=i;
-              dds[i].className='';
+            dds[i].className='';
           }
             e.target.className='current';
            this.page='/admin'+e.target.dataset.href.split('.')[0];
@@ -22,6 +22,7 @@ var vue=new Vue({
         editUser:function (e) {
 
        if (e.target.dataset.href=='logout'){
+
             function clearCookie(){
                 var keys=document.cookie.match(/[^ =;]+(?=\=)/g);
                 if (keys) {

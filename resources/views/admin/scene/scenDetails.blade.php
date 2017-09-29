@@ -13,7 +13,7 @@
     <div id="scenDe">
 
         <div id="j-search" class=" pz-form pz-searchform xcy-search fn-clear">
-            <span id="j-back" class="  fn-left pz-btn btn-white"><i class="pz-icon icon-back1"></i> 返回</span>
+            <span id="j-back" class="  fn-left pz-btn btn-white"><i @click="goback" class="pz-icon icon-back1"></i> 返回</span>
             <div class="other">
                 <div id="j-more" class="item">
                     <span class="pz-btn btn-white">更多操作</span>
@@ -33,21 +33,16 @@
         <div class="fn-pl40 fn-pr40 fn-pt30 fn-pb30 fn-clear">
             <div class="pz-form">
                 <form id="j-sceneform">
+                    {{csrf_field()}}
                     <div class="formtitle fn-mb30">基本信息</div>
                     <div class="wrap fn-clear">
                         <div class="group2">
                             <div class="row xcy-row fn-mb15">
                                 <div class="row-title">现场类型</div>
                                 <div class="row-content" data-field="type"><div>
-                                            <div v-if="arrs.type=='4'">
-                                                <label> <input type="radio" name="type" value="4" checked>视频直播</label>
-                                                <label><input type="radio" name="type"  value="1"  > 图文直播</label>
-                                            </div>
-                                        <div v-else>
-                                            <label><input type="radio" name="type" value="4" >视频直播</label>
-                                            <label><input type="radio" name="type"  value="1" checked > 图文直播</label>
-                                        </div>
-
+                                        <input type="hidden" :value="id" name="id">
+                                                <label> <input type="radio" v-model="arrs.type" name="type" value="4" >视频直播</label>
+                                                <label><input type="radio" v-model="arrs.type" name="type"  value="1"  > 图文直播</label>
                                         </div></div>
                             </div>
                             <div class="row xcy-row">
@@ -65,13 +60,15 @@
                                 <div class="row-content">
                                     <div id="j-cover" class="xcy-cutimg">
                                         <label class="upbtn">
-                                            <div class="imgbar"><img :src="'/'+arrs.coverPic"></div>
+                                            <div class="imgbar"><img :src="arrs.coverPic"></div>
+
+                                            <input type="hidden" :value="arrs.coverPic" name="opic">
                                             <div class="fn-pt25">
                                                 <i class="pz-icon icon-img"></i>
                                                 <p class="fn-textcenter fn-mt5">点击选择封面图片</p>
                                             </div>
                                             <div class="j-file-input fn-hide">
-                                                <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                                <input name="pic" type="file"  @change="changePic(this,$event)" accept="image/gif,image/jpeg,image/jpg,image/png">
                                             </div>
                                         </label>
                                     </div>
@@ -139,12 +136,18 @@
                             {{--</div>--}}
                             <div class="row row100 fn-rate40 fn-left">
                                 <div class="row-title">浏览量显示状态</div>
-                                <div class="row-content" data-field="partakeState"><div><label><input type="radio" name="partakeState" value="0" checked=""> 显示</label><label><input type="radio" name="partakeState" value="1"> 不显示</label></div></div>
+                                <div class="row-content" data-field="partakeState"><div>
+                                        <label>
+                                            <input type="radio" name="partakeState" v-model="arrs.partakeState" value="0" checked=""> 显示</label>
+                                        <label>
+                                            <input type="radio" name="partakeState" v-model="arrs.partakeState" value="1"> 不显示</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="actions actions-transparent fn-pt20">
-                        <input type="submit" class="pz-btn btn-success btn-big" value="保存修改">
+                        <input @click="submit($event)" class="pz-btn btn-success btn-big" value="保存修改">
                     </div>
                 </form>
             </div>
@@ -274,6 +277,28 @@
             }
         },
         methods:{
+            goback:function () {
+                window.history.go(-1)
+
+            },
+            changePic:function (m,e) {
+                var imgUrl=window.URL.createObjectURL(e.currentTarget.files[0]);
+                this.arrs.coverPic=imgUrl;
+            },
+            submit:function (e) {
+              e.preventDefault();
+              var tag=document.getElementById('j-sceneform');
+              var dates=new FormData(tag);
+              this.$http.post('/Api/editScene',dates).then(function (res) {
+                  if (res.body=='1'){
+                      alert('编辑成功！')
+                  }else{
+                      alert('请重试！')
+                  }
+              },function (e) {
+                  console.log(e);
+              })
+            },
             del:function () {
               if(confirm('确认删除此场景吗？')){
                   this.$http.post('/Api/getDetails',{act:'delScen','id':this.id,'_token':'{{csrf_token()}}'}).then(function (res) {

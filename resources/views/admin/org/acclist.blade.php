@@ -102,7 +102,8 @@
                         }
 
                     })
-                this.arrs=arrs
+                this.arrs=arrs;
+                    console.log(this.arrs);
             },function (e) {
                 console.log(e)
             })

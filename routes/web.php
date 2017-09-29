@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], funct
     Route::post('/addUser','SceneController@addUser');
     Route::post('/getAUser','SceneController@getAUser');
     Route::post('/setAUser','SceneController@setAUser');
+    Route::post('/editScene','SceneController@editScene');
 });
 
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {

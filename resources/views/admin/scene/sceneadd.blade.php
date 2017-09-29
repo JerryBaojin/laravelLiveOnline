@@ -62,8 +62,10 @@
     $(function(e){
         $('#image').on('change',function(e){
             $('.fn-pt25').hide();
+
             var imgUrl= window.URL.createObjectURL(this.files[0]);
-        $('#imgSrc').attr('src',imgUrl);
+
+            $('#imgSrc').attr('src',imgUrl);
            $('.upbtn').css(
                {"background":"url(\""+(imgUrl)+"\") no-repeat center",
                    "background-size":"100% 100%"
