@@ -39,7 +39,7 @@
                 <td class="fn-textcenter">
                     <a :class="item.active==1?'pz-color-red j-stop':'j-open pz-color-green'" href="javascript:void(0)" @click="ban(item.id,item.active,index)">[[item.active==1?'禁用':'激活']]</a>
                     <a class="j-edit fn-ml15" href="javascript:void(0)" @click="edit(item.id)">编辑</a>
-                    <a class="j-delete fn-ml15 pz-color-red" href="javascript:void(0)" @click="del(item.id)">删除</a>
+                    <a class="j-delete fn-ml15 pz-color-red" href="javascript:void(0)" @click="del(item.id,index)">删除</a>
                 </td>
             </tr>
             </tbody>
@@ -79,8 +79,26 @@
                 parent.document.getElementById('inframe').src="/admin/org/accedit";
 
             },
-            del:function (id) {
-                console.log(id)
+            del:function (id,index) {
+
+                if (!confirm('确认删除此条信息吗？')) return false;
+                this.$http.post('/Api/DeleteUser',{'id':id,'_token':'{{csrf_token()}}','act':'delUser'}).then(function (res) {
+                    var arrs=eval('('+res.body+')');
+                    switch(arrs.status){
+                        case 2:
+                            alert('请重试！');
+                            break;
+                        case 403:
+                            alert('方法不被允许！')
+                            break;
+                        case 6:
+                            var bak=this.arrs;
+                            var a=bak.splice(index,1);
+                             break;
+                    }
+                },function (e) {
+                    console.log(e)
+                })
             }
         },
         mounted:function () {
@@ -103,7 +121,6 @@
 
                     })
                 this.arrs=arrs;
-                    console.log(this.arrs);
             },function (e) {
                 console.log(e)
             })

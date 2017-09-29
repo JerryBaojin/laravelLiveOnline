@@ -62,6 +62,7 @@
             <div class="actions actions-transparent fn-pt20 fn-pb20">
                 <input  @click="submit($event)" class="pz-btn btn-success btn-big" value="确 定">
             </div>
+
         </form>
     </div>
 </div>
@@ -78,6 +79,7 @@
             name:'',
             role:'director',
             cpwd:false,
+            p:'',
             swtichTag:false
         },
        watch:{
@@ -104,9 +106,22 @@
                 e.preventDefault();
                 if(this.swtichTag){
                     var dates=new FormData(tag);
-                    dates.append('act','editInfo')
+                    dates.append('act','editInfo');
+                    dates.append('id',parseInt(this.p))
                     this.$http.post('/Api/setAUser',dates).then(function (res) {
-                        console.log(res)
+                      var dates=eval('('+res.body+')');
+                     switch (dates.status){
+                         case 6:
+                             alert('成功!')
+                             window.history.go(-1);
+                             break;
+                         case 2:
+                             alert("请重新提交!");
+                             break;
+                         case 0:
+                             alert('俩次输入的密码不一致!');
+
+                     }
                     },function (e) {
                         console.log(e)
                     })
@@ -134,13 +149,12 @@
                     })
                 }
             },
-            beforeMount:function () {
 
-            }
         },
        mounted:function () {
             var vm=this;
            var p=parent.document.getElementById('inframe').dataset.userid;
+           this.p=p
            //获取到了 马上销毁
            parent.document.getElementById('inframe').dataset.userid='';
            if (p){

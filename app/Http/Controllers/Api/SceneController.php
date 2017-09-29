@@ -187,10 +187,11 @@ class SceneController extends Controller
             );
             return json_encode($rArrs);
         }
+        $pwd=Crypt::encrypt($postDates['password2']);
         //writeInto disk
         $re=DB::table('adminuser')->insert([
             'count'=>$postDates['mobile'],
-            'password'=>$postDates['password2'],
+            'password'=>$pwd,
             'name'=>$postDates['nick'],
             'createtime'=>date('Y-m-d H-i-s',time()),
             'role'=>$postDates['role']
@@ -235,9 +236,75 @@ class SceneController extends Controller
               return 1;
                 break;
             case 'editInfo':
-                var_dump($request->all());
+                 //是否修改密码
+                 if ($request->input('password')!=null){
+                     if ($request->input('password')!=$request->input('password2')){
+                         return json_encode(array(
+                             'status'=>0,
+                             'content'=>'incorrect pwd'
+                         ));
+                     }else{
+                         //Crypt 加密
+                         $pwd=Crypt::encrypt($request->input('password2'));
+                         $re=DB::table('adminuser')->where(['id'=>$request->input('id')])->update([
+                             'count'=>$request->input('mobile'),
+                             'password'=>$pwd,
+                             'role'=>$request->input('role'),
+                             'name'=>$request->input('nick')
+                         ]);
+                         if ($re){
+                             return json_encode(array(
+                                 'status'=>6,
+                                 'content'=>'succees'
+                             ));
+                         }else{
+                             return json_encode(array(
+                                 'status'=>2,
+                                 'content'=>'try again'
+                             ));
+                         }
+                     }
+                 }else{
+                     $re=DB::table('adminuser')->where(['id'=>$request->input('id')])->update([
+                         'count'=>$request->input('mobile'),
+                         'role'=>$request->input('role'),
+                         'name'=>$request->input('nick')
+                     ]);
+                     if ($re){
+                         return json_encode(array(
+                             'status'=>6,
+                             'content'=>'succees'
+                         ));
+                     }else{
+                         return json_encode(array(
+                             'status'=>2,
+                             'content'=>'try again'
+                         ));
+                     }
+                 }
                 break;
         }
 
+    }
+    public function DeleteUser(Request $request){
+        if ($request->input('act')=='delUser'){
+            $re=DB::table('adminuser')->where(['id'=>$request->input('id')])->delete();
+             if ($re==1){
+                 return json_encode(array(
+                     'status'=>6,
+                     'content'=>'success'
+                 ));
+             }else{
+                 return json_encode(array(
+                     'status'=>2,
+                     'content'=>'try again'
+                 ));
+             }
+        }else{
+            return json_encode(array(
+                'status'=>403,
+                'content'=>'forbid'
+            ));
+        }
     }
 }

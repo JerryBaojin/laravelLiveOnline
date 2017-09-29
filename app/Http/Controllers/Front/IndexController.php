@@ -9,7 +9,8 @@ class IndexController extends Controller
 {
     //
     public function index($id){
-            return $id;
-        dd($_ENV['SITENAME']);
+        return  view('front.live_Detail');
+            //return $id;
+        //dd($_ENV['SITENAME']);
     }
 }
