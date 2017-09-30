@@ -73,11 +73,11 @@ body {
     font-style: italic;
     font-size: 42px;
 }
-
+#main{padding: 0;overflow: hidden}
 .containA{display: flex; position: relative; z-index: 9999;}
 .containA>div{flex:1;text-align: center;color:#999999;height: 42px;line-height: 42px;}
 .containA>div.tagactive{border-bottom: 1px solid #0e90d2;}
 .live-tag{border:1px solid #DDDDDD;background: #F6F6F6;height: 100%;width: 50%}
 .loading{font-size: 16px;text-align: center;}
 
-.section{display: flex;overflow: hidden;}
+.section{display: flex;overflow: hidden;position: relative;}

@@ -120,8 +120,16 @@
       var _width=$("#main").width()*2;
       $('.section').css('width',_width);
         $('.containA').click(function (e) {
-            console.log(e);
-            console.log(e.target.dataset.pid);
+          for (var i=0;i<2;i++){
+             $(this).find('div')[i].className='';
+          }
+          e.target.className='tagactive';
+            console.log(_width);
+            if (e.target.dataset.pid=='chat'){
+                $('.section').animate({'left':'-'+_width/2});
+            }else{
+                $('.section').animate({'left':'0'});
+            }
         })
     })
 </script>
