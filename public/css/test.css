@@ -2,7 +2,6 @@
 .c {*zoom:1;}
 
 .c:after {content:'';display:block;clear:both;height:0px;}
-
 .img li{
     width: 33.3%;
     height:auto;
@@ -17,12 +16,7 @@
     width: 100%;
     height:auto;
 }
-li{
-    list-style-type: none;
-}
-html {
-    height: 100%;
-}
+
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -56,7 +50,6 @@ body {
 }
 .swiper-container,.swiper-container2{
     text-align: left !important;
-    padding: 14px;
     width: 100% ;
     height: 100%;
     color: #fff;
@@ -83,7 +76,9 @@ body {
     position: relative;
     margin: 1px 0 5px 0;
     color: black;
+
     width: 100%;
+    background: white;
     -webkit-transition: 300ms;
     -moz-transition: 300ms;
     -ms-transition: 300ms;
@@ -101,7 +96,7 @@ body {
 .containA{display: flex; position: relative; z-index: 9999;}
 .containA>div{flex:1;text-align: center;color:#999999;height: 42px;line-height: 42px;}
 .containA>div.tagactive{border-bottom: 1px solid #0e90d2;}
-.live-tag{border:1px solid #DDDDDD;background: #F6F6F6;height: 100%;width: 50%;flex: 1}
+.live-tag{border:1px solid #DDDDDD;background: #F6F6F6;width: 100%}
 .loading{font-size: 16px;text-align: center;}
 .swiper-wrapper{width: 100% !important;}
 .section{display: flex;overflow: hidden;position: relative;}
@@ -111,12 +106,12 @@ body {
     height: 5px;
     position: relative;
     background: #13b7f6;
-    top:26px;
-    left: -17px;}
+    top: 14px;
+    left: -22px;}
 .out{
     position: absolute;
-    top: 17px;
-    left: -24px;
+
+    left: 15px;
     border-color: transparent #ffffff transparent transparent;
     border-style: dashed dashed solid dashed;
     border-width: 11px;
@@ -129,3 +124,5 @@ body {
     color: #999999;
     font-size: 16px;
 }
+
+.move{border-left:1px solid #dddddd; margin-left: 17px;margin-right: 5px;padding: 20px}
