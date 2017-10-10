@@ -15,7 +15,7 @@
         html, body{height: 100%;font-family: "微软雅黑";}
         *{margin: 0;padding: 0;box-sizing: border-box;}
         a {color: #428bca;text-decoration: none;}
-        a:hover,a:focus {color: #2a6496;text-decoration: underline;}
+        a:hover,a:focus {color: #2a6496;text-decoration: none;}
         a:focus {outline: thin dotted;outline: 5px auto -webkit-focus-ring-color;outline-offset: -2px;}
 
         .padd_40{padding-top: 80px;background: #F5F5F5;overflow-x:hidden;}
@@ -28,7 +28,7 @@
         .refreshtip {position: absolute;left: 0;width: 100%;margin: 10px 0;text-align: center;color: #999;}
         .swiper-container{overflow: visible;}
         .loadtip { display: block;width: 100%;line-height: 40px; height: 40px;text-align: center;color: #999;border-top: 1px solid #ddd;}
-        .swiper-container, .w{height: calc(100vh - 120px);}
+
         .swiper-slide{height: auto;}
 
         .text-center{text-align: center;}
@@ -52,17 +52,20 @@
 <div class="tab">
     <a class="active" href="javascript:;">直播</a>
     <a href="javascript:;" >聊天室</a>
+
 </div>
 
 <div class="swiper-container swiper-container-vertical swiper-container-free-mode swiper-container-android">
+
     <div class="refreshtip">下拉可以刷新</div>
     <div class="swiper-wrapper w" style="transform: translate3d(0px, 0px, 0px);">
         <div class="swiper-slide d swiper-slide-active">
             <div class="init-loading list-group-item text-center" style="display: none;">下拉可以刷新</div>
             <div class=" swiper-container2 swiper-container-horizontal swiper-container-android">
                 <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+
                     <div class="swiper-slide list-group swiper-slide-active" >
-                        <div class="live-tag" >
+                        <div v-for="x in 5" class="live-tag" >
                             <div  class="move">
                             <div  style="background: white">
                                 <div class="blueI"></div>
@@ -92,7 +95,23 @@
                         </div>
                     </div>
                     <div class="swiper-slide list-group swiper-slide-next" >
-                       列表2
+                     <ul class="comments">
+                         <li v-for="x in 5">
+                                <div class="ctop">
+
+                                    <div>
+                                        <img style="width: 35px;" src="/img/comment_user_head_icon.png" alt="head">
+                                        <span  class="cname"> 网友</span>
+                                        <span class="zans"><img src="/img/great_button.png" alt=""><span>0</span></span>
+
+                                    </div>
+                                   <div class="ctime">12-28 09:46</div>
+                                </div>
+                             <div style="text-indent: 41px;padding-bottom: 10px;color: #999999;">
+                                 内容asddddddddddddddddddddddddddddddddddd
+                             </div>
+                         </li>
+                     </ul>
                     </div>
                 </div>
                 </div>
@@ -100,29 +119,29 @@
         </div>
     </div>
 
-
-        <form class="form-inline">
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputPassword3">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Remember me
-                </label>
-            </div>
-            <button type="submit" class="btn btn-default">Sign in</button>
-        </form>
-
     <div class="loadtip">上拉加载更多</div>
+
     <div class="swiper-scrollbar" style="display: none; opacity: 0;"><div class="swiper-scrollbar-drag" style="height: 0px;"></div></div>
+
+
+            <div class="boo">
+                <input type="text"  id="comment" placeholder="我也说俩句...">
+                <button type="button" id="btn" class="btn btn-primary">提交</button>
+            </div>
+
 </div>
 
     </div>
+<script>
+    var   vue=new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data:{
+
+        }
+    })
+
+</script>
 
 <script src="/js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/js/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -215,6 +234,13 @@
     });
 </script>
 <script src="/js/bootstrap.min.js"></script>
+<script>
+        //计算 boo属性
+        $(function () {
+           $(window).resize(function () {
+               $('.boo').css('width',$('#main').css('width'));
+           })
+        })
 
-
+</script>
 </body></html>
