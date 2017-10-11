@@ -53,7 +53,8 @@ class SceneController extends Controller
         //处理字段
         $pid=time();
         $viewUrl=$_ENV['SITENAME'].'/scen/'.(string)$pid;
-        $insertStatus=DB::table('createscene')->insert(['title'=>$dates['topic'],'pid'=>$pid,'viewUrl'=>$viewUrl,'content'=>$dates['remark'],'coverPic'=>$path,'type'=>$dates['type'],'rtmpUrl'=>$rtmpUrl,'createAt'=>date('Y-m-d H:i',time())]);
+        $setter=\cache('user');
+        $insertStatus=DB::table('createscene')->insert(['seter'=>$setter,'title'=>$dates['topic'],'pid'=>$pid,'viewUrl'=>$viewUrl,'content'=>$dates['remark'],'coverPic'=>$path,'type'=>$dates['type'],'rtmpUrl'=>$rtmpUrl,'createAt'=>date('Y-m-d H:i',time())]);
        if ($insertStatus){
            return 1;
        }else{
@@ -306,5 +307,22 @@ class SceneController extends Controller
                 'content'=>'forbid'
             ));
         }
+    }
+    public function makeReport(Request $request){
+        if ($request->input('act')!='makereport') return 0;
+        $username=\cache('user');
+        $dates=DB::table('createscene')->where(['status'=>16])->get();
+
+       if(!$dates->isEmpty()){
+            return json_encode($dates);
+       }
+        return $username;
+    }
+    public function logout(Request $request)
+    {
+        if ($request->input('act')!='logout') return 0;
+        Cache::forget('user');
+        session(['user'=>'']);
+        return 1;
     }
 }

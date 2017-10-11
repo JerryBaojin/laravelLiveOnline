@@ -69,7 +69,6 @@
 <div id="j-card" class="xcy-card fn-pt30 fn-pb30 fn-pl40 fn-clear">
     <ul>
         <li v-for="(item,index) in scenLists ">
-
             <div class="picbar">
                 <div class="j-edit pic" @click="goDetails(item.id)"><img :src="item.coverPic"></div>
                 <span :class="[(item.setTop!=0?'nowtop top j-stick':'top j-stick') ]" @click="setTop(item.id,$event,index)"><i class="pz-icon icon-top"></i> [[item.setTop==0?'置顶':'取消置顶']]</span><span class="j-reportnum top topnum" >[[item.reports]]条报道</span>

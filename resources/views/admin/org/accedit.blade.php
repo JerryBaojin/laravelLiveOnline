@@ -84,7 +84,6 @@
         },
        watch:{
            a:function (newvalue,old) {
-               console.log(newvalue);
                if (newvalue=='1'){
                    this.cpwd=true;
                    this.show=true;

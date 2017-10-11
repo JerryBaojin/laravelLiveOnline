@@ -62,9 +62,7 @@
     $(function(e){
         $('#image').on('change',function(e){
             $('.fn-pt25').hide();
-
             var imgUrl= window.URL.createObjectURL(this.files[0]);
-
             $('#imgSrc').attr('src',imgUrl);
            $('.upbtn').css(
                {"background":"url(\""+(imgUrl)+"\") no-repeat center",
@@ -86,7 +84,7 @@
                 success: function (data) {
                   if(data==1){
                       alert('添加成功');
-                      parent.document.getElementById('inframe').src="scene/scenelist"
+                      parent.document.getElementById('inframe').src="/admin/scene/scenelist"
                   }else{
                       alert('添加失败！请重新检查')
                   }

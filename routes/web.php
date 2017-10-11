@@ -28,6 +28,8 @@ Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], funct
     Route::post('/setAUser','SceneController@setAUser');
     Route::post('/editScene','SceneController@editScene');
     Route::post('/DeleteUser','SceneController@DeleteUser');
+    Route::post('/makerepot','SceneController@makeReport');
+    Route::post('/logout','SceneController@logout');
 });
 
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {

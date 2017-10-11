@@ -279,7 +279,6 @@
         methods:{
             goback:function () {
                 window.history.go(-1)
-
             },
             changePic:function (m,e) {
                 var imgUrl=window.URL.createObjectURL(e.currentTarget.files[0]);
@@ -374,7 +373,6 @@
                     this.keycode=rtmpUrls[1];
                 }
             },
-                
         },
         mounted:function () {
             this.id=parent.document.getElementById('inframe').dataset.pid;
