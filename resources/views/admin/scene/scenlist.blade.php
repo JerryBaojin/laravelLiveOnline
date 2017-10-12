@@ -85,7 +85,6 @@
 </div>
 
 <div id="j-list" class="fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide">
-
     <div class="overlay-content" style="">
         <div class="pz-boxhead fn-w520">
             <em class="icon pz-icon icon-warning"></em>
@@ -119,9 +118,6 @@
 </div>
 </div>
 <script>
-    //controller the main frame
-    // window.parent.document.getElementsByTagName('footer')[0]['className']="pz-overlay";
-    //document.getElementById('j-list').style='display:block';
 
 var list=new Vue({
     delimiters: ['[[', ']]'],

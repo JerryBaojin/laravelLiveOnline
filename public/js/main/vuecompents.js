@@ -5,7 +5,7 @@ var vue=new Vue({
     data:{
         user:'',
       //  page:"/admin/scene/scenelist"
-        page:"/admin/scene/scenelist"
+        page:"/admin/scene/showscenelist"
     },
     mounted:function(){
         this.user=document.cookie.split(';')[0].split('=')[1];

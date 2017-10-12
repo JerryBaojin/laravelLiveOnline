@@ -61,6 +61,7 @@
 
     $(function(e){
         $('#image').on('change',function(e){
+            console.log(e);
             $('.fn-pt25').hide();
             var imgUrl= window.URL.createObjectURL(this.files[0]);
             $('#imgSrc').attr('src',imgUrl);

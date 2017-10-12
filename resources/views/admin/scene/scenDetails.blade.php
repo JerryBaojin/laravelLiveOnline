@@ -256,9 +256,6 @@
 
 
         </script>
-
-
-
 <script>
     new Vue({
         delimiters: ['[[', ']]'],

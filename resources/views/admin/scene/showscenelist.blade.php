@@ -9,9 +9,10 @@
 </head>
 <body>
 <div id="app">
-    <component :is="currentView" :dates="items"></component>
-    <script id="edit" type="text/template">
-
+    <component :is="currentView" :dir="items" v-on:refreshbizlines="makeReport"></component>
+</div>
+<script id="edit" type="text/template">
+    <div>
         <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
             <span id="j-back" class="fn-left pz-btn btn-white"><i class="pz-icon icon-back1"></i> 返回</span>
         </div>
@@ -32,7 +33,12 @@
                         <div class="group2 fn-pl40">
                             <div class="row xcy-row fn-mb0">
                                 <div class="row-title">报道类型</div>
-                                <div class="row-content" data-field="type"><div><label><input type="radio" name="type" value="1" checked=""> 图文报道</label><label><input type="radio" name="type" value="4"> 视频报道</label></div></div>
+                                <div class="row-content" data-field="type">
+                                    <div>
+
+                                        <label><input type="radio" name="type" v-model="type" value="1" checked="">图文报道</label>
+                                        <label><input type="radio" name="type"  v-model="type" value="4"> 视频报道</label>
+                                    </div></div>
                             </div>
                             <div class="row xcy-row">
                                 <div id="j-upcontain" class="row-content">
@@ -43,13 +49,20 @@
                                                 <p class="fn-textcenter fn-mt5"></p>
                                             </div>
                                         </div>
-                                        <div id="j-uploader-selectimg" class="upbtn fn-cursor-pointer" style="position: relative; z-index: 1;">
-                                            <div class="fn-pt25">
-                                                <i class="pz-icon icon-img"></i>
-                                                <p class="fn-textcenter fn-mt5">点击选择报道图片</p>
-                                            </div>
+                                        <div id="j-cover" class="xcy-cutimg">
+                                            <label class="upbtn">
+                                                <div class="imgbar fn-hide"></div>
+                                                <div class="fn-pt25">
+                                                    <i class="pz-icon icon-img"></i>
+                                                    <p class="fn-textcenter fn-mt5">点击选择封面图片</p>
+                                                </div>
+                                                <div class="j-file-input fn-hide">
+                                                    <input required type="file"  @change="imgUrl($event)" id="image" name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                                </div>
+                                            </label>
                                         </div>
-                                        <div id="html5_1bs5alsiicku1igibn1rmk140o3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1bs5alsiicku1igibn1rmk140o3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" accept="image/jpeg,image/gif,image/png,image/bmp"></div></div>
+
+                                    </div>
                                     <div id="j-row-video" class="fn-hide" style="position: relative;">
                                         <div class="xcy-video">
                                             <div class="imgbar"></div>
@@ -97,34 +110,33 @@
                 </form>
             </div>
         </div>
+    </div>
+</script>
 
-    </script>
-    <script type="text/template" id="main">
+<script  id="mainScen" type="text/template">
+    <div>
+
         <div id="j-list" class="fn-pt30 fn-pb30 fn-pl40 fn-pr40">
             <div class="fn-fs14" style="color:#666;">当前正在直播的现场</div>
             <div class="pz-table fn-mt10">
+
                 <table class="table-noborder table-noheader">
                     <tbody>
                     <tr v-for="(item,index) in dates">
-                        <td>[[item.title]]</td>
-                        <td>[[item.seter]]
-                        </td>
-                        <td class="fn-textcenter">[[item.createAt]]</td>
-                        <td class="fn-textcenter">
-                            <a class="j-get" href="javascript:void(0)" @click="report(index,item.id)">发布报道</a>
-                        </td>
+                    <td>[[item.title]]</td>
+                    <td>[[item.seter]]
+                    </td>
+                    <td class="fn-textcenter">[[item.createAt]]</td>
+                    <td class="fn-textcenter">
+                    <a class="j-get" href="javascript:void(0)" @click="report(index,item.id)">发布报道</a>
+                    </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </script>
-    <script type="text/template" id="test">
-    <div>
-        13
     </div>
 </script>
-</div>
 
 <script>
   new Vue({
@@ -132,28 +144,67 @@
         el:'#app',
         data:{
             items:'',
-            tes:'1',
-            currentView:'main'
+            tes:'21',
+            currentView:''
         },components:{
-            main:{
+            mainS:{
                 delimiters: ['[[', ']]'],
-                template:'<div>asdasdas454</div>'
+                template:'#mainScen',
+                methods:{
+                    report:function (index,id) {
+                        localStorage.setItem("index", index);
+                        localStorage.setItem("id", id);
+                        var a=[index,id];
+                        this.$emit('refreshbizlines',a);
+                    }
+                },
+                data:function(){
+                    return{
+                        dates:'',
+                        flag:'1'
+                    }
+                },
+                props:['dir'],
+                mounted:function () {
+                    this.dates=this.dir;
+                   console.log(this.dates);
+
+                }
             },
             makereport:{
                 delimiters: ['[[', ']]'],
                 template:'#edit',
-                props:['dates']
+                props:['dir'],
+                data:function () {
+                    return{
+                    type:1
+                    }
+                },methods:{
+                    imgUrl:function (e) {
+                        $('.fn-pt25').hide();
+                        var imgUrl= window.URL.createObjectURL(e.target.files[0]);
+                        $('#imgSrc').attr('src',imgUrl);
+                        $('.upbtn').css(
+                            {"background":"url(\""+(imgUrl)+"\") no-repeat center",
+                                "background-size":"100% 100%"
+                            }
+                        );
+                    },
+                },
+                mounted:function () {
+                }
             }
       },
           methods:{
-                report:function (index,id) {
-                    console.log(index,id)
-                }
+
+              makeReport:function (a) {
+                  this.currentView='makereport';
+              }
           },
         mounted:function () {
-            this.$http.post('/Api/makerepot',{act:'makereport','_token':'{{csrf_token()}}'}).then(function (res) {
+                this.$http.post('/Api/makerepot',{act:'makereport','_token':'{{csrf_token()}}'}).then(function (res) {
                this.items=eval('('+res.body+')');
-               console.log(this.items)
+               this.currentView='makereport';
             },function (e) {
                 console.log(e)
             })
@@ -161,4 +212,5 @@
         }
     })
 </script>
+<script src="/js/jq.min.js"></script>
 </body></html>
