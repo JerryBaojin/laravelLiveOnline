@@ -14,11 +14,12 @@
 <script id="edit" type="text/template">
     <div>
         <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
-            <span id="j-back" class="fn-left pz-btn btn-white"><i class="pz-icon icon-back1"></i> 返回</span>
+            <span id="j-back" @click="back" class="fn-left pz-btn btn-white"><i class="pz-icon icon-back1"></i> 返回</span>
         </div>
         <div class="fn-pl40 fn-pr40 fn-pt30 fn-pb30 fn-clear">
             <div class="pz-form">
                 <form id="j-reportform">
+                    {{csrf_field()}}
                     <div class="wrap fn-clear">
                         <div class="group2">
                             <div class="row xcy-row">
@@ -42,64 +43,67 @@
                             </div>
                             <div class="row xcy-row">
                                 <div id="j-upcontain" class="row-content">
-                                    <div id="j-row-img" class="xcy-video fn-left">
-                                        <div class="j-uploader-tip upbtn toplayer fn-hide">
+                            <div v-if="type ==1">
+                                <div id="j-row-img" class="xcy-video fn-left">
+                                    <div class="j-uploader-tip upbtn toplayer fn-hide">
+                                        <div class="fn-pt25">
+                                            <i class="pz-icon icon-img"></i>
+                                            <p class="fn-textcenter fn-mt5"></p>
+                                        </div>
+                                    </div>
+                                    <div id="j-cover" class="xcy-cutimg">
+                                        <label class="upbtn">
+                                            <div class="imgbar fn-hide"></div>
                                             <div class="fn-pt25">
                                                 <i class="pz-icon icon-img"></i>
-                                                <p class="fn-textcenter fn-mt5"></p>
+                                                <p class="fn-textcenter fn-mt5">点击选择封面图片</p>
                                             </div>
-                                        </div>
-                                        <div id="j-cover" class="xcy-cutimg">
-                                            <label class="upbtn">
-                                                <div class="imgbar fn-hide"></div>
-                                                <div class="fn-pt25">
-                                                    <i class="pz-icon icon-img"></i>
-                                                    <p class="fn-textcenter fn-mt5">点击选择封面图片</p>
-                                                </div>
-                                                <div class="j-file-input fn-hide">
-                                                    <input required type="file"  @change="imgUrl($event)" id="image" name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
-                                                </div>
-                                            </label>
-                                        </div>
 
+                                            <div class="j-file-input fn-hide">
+                                                <input required type="file"  @change="imgUrl($event)" id="image" name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                            </div>
+                                        </label>
                                     </div>
-                                    <div id="j-row-video" class="fn-hide" style="position: relative;">
-                                        <div class="xcy-video">
-                                            <div class="imgbar"></div>
-                                            <div class="j-uploader-tip upbtn toplayer fn-hide">
-                                                <div class="fn-pt25">
-                                                    <i class="pz-icon icon-video"></i>
-                                                    <p class="fn-textcenter fn-mt5"></p>
-                                                </div>
-                                            </div>
-                                            <div class="videobar toplayer fn-hide">
-                                                <div class="fn-pt30">
-                                                    <span class="close"><i class="pz-icon icon-close"></i></span>
-                                                    <i class="pz-icon icon-video"></i>
-                                                    <p class="fn-textcenter fn-mt10">点击播放</p>
-                                                </div>
-                                            </div>
-                                            <div id="j-uploader-selectvideo" class="j-uploader-select upbtn fn-cursor-pointer" style="position: relative; z-index: 1;">
-                                                <div class="fn-pt25">
-                                                    <i class="pz-icon icon-video"></i>
-                                                    <p class="fn-textcenter fn-mt5">点击选择报道视频</p>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="row-title fn-w240 fn-clear">
-                                            <a id="j-material" class="fn-right" href="javascript:void(0)">查看全部</a>
-                                            <a id="j-videocover" class="fn-right fn-pointer fn-hide" href="javascript:void(0)">
-                                                <label>
-                                                    <span>修改封面</span>
-                                                    <div class="j-file-input fn-hide">
-                                                        <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png">
-                                                    </div>
-                                                </label>
-                                            </a>
-                                        </div>
+                                </div>
+                            </div>
+                                 <div v-else>
+                                     <div id="j-row-video" class="" style="position: relative;">
+                                         <div class="xcy-video">
+                                             <div class="imgbar"></div>
+                                             <div class="j-uploader-tip upbtn toplayer fn-hide">
+                                                 <div class="fn-pt25">
+                                                     <i class="pz-icon icon-video"></i>
+                                                     <p class="fn-textcenter fn-mt5"></p>
+                                                 </div>
+                                             </div>
+                                             <div class="videobar toplayer fn-hide">
 
-                                        <div id="html5_1bs5alsrfs761u8dhjelkcfle8_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1bs5alsrfs761u8dhjelkcfle8" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" accept="video/3gpp,video/mp4,.m3u8,video/x-ms-wmv,video/webm,video/quicktime,video/avi,video/mpeg,.mpeg1,.mpeg4,video/x-matroska,video/x-flv"></div></div>
+                                                 <div class="fn-pt30">
+                                                     <span class="close"><i class="pz-icon icon-close"></i></span>
+                                                     <i class="pz-icon icon-video"></i>
+                                                     <p class="fn-textcenter fn-mt10">点击播放</p>
+                                                 </div>
+                                             </div>
+                                             <div id="j-uploader-selectvideo" class="j-uploader-select upbtn fn-cursor-pointer" style="position: relative; z-index: 1;">
+                                                 <div class="fn-pt25">
+                                                     <label class="upbtn">
+
+                                                         <i class="pz-icon icon-video"></i>
+                                                         <p class="fn-textcenter fn-mt5">点击选择报道视频</p>
+                                                         <div class="j-file-input fn-hide">
+                                                             <input required type="file"  @change="imgUrl($event)" id="image" name="video" accept="video/3gpp,video/mp4,.m3u8,video/x-ms-wmv,video/webm,video/quicktime,video/avi,video/mpeg,.mpeg1,.mpeg4,video/x-matroska,video/x-flv">
+                                                         </div>
+                                                     </label>
+                                                 </div>
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -146,7 +150,8 @@
             items:'',
             tes:'21',
             currentView:''
-        },components:{
+        },
+      components:{
             mainS:{
                 delimiters: ['[[', ']]'],
                 template:'#mainScen',
@@ -167,8 +172,6 @@
                 props:['dir'],
                 mounted:function () {
                     this.dates=this.dir;
-                   console.log(this.dates);
-
                 }
             },
             makereport:{
@@ -183,26 +186,47 @@
                     imgUrl:function (e) {
                         $('.fn-pt25').hide();
                         var imgUrl= window.URL.createObjectURL(e.target.files[0]);
-                        $('#imgSrc').attr('src',imgUrl);
-                        $('.upbtn').css(
-                            {"background":"url(\""+(imgUrl)+"\") no-repeat center",
-                                "background-size":"100% 100%"
-                            }
-                        );
+                        console.log(imgUrl);
+                        if (this.type==1){
+                          //  $('#imgSrc').attr('src',imgUrl);
+                            $('.upbtn').css(
+                                {"background":"url(\""+(imgUrl)+"\") no-repeat center",
+                                    "background-size":"100% 100%"
+                                }
+                            );
+                        }else{
+                       $('#upvideo').attr('src',imgUrl);
+                       //video先上传 再回传地址
+                            var data=new FormData(document.getElementById('j-reportform'))
+                            this.$http.post('/Api/makeremake',data).then(function (res) {
+                                this.items=eval('('+res.body+')');
+                            },function (e) {
+                                console.log(e)
+                            })
+                       $('#tVideo').attr('autoplay','autoplay');
+                        }
+
                     },
+                    back:function () {
+                        this.$emit('refreshbizlines','mainS');
+                    }
                 },
                 mounted:function () {
                 }
             }
       },
           methods:{
-
               makeReport:function (a) {
-                  this.currentView='makereport';
+                  if(typeof (a)=='string'){
+                      this.currentView='mainS';
+                  }else{
+                      this.currentView='makereport';
+                  }
+
               }
           },
         mounted:function () {
-                this.$http.post('/Api/makerepot',{act:'makereport','_token':'{{csrf_token()}}'}).then(function (res) {
+               this.$http.post('/Api/makerepot',{act:'makereport','_token':'{{csrf_token()}}'}).then(function (res) {
                this.items=eval('('+res.body+')');
                this.currentView='makereport';
             },function (e) {

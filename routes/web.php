@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], funct
     Route::post('/DeleteUser','SceneController@DeleteUser');
     Route::post('/makerepot','SceneController@makeReport');
     Route::post('/logout','SceneController@logout');
+    Route::post('/makeremake','SceneController@makeremake');
 });
 
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {

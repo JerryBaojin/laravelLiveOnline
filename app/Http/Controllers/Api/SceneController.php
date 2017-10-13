@@ -325,4 +325,8 @@ class SceneController extends Controller
         session(['user'=>'']);
         return 1;
     }
+    public function makeremake(Request $request){
+        echo 1;
+
+    }
 }

@@ -8,6 +8,8 @@ var vue=new Vue({
         page:"/admin/scene/showscenelist"
     },
     mounted:function(){
+
+        if (document.cookie.split(';')[0].split('=')[0]!='user') return this.user='admin';
         this.user=document.cookie.split(';')[0].split('=')[1];
     },
     methods:{
