@@ -17,6 +17,10 @@ Route::group(['middleware' => ['web'],'prefix'=>'scen','namespace'=>'Front'], fu
 Route::get('/test',function (){
     return view('front.test');
 });
+Route::get('/',function (){
+    return view('error.error');
+});
+
 
 Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], function () {
     Route::post('/sceneAdd','SceneController@SceneAdd');

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\Return_;
 
 class SceneController extends Controller
 {
@@ -326,7 +327,51 @@ class SceneController extends Controller
         return 1;
     }
     public function makeremake(Request $request){
-        echo 1;
+        if ($request->input('act')=='setUp' && $request->input('fileType')=='video' ){
+            $image=$request->file('video');
+            if ($image->isValid()){
+                $type=$image->getClientOriginalExtension();//扩展名
+                $original=$image->getRealPath();//临时绝对路径
+                $filename=date('His').'-'.uniqid().".".$type;
+                $path=$image->move(base_path().'/public/flur',$filename);
+                $path= '/flur/'.$filename;
+                return json_encode($path);
+            }
+        }elseif($request->input('act')=='setUp' && $request->input('fileType')=='pic'){
+           return json_encode($request->file('image'));
+
+            $image=$request->file('image');
+            if ($image->isValid()){
+                $type=$image->getClientOriginalExtension();//扩展名
+                $original=$image->getRealPath();//临时绝对路径
+                $filename=date('His').'-'.uniqid().".".$type;
+                $path=$image->move(base_path().'/public/img/commentsP',$filename);
+                $path= '/img/commentsP/'.$filename;
+                return json_encode($path);
+            }
+        }elseif ($request->input('act')=='del'){
+         return json_encode(@unlink(substr($request->input('target'),1,strlen($request->input('target'))-1)));
+        }else{
+            return json_encode($request->file());
+            //final commit
+            $fileName=null;
+            $dir=null;
+
+            $request->input('type')==1?$fileName='image':$fileName='video';
+            $fileName=='image'?$dir='/public/img/commentsP':$dir=false;//视频格式文件已经上传
+            if (!empty($request->file())){
+                $image=$request->file($fileName);
+                if ($image->isValid() && $dir){
+                    $type=$image->getClientOriginalExtension();//扩展名
+                    $original=$image->getRealPath();//临时绝对路径
+                    $filename=date('His').'-'.uniqid().".".$type;
+                    $path=$image->move(base_path().$dir,$filename);
+                    $path= '/img/commentsP/'.$filename;
+                }
+            }
+
+            return json_encode($request->input());
+        }
 
     }
 }
