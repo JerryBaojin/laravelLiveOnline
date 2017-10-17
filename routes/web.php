@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], funct
     Route::post('/makerepot','SceneController@makeReport');
     Route::post('/logout','SceneController@logout');
     Route::post('/makeremake','SceneController@makeremake');
+    Route::post('/editReport','SceneController@editReport');
 });
 
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {

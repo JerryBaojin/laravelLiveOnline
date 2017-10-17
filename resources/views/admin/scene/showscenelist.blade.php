@@ -9,7 +9,12 @@
 </head>
 <body>
 <style>
-
+    .fn-pt25 {
+        padding-top: 20px!important;
+    }
+    .close:hover{
+        cursor: pointer;
+    }
     .progress{background:#000 ;color: white}
     .close{position: absolute;
         top: 8px;
@@ -23,7 +28,6 @@
         border-radius: 50%;}
     .progress div:nth-child(1){padding: 20px 0 0 0}
     .xcy-video{background: #000}
-    .fn-left{    padding: 10px 0 0 10px;}
 </style>
 <div id="app">
     <component :is="currentView" :dir="items" v-on:refreshbizlines="makeReport"></component>
@@ -45,7 +49,7 @@
                             </div>
                             <div class="row xcy-row">
                                 <div class="row-title">所属现场</div>
-                                <div class="row-content" data-field="scene"><input type="text" v-model="dir[0].title" name="scene" class="disabled" disabled=""></div>
+                                <div class="row-content" data-field="scene"><input type="text" v-model="dir[dirIndex]['title']" name="scene" class="disabled" ></div>
                             </div>
                         </div>
                         <div class="group2 fn-pl40">
@@ -69,19 +73,21 @@
                                         </div>
                                     </div>
                                     <div id="j-cover" class="xcy-cutimg">
-                                         <label class="upbtn">
+                                         <label class="upbtn" @click="reset">
                                             <div class="imgbar fn-hide"></div>
                                             <div class="fn-pt25">
                                                 <i class="pz-icon icon-img"></i>
-                                                <p class="fn-textcenter fn-mt5">点击选择封面图片</p>
+                                                <p class="fn-textcenter fn-mt5">[[uploadsDtail.progress]]</p>
                                             </div>
+                                             <div  v-show="uploadsDtail.close">[[uploadsDtail.mesg]]</div>
+                                             [[process]]
                                             <div class="j-file-input fn-hide">
-                                                <input required type="file"   @change="imgUrl($event)" id="image" name="image[]" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                                <input required type="file"   @change="imgUrl($event)" id="image" name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
                                             </div>
                                         </label>
                                     </div>
                                 </div>
-                                    <div v-for="x in picList" v-show="ispicList">
+                                    <div v-for="(x,index) in picList" v-show="ispicList">
                                         <div id="j-row-img" class=" fn-left">
                                             <div class="j-uploader-tip upbtn toplayer fn-hide">
                                                 <div class="fn-pt25" style="display: none;">
@@ -89,15 +95,14 @@
                                                     <p class="fn-textcenter fn-mt5"></p>
                                                 </div>
                                             </div>
-                                            <div id="j-cover" class="xcy-cutimg" >
-                                        <span @click="close(x)" class="close" style="">
+                                            <div id="j-cover"  class="xcy-cutimg" >
+                                                <img :src="x" style="width: 100%;height: 100%;">
+                                        <span @click="close(index)" class="close" style="">
                                             <i class="pz-icon icon-close" style="font-size: 25px;"></i>
                                         </span>
                                             </div>
                                         </div>
                                     </div>
-
-
                             </div>
                                  <div v-else>
                                      <div id="j-row-video" class="" style="position: relative;">
@@ -116,10 +121,12 @@
                                                      <p class="fn-textcenter fn-mt10">点击播放</p>
                                                  </div>
                                              </div>
-                                             <div id="j-uploader-selectvideo" class="j-uploader-select upbtn fn-cursor-pointer" style="position: relative; z-index: 1;">
+                                             <div id="j-uploader-selectvideo" @click="preView" class="j-uploader-select upbtn fn-cursor-pointer" style="position: relative; z-index: 1;">
+                                                 <video width="320" height="240"  controls v-show="hasVideo" :src="items"></video>
+                                                 <div v-show="!hasVideo" id="vcover">
                                                 <div class="progress"  v-show="tag" style="width: 100%;height: 100%">
-                                                    <div @click="preView"><i class="pz-icon icon-video"></i></div>
-                                                    <span v-show="uploadsDtail.close" @click="close" class="close"><i class="pz-icon icon-close" style="font-size: 25px;"></i></span>
+                                                    <div ><i class="pz-icon icon-video"></i></div>
+                                                    <span v-show="uploadsDtail.close" @click="close('video')" class="close"><i class="pz-icon icon-close" style="font-size: 25px;"></i></span>
                                                     <div>[[uploadsDtail.mesg]]</div>
                                                     [[process]]
                                                 </div>
@@ -132,7 +139,7 @@
                                                          </div>
                                                      </label>
                                                  </div>
-
+                                                 </div>
                                              </div>
                                          </div>
                                      </div>
@@ -213,54 +220,73 @@
                 props:['dir'],
                 data:function () {
                     return{
+                        dirIndex:0,
+                        hasVideo:false,
                         type:1,
                         process:'',
                         tag:false,
                         ispicList:true,
                         picList:new Array(),
+                        items:'',
                         uploadsDtail:{
                             close:false,
-                            mesg:'上传中'
+                            mesg:'上传中...',
+                            progress:"点击选择封面图片"
                         },
                         vUrl:''
                     }
                 },
                 methods:{
+                    reset:function () {
+                        this.uploadsDtail.close=false;
+                        this.uploadsDtail.mesg='上传中';
+                        this.uploadsDtail.progress='点击选择封面图片';
+                        this.process='';
+                    },
                     submit:function () {
+
                         var data=new FormData(document.getElementById('j-reportform'));
                         data.append('type',this.type);
-                        data.append('id',this.dir[0].id);
+                        data.append('pics',this.picList);
+                        data.append('id',localStorage.getItem('id'));
+                        data.set('video',this.items);
+                        data.set('scene',this.dir[this.dirIndex]['title']);
+                        data.has('image')?data.delete('image'):'';
+
                         this.$http.post('/Api/makeremake',data).then(function (res) {
-                            console.log(res)
+                           if(res.body=='1'){
+                               alert('提交成功！');
+                               parent.document.getElementById('inframe').src='/admin/scene/reportlist';
+                           }
                         },function (e) {
                             console.log(e)
                         })
                     },
                     imgUrl:function (e) {
-                        console.log()
                         var target=$('#j-row-img').clone(true);
                         var that=this;
-                        $('.fn-pt25').hide();
-                        var imgUrl= window.URL.createObjectURL(e.target.files[0]);
+                        $('#fn-pt25').hide();
+                       // var imgUrl= window.URL.createObjectURL(e.target.files[0]);
                         if (this.type==1){
-                          //  $('#imgSrc').attr('src',imgUrl);
-                            $(e.path[3]).css(
-                                {"background":"url(\""+(imgUrl)+"\") no-repeat center",
-                                    "background-size":"100% 100%"
-                                }
-                            );
                             var data=new FormData(document.getElementById('j-reportform'));
                             data.append('act','setUp');
                             data.append('fileType','pic');
-                            this.$http.post('/Api/makeremake',data).then(function (res) {
-                                 that.picList.push(1);
+                            this.$http.post('/Api/makeremake',data,{progress:function (event) {
+                                var size=event.total;
+                                that.process=parseInt(event.loaded/size*100)+'%';
+                                if(that.process=='100%'){
+                                    that.uploadsDtail.close=true;
+                                    that.uploadsDtail.mesg='上传完成，大小'+parseInt(size/1024)+'k';
+                                    that.uploadsDtail.progress='点击继续上传'
+                                }
+                            }}).then(function (res) {
+                                 that.picList.push(res.body);
                                 that.uploadsDtail.close=true;
-                                this.items=eval('('+res.body+')');
                             },function (e) {
                                 console.log(e)
                             })
                         }else{
-                       $('#upvideo').attr('src',imgUrl);
+                       //$('#upvideo').attr('src',imgUrl);
                        //video先上传 再回传地址
                             var data=new FormData(document.getElementById('j-reportform'));
                            data.append('act','setUp');
@@ -274,29 +300,38 @@
                                    that.uploadsDtail.mesg='上传完成，大小'+parseInt(size/1024000)+'m';
                                }
                             }}).then(function (res) {
-                                this.items=eval('('+res.body+')');
+                                that.items=res.body;
                             },function (e) {
                                 console.log(e)
                             })
                        $('#tVideo').attr('autoplay','autoplay');
                         }
-
                     },
                     back:function () {
                         this.$emit('refreshbizlines','mainS');
                     },
                     preView:function () {
-                        console.log('clicked')
+                        if (this.items!=''){
+                            this.hasVideo=true;
+                        }
                     },
-                    close:function () {
+                    close:function (index) {
+                        var target=this.items;
+                        if (index!='video'){
+                            console.log(index);
+                            target=this.picList[index];
+                        }
                         var that=this;
-                        this.$http.post('/Api/makeremake',{act:'del','_token':'{{csrf_token()}}','target':this.items}).then(function (res) {
+                        this.$http.post('/Api/makeremake',{act:'del','_token':'{{csrf_token()}}','target':target}).then(function (res) {
+
                             if (res.body=='true'){
+                                that.process='';
+                                this.picList.splice(index,1);
                                 that.tag=false;
-
-
                                 that.uploadsDtail.close=false;
                                 that.uploadsDtail.mesg='上传中...';
+                            }else{
+                                alert('upload失败！')
                             }
                         },function (e) {
                             console.log(e)
@@ -304,6 +339,7 @@
                     }
                 },
                 mounted:function () {
+                    this.dirIndex=parseInt(localStorage.getItem('index'));
                 }
             }
       },
@@ -320,7 +356,7 @@
         mounted:function () {
                this.$http.post('/Api/makerepot',{act:'makereport','_token':'{{csrf_token()}}'}).then(function (res) {
                this.items=eval('('+res.body+')');
-               this.currentView='makereport';
+               this.currentView='mainS';
             },function (e) {
                 console.log(e)
             })

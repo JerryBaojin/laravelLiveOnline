@@ -146,7 +146,7 @@ var list=new Vue({
     },
     methods:{
         goDetails:function (id) {
-           parent.document.getElementById('inframe').dataset.pid=id
+            parent.document.getElementById('inframe').dataset.pid=id
             parent.document.getElementById('inframe').src="/admin/scene/scenDetails"
         },
         fullScreen:function () {
