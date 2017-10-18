@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html><head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -7,6 +8,8 @@
     <link rel="stylesheet" href="/css/main/ui.css">
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
+    <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/4.12/video.js"></script>
 </head>
 <style>
     .fn-pt25 {
@@ -154,11 +157,13 @@
                                                     </div>
                                                 </div>
                                                 <div id="j-uploader-selectvideo" @click="preView" class="j-uploader-select upbtn fn-cursor-pointer" style="position: relative; z-index: 1;">
-                                                    <video width="320" height="240"  controls v-show="hasVideo" :src="items"></video>
+                                                    <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" width="320" height="240"  controls v-show="hasVideo" :src="items"></video>
+                                                    <span v-show="uploadsDtail.close" @click="close('video')" class="close"><i class="pz-icon icon-close" style="font-size: 25px;"></i></span>
+
                                                     <div v-show="!hasVideo" id="vcover">
                                                         <div class="progress"  v-show="tag" style="width: 100%;height: 100%">
                                                             <div ><i class="pz-icon icon-video"></i></div>
-                                                            <span v-show="uploadsDtail.close" @click="close('video')" class="close"><i class="pz-icon icon-close" style="font-size: 25px;"></i></span>
+
                                                             <div>[[uploadsDtail.mesg]]</div>
                                                             [[process]]
                                                         </div>
@@ -298,7 +303,10 @@
                         ispicList:true,
                         bakpicList:new Array(),
                         picList:new Array(),
-                        rmpicList:new Array(),
+                        rmList:{
+                            img:new Array(),
+                            video:new Array()
+                        },
                         items:'',
                         uploadsDtail:{
                             close:false,
@@ -307,6 +315,12 @@
                         },
                         vUrl:''
                     }
+                },
+                watch:{
+                 type(newValue,b){
+                     if (parseInt(newValue)==4){
+                     }
+                 }
                 },
                 methods:{
                     reset:function () {
@@ -387,35 +401,41 @@
                     },
 
                     close:function (index) {
-
+                        console.log('`````````````````````````````````````````')
                         var that=this;
                         function reset(aim) {
                             aim.process='';
-                            aim.picList.splice(index,1);
                             aim.tag=false;
+                            aim.hasVideo=false;
                             aim.uploadsDtail.close=false;
                             aim.uploadsDtail.mesg='上传中...';
                         }
-                        var target=this.items;
+                        var target=null;
                         var delDeep=false;
                         if (index!='video'){
+                            console.log(this.bakpicList);
                             target=this.picList[index];
-                            for(var x=0;x<=this.bakpicList.length;x++){
-                                if (this.bakpicList[x]==target){
-                                    //已经存在的
-                                    that.rmpicList.push(this.picList[index]);
-                                    that.picList.splice(index,1);
-                                    reset(that);
-                                }else{
-                                    //直接删除
-                                    delDeep=true;
-                                }
-                            }
+                            console.log($.inArray(target, this.bakpicList))
+                          if($.inArray(target, this.bakpicList)!=-1){
+                              that.rmList['img'].push(this.picList[index]);
+                              that.picList.splice(index,1);
+                              reset(that);
+                          }else{
+                              console.log('del'+target)
+                              delDeep=true;
+                          }
+                        }else{
+                            //判断是否是新上传的文件
+                            this.dir[this.dirIndex]['video']==this.items?that.rmList['video'].push(this.items):delDeep=true;
+                            target=this.items;
                         }
                         if (delDeep){
                         this.$http.post('/Api/makeremake',{act:'del','_token':'{{csrf_token()}}','target':target}).then(function (res) {
                             if (res.body=='true'){
+                                parseInt(that.type)==4?this.items='':'';
                                reset(that);
+                            }else{
+                                alert('删除失败！')
                             }
                         },function (e) {
                             console.log(e)
@@ -428,6 +448,13 @@
                     if (this.dir[this.dirIndex]['pics'] !=null){
                         this.picList=this.dir[this.dirIndex]['pics'];
                         this.bakpicList=this.picList;
+                        console.log(this.bakpicList)
+                    }
+                    //init video tag
+                    if (this.dir[this.dirIndex]['video']!=null || this.dir[this.dirIndex]['video'] !=''){
+                        this.items=this.dir[this.dirIndex]['video'];
+                        this.hasVideo=true;
+                        this.uploadsDtail.close=true;
                     }
                 }
             }
@@ -452,7 +479,6 @@
                 })
                 this.items=dates;
                 this.currentView='mainS';
-
             },function (e) {
                 console.log(e)
             })

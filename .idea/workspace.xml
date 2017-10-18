@@ -5,17 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="814d1aad-b3f6-4cef-b14c-4eb66bfba7fd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/075727-59e46667ec6b4.PNG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/082325-59e46c7d48537.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/082339-59e46c8bad304.PNG" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/main/vuecompents.js" afterPath="$PROJECT_DIR$/public/js/main/vuecompents.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/032152-59e5775052e1c.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/032309-59e5779d7a5a8.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/032408-59e577d87b0c6.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/032455-59e57807362ce.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/032603-59e5784b4683b.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/032643-59e57873accfb.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/034317-59e57c55d7765.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/040013-59e5804dcd2f8.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/065007-59e5a81f0c7ca.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/065133-59e5a875210ec.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/065530-59e5a9623aba0.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/065556-59e5a97cb5f28.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/065815-59e5aa07d01d2.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/065912-59e5aa40b9939.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/070019-59e5aa8397cac.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/070106-59e5aab28d954.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/070139-59e5aad36f283.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/flur/072343-59e5afffc8f0b.mp4" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/030943-59e574777404a.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032054-59e577161f16f.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032148-59e5774c47eea.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032301-59e57795d0d1f.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032304-59e5779855b9c.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032405-59e577d508148.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032425-59e577e9dcfc9.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032448-59e5780095097.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032451-59e578037db95.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032810-59e578cae528e.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/032813-59e578cddc431.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/040007-59e580472db61.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/040010-59e5804a2a922.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/065552-59e5a978e03cf.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/072337-59e5aff9959b8.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/072340-59e5affc1c6ee.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/commentsP/095146-59e5d2b25ba71.PNG" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/reportlist.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/reportlist.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/scene/showscenelist.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/scene/showscenelist.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/welcome.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/welcome.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <ignored path="blog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,103 +75,34 @@
     <favorites_list name="blog" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.337386">
+    <splitter split-orientation="horizontal" split-proportion="0.5347092">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.49844074">
-          <split-first>
-            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="showscenelist.blade.php" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/showscenelist.blade.php">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="104">
-                      <caret line="333" column="45" lean-forward="false" selection-start-line="333" selection-start-column="45" selection-end-line="333" selection-end-column="45" />
-                      <folding>
-                        <element signature="e#10752#11477#0#HTML" expanded="false" />
-                        <element signature="e#17628#17888#0#HTML" expanded="false" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="comment.blade.php" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/comment.blade.php">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="133">
-                      <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name=".env" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/.env">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="171">
-                      <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="SceneController.php" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="236">
-                      <caret line="358" column="23" lean-forward="false" selection-start-line="358" selection-start-column="17" selection-end-line="358" selection-end-column="23" />
-                      <folding>
-                        <element signature="e#380#1336#0#PHP" expanded="false" />
-                        <element signature="e#1341#2339#0#PHP" expanded="false" />
-                        <element signature="e#2344#4153#0#PHP" expanded="false" />
-                        <element signature="e#4158#4413#0#PHP" expanded="false" />
-                        <element signature="e#4418#6200#0#PHP" expanded="false" />
-                        <element signature="e#6205#7439#0#PHP" expanded="false" />
-                        <element signature="e#6314#6586#0#PHP" expanded="false" />
-                        <element signature="e#6595#6806#0#PHP" expanded="false" />
-                        <element signature="e#7444#7984#0#PHP" expanded="false" />
-                        <element signature="e#7989#10631#0#PHP" expanded="false" />
-                        <element signature="e#10636#11312#0#PHP" expanded="false" />
-                        <element signature="e#11317#11640#0#PHP" expanded="false" />
-                        <element signature="e#11645#11833#0#PHP" expanded="false" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-first>
-          <split-second>
-            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="showscenelist.blade.php" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/showscenelist.blade.php">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="152">
-                      <caret line="74" column="73" lean-forward="true" selection-start-line="74" selection-start-column="73" selection-end-line="74" selection-end-column="73" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-second>
-        </splitter>
-      </split-first>
-      <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <file leaf-file-name="showscenelist.blade.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/showscenelist.blade.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="475">
-                  <caret line="37" column="28" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="28" />
+                <state relative-caret-position="76">
+                  <caret line="336" column="42" lean-forward="false" selection-start-line="336" selection-start-column="42" selection-end-line="336" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="vuecompents.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/js/main/vuecompents.js">
+          <file leaf-file-name="comment.blade.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/comment.blade.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="418">
-                  <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+                <state relative-caret-position="133">
+                  <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name=".env" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/.env">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="171">
+                  <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -155,13 +111,23 @@
           <file leaf-file-name="reportlist.blade.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/reportlist.blade.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="241">
-                  <caret line="402" column="67" lean-forward="false" selection-start-line="402" selection-start-column="67" selection-end-line="402" selection-end-column="67" />
-                  <folding>
-                    <element signature="n#script#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                    <element signature="e#14927#15653#0#HTML" expanded="false" />
-                    <element signature="e#17740#20313#0#HTML" expanded="false" />
-                  </folding>
+                <state relative-caret-position="302">
+                  <caret line="134" column="71" lean-forward="false" selection-start-line="134" selection-start-column="66" selection-end-line="134" selection-end-column="71" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="reportlist.blade.php" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/reportlist.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="587">
+                  <caret line="427" column="16" lean-forward="false" selection-start-line="427" selection-start-column="16" selection-end-line="427" selection-end-column="16" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -182,8 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>现场</find>
-      <find>update</find>
       <find>原</find>
       <find>确认</find>
       <find>hout</find>
@@ -211,7 +175,9 @@
       <find>所属现场</find>
       <find>发布时间</find>
       <find>点击选择封面</find>
+      <find>视频报答</find>
       <find>close</find>
+      <find>bakpicList</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -290,8 +256,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="477" />
-    <option name="y" value="4" />
+    <option name="x" value="-967" />
+    <option name="y" value="40" />
     <option name="width" value="1940" />
     <option name="height" value="1098" />
   </component>
@@ -313,7 +279,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -593,6 +558,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -763,6 +729,7 @@
       <workItem from="1508202765418" duration="4386000" />
       <workItem from="1508208356147" duration="5108000" />
       <workItem from="1508222495066" duration="12139000" />
+      <workItem from="1508308289233" duration="7821000" />
     </task>
     <task id="LOCAL-00001" summary="build main frame">
       <created>1505535253240</created>
@@ -789,14 +756,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="522824000" />
+    <option name="totallyTimeSpent" value="530645000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="477" y="4" width="1940" height="1098" extended-state="0" />
+    <frame x="-967" y="40" width="1940" height="1098" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16891892" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16891892" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14387031" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.00987526" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1165,22 +1132,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/comment.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="182" column="44" lean-forward="true" selection-start-line="182" selection-start-column="44" selection-end-line="182" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenlist.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
@@ -1201,29 +1152,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="12" column="6" lean-forward="true" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/main/vuecompents.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
-          <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="37" column="28" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="28" />
+          <caret line="22" column="25" lean-forward="false" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/SceneController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
+        <state relative-caret-position="931">
           <caret line="358" column="23" lean-forward="false" selection-start-line="358" selection-start-column="17" selection-end-line="358" selection-end-column="23" />
           <folding>
             <element signature="e#380#1336#0#PHP" expanded="false" />
@@ -1245,24 +1187,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/showscenelist.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="333" column="45" lean-forward="false" selection-start-line="333" selection-start-column="45" selection-end-line="333" selection-end-column="45" />
-          <folding>
-            <element signature="e#10752#11477#0#HTML" expanded="false" />
-            <element signature="e#17628#17888#0#HTML" expanded="false" />
-          </folding>
+        <state relative-caret-position="76">
+          <caret line="336" column="42" lean-forward="false" selection-start-line="336" selection-start-column="42" selection-end-line="336" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/comment.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/scenDetails.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="182" column="44" lean-forward="true" selection-start-line="182" selection-start-column="44" selection-end-line="182" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/scene/reportlist.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="402" column="67" lean-forward="false" selection-start-line="402" selection-start-column="67" selection-end-line="402" selection-end-column="67" />
-          <folding>
-            <element signature="n#script#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="e#14927#15653#0#HTML" expanded="false" />
-            <element signature="e#17740#20313#0#HTML" expanded="false" />
-          </folding>
+        <state relative-caret-position="587">
+          <caret line="427" column="16" lean-forward="false" selection-start-line="427" selection-start-column="16" selection-end-line="427" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
