@@ -351,6 +351,7 @@ class SceneController extends Controller
          return json_encode(@unlink(substr($request->input('target'),1,strlen($request->input('target'))-1)));
         }else{
             $datas=$request->input();
+            $datas['video']==null?$video='':$video=$datas['video'];
             $logInfo=DB::table('comments')->insert([
                 'pid'=>$datas['id'],
                 'content'=>$datas['content'],
@@ -374,6 +375,40 @@ class SceneController extends Controller
         if ($request->input('act')=='editreport'){
             $r=DB::table('comments')->get();
             return json_encode($r);
+        }elseif ($request->input('act')=='saveEdits'){
+            $datas=$request->input('dates');
+            $datas['pics']==null?$pics=$datas['pics']:$pics=join(',',$datas['pics']);
+            $logInfo=DB::table('comments')->where(['id'=>$datas['id']])->update([
+                'content'=>$datas['content'],
+                'pics'=>$pics,
+                'video'=>$datas['video'],
+                'commiter'=>\cache('user')
+            ]);
+            if ($logInfo){
+                return 1;
+            }else{
+                return 0;
+            }
         }
     }
+    public function makeComments(Request $request){
+       if ($request->input('act')=='makeComments'){
+          $re= DB::table('commits')->insert([
+               'pid'=>$request->input('pid'),
+               'content'=>$request->input('content'),
+               'creatAt'=>date('m-d H-i',time()),
+               'scene'=>$request->input('scene'),
+               'name'=>$request->input('name')
+           ]);
+          if ($re){
+              return 1;
+          }else{
+              return 0;
+          }
+       }elseif ($request->input('act')=='getComments'){
+           $re=DB::table('commits')->get()->toArray();
+           var_dump($re);
+       }
+    }
+
 }

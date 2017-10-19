@@ -39,7 +39,6 @@
 <body>
 
 <div class="container" id="app">
-    {{$id}}
     {{--col-md-4 col-md-offset-4--}}
     <div id="main" class="col-md-6 col-md-offset-4 .col-sm-1 	col-xs-12">
 
@@ -124,8 +123,9 @@
 
 
         <div class="boo">
-            <input type="text"  id="comment" placeholder="我也说俩句...">
-            <button type="button" id="btn" class="btn btn-primary">提交</button>
+            <input type="hidden" v-model="name">
+            <input type="text"  id="comment" v-model="comments" placeholder="我也说俩句...">
+            <button type="button" id="btn" @click="submit(  {{$id}})" class="btn btn-primary">提交</button>
         </div>
 
     </div>
@@ -136,7 +136,28 @@
         delimiters: ['[[', ']]'],
         el: '#app',
         data:{
-
+            pid:'{{$id}}',
+            name:'name',
+            comments:''
+        }
+        ,methods:{
+            submit:function (pid) {
+                this.$http.post('/Api/makeComments',{act:'makeComments','scene':'{{$scene}}','_token':'{{csrf_token()}}','pid':pid,'name':this.name,'content':this.comments}).then(function (res) {
+                    console.log(res)
+                },function (e) {
+                    console.log(e)
+                })
+            },
+            getCommits:function () {
+                this.$http.post('/Api/makeComments',{act:'getComments','_token':'{{csrf_token()}}','pid':this.pid}).then(function (res) {
+                    console.log(res)
+                },function (e) {
+                    console.log(e)
+                })
+            }
+        },
+        mounted:function () {
+              this.getCommits();
         }
     })
 

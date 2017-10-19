@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="row fn-left fn-rate40">
                                         <div class="row-title">发布时间</div>
-                                        <div class="row-content" data-field="createTime"><input style="width: 159px !important;" type="text" v-model="dir[dirIndex].commitAt" class="disabled" disabled="" name="commitAt" class="fn-rate60" required="" placeholder="发布时间"></div>
+                                        <div class="row-content" data-field="createTime"><input style="width: 159px !important;" type="text" v-model="dir[dirIndex].commitAt"  name="commitAt" class="fn-rate60 disabled" required="" placeholder="发布时间"></div>
                                     </div>
                                 </div>
                             </div>
@@ -225,14 +225,16 @@
                 </div>
                 </div>
                 <div v-else-if="x.pics!=null">
+
                     <div class="picbar" @click="report(index,x.id)">
-                        <span v-show="x.pics.length>1" class="type">[[x.pics.video!=''?"多图,视频":"多图"]]</span>
+                        <span v-show="x.pics.length>1" class="type">[[x.video!=null?"多图,视频":"多图"]]</span>
+                        <span v-show="x.pics.length==1" class="type">[[x.video!=null?"图片,视频":"图片"]]</span>
                         <div class="title fn-ellipsis">[[x.content]]</div>
                         <div class="pic j-edit" >
                             <img :src="x.pics[0]"></div>
                     </div>
                 </div>
-                <div v-else-if="x.video!=''">
+                <div v-else-if="x.video!=null">
                     <div class="picbar" @click="report(index,x.id)">
                         <span  class="type">视频</span>
                         <div class="title fn-ellipsis">[[x.content]]</div>
@@ -271,7 +273,6 @@
                 template:'#mainScen',
                 methods:{
                     report:function (index,id) {
-
                         localStorage.setItem("index", index);
                         localStorage.setItem("id", id);
                         var a=[index,id];
@@ -303,14 +304,12 @@
                         ispicList:true,
                         bakpicList:new Array(),
                         picList:new Array(),
-                        rmList:{
-                            img:new Array(),
-                            video:new Array()
-                        },
                         items:'',
+                        saved:false,
+                        originalDates:'',
                         uploadsDtail:{
                             close:false,
-                            mesg:'上传中...',
+                            mesg:'',
                             progress:"点击选择封面图片"
                         },
                         vUrl:''
@@ -325,22 +324,19 @@
                 methods:{
                     reset:function () {
                         this.uploadsDtail.close=false;
-                        this.uploadsDtail.mesg='上传中';
+                        this.uploadsDtail.mesg='';
                         this.uploadsDtail.progress='点击选择封面图片';
                         this.process='';
                     },
                     submit:function () {
-                        var data=new FormData(document.getElementById('j-reportform'));
-                        data.append('type',this.type);
-                        data.append('pics',this.picList);
-                        data.append('id',localStorage.getItem('id'));
-                        data.set('video',this.items);
-                        data.has('image')?data.delete('image'):'';
-
-                        this.$http.post('/Api/makeremake',data).then(function (res) {
+                        if (this.dir[this.dirIndex]['pics']!=null){
+                           // this.dir[this.dirIndex]['pics']=this.dir[this.dirIndex]['pics'].join(',');
+                        }
+                        this.$http.post('/Api/editReport',{act:'saveEdits','_token':'{{csrf_token()}}',dates:this.dir[this.dirIndex]}).then(function (res) {
                             if(res.body=='1'){
+                                this.saved=true;
                                 alert('提交成功！');
-                                parent.document.getElementById('inframe').src='/admin/scene/reportlist';
+                                this.$emit('refreshbizlines','mainS');
                             }
                         },function (e) {
                             console.log(e)
@@ -365,6 +361,7 @@
                                 }
                             }}).then(function (res) {
                                 that.picList.push(res.body);
+                                that.dir[that.dirIndex]['pics']= that.picList;
                                 that.uploadsDtail.close=true;
                             },function (e) {
                                 console.log(e)
@@ -385,6 +382,7 @@
                                 }
                             }}).then(function (res) {
                                 that.items=res.body;
+                                that.dir[that.dirIndex]['video']=res.body;
                             },function (e) {
                                 console.log(e)
                             })
@@ -392,6 +390,9 @@
                         }
                     },
                     back:function () {
+                        if(!this.saved){
+                            this.dir[this.dirIndex]=JSON.parse(this.originalDates);
+                        }
                         this.$emit('refreshbizlines','mainS');
                     },
                     preView:function () {
@@ -401,7 +402,6 @@
                     },
 
                     close:function (index) {
-                        console.log('`````````````````````````````````````````')
                         var that=this;
                         function reset(aim) {
                             aim.process='';
@@ -413,25 +413,34 @@
                         var target=null;
                         var delDeep=false;
                         if (index!='video'){
-                            console.log(this.bakpicList);
                             target=this.picList[index];
-                            console.log($.inArray(target, this.bakpicList))
                           if($.inArray(target, this.bakpicList)!=-1){
-                              that.rmList['img'].push(this.picList[index]);
-                              that.picList.splice(index,1);
+
+                              that.picList.splice(index,1);//
+                              that.dir[that.dirIndex]['pics']=that.picList;
                               reset(that);
                           }else{
-                              console.log('del'+target)
+                              that.picList.splice(index,1);
                               delDeep=true;
                           }
+
                         }else{
                             //判断是否是新上传的文件
-                            this.dir[this.dirIndex]['video']==this.items?that.rmList['video'].push(this.items):delDeep=true;
+                           if (this.dir[this.dirIndex]['video']==this.items)
+                           {
+                               that.dir[that.dirIndex]['video']=null;
+                               that.items='';
+                               reset(that);
+                           }
+                           else{
+                               delDeep=true;
+                           }
                             target=this.items;
                         }
                         if (delDeep){
                         this.$http.post('/Api/makeremake',{act:'del','_token':'{{csrf_token()}}','target':target}).then(function (res) {
                             if (res.body=='true'){
+                                alert('删除成功！')
                                 parseInt(that.type)==4?this.items='':'';
                                reset(that);
                             }else{
@@ -444,17 +453,23 @@
                     }
                 },
                 mounted:function () {
+                      var that=this;
                     this.dirIndex=parseInt(localStorage.getItem('index'));
+                    this.originalDates=JSON.stringify(this.dir[this.dirIndex]);
                     if (this.dir[this.dirIndex]['pics'] !=null){
-                        this.picList=this.dir[this.dirIndex]['pics'];
-                        this.bakpicList=this.picList;
-                        console.log(this.bakpicList)
+                        this.dir[this.dirIndex]['pics'].map(function (value,index,array) {
+                            that.picList.push(value);
+                            that.bakpicList.push(value);
+                        })
                     }
                     //init video tag
-                    if (this.dir[this.dirIndex]['video']!=null || this.dir[this.dirIndex]['video'] !=''){
+                    if (this.dir[this.dirIndex]['video']!=null ){
                         this.items=this.dir[this.dirIndex]['video'];
                         this.hasVideo=true;
                         this.uploadsDtail.close=true;
+                    }else{
+                        this.hasVideo=false;
+                        this.uploadsDtail.close=false;
                     }
                 }
             }
@@ -469,6 +484,7 @@
             }
         },
         mounted:function () {
+
             this.$http.post('/Api/editReport',{act:'editreport','_token':'{{csrf_token()}}'}).then(function (res) {
                 var dates=eval('('+res.body+')');
                 //deal pics
