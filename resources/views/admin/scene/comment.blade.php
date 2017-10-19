@@ -3,15 +3,100 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="/css/main/ui.css">
+    <script src="/js/vue-min.js"></script>
+    <script src="/js/vue-resource.js"></script>
 </head>
 <body>
+<div id="app">
 
 <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
     <span id="j-verify" class="pz-btn btn-white pz-color-green">批量通过</span>
     <span id="j-delete" class="pz-btn btn-white pz-color-red fn-ml10">批量删除</span>
 </div>
-<div id="j-list" class="fn-pt30 fn-pb30 fn-pl40 fn-pr40">   <div class="pz-table">     <table id="j-checktable" class="table-noborder">       <tbody><tr>         <th class="checkbox">           <label><input id="j-checkall" type="checkbox"></label>         </th>         <th class="fn-textleft">评论内容</th>         <th>用户</th>         <th>创建时间</th>         <th>操作</th>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505203007569691"><input name="id" type="checkbox" value="1505203224419348"></label>         </td>         <td><div class="fn-w520 fn-break">长见识了</div></td>         <td>廖前辉＊内江日报社</td>         <td class="fn-textcenter">2017-09-12 16:00</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505203224419348" data-reportid="1505203007569691">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505202177873211"><input name="id" type="checkbox" value="1505202312781321"></label>         </td>         <td><div class="fn-w520 fn-break">里面还有菇菇</div></td>         <td>甜城好吃哥</td>         <td class="fn-textcenter">2017-09-12 15:45</td>         <td class="fn-textcenter">                      <a class="j-verify pz-color-green" href="javascript:void(0)" data-id="1505202312781321" data-reportid="1505202177873211">通过</a>                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505202312781321" data-reportid="1505202177873211">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505202178740213"><input name="id" type="checkbox" value="1505202265289332"></label>         </td>         <td><div class="fn-w520 fn-break">里面凉快</div></td>         <td>甜城好吃哥</td>         <td class="fn-textcenter">2017-09-12 15:44</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505202265289332" data-reportid="1505202178740213">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505200743206173"><input name="id" type="checkbox" value="1505202218054315"></label>         </td>         <td><div class="fn-w520 fn-break">巴墨</div></td>         <td>甜城好吃哥</td>         <td class="fn-textcenter">2017-09-12 15:43</td>         <td class="fn-textcenter">                      <a class="j-verify pz-color-green" href="javascript:void(0)" data-id="1505202218054315" data-reportid="1505200743206173">通过</a>                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505202218054315" data-reportid="1505200743206173">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505201868670209"><input name="id" type="checkbox" value="1505202184511311"></label>         </td>         <td><div class="fn-w520 fn-break">想亲自体验一把</div></td>         <td>甜城好吃哥</td>         <td class="fn-textcenter">2017-09-12 15:43</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505202184511311" data-reportid="1505201868670209">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505201868670209"><input name="id" type="checkbox" value="1505201934356324"></label>         </td>         <td><div class="fn-w520 fn-break">人民商场那个防空洞，夏天超级凉快</div></td>         <td>小胖妞</td>         <td class="fn-textcenter">2017-09-12 15:38</td>         <td class="fn-textcenter">                      <a class="j-verify pz-color-green" href="javascript:void(0)" data-id="1505201934356324" data-reportid="1505201868670209">通过</a>                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505201934356324" data-reportid="1505201868670209">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505201162532671"><input name="id" type="checkbox" value="1505201870459307"></label>         </td>         <td><div class="fn-w520 fn-break">原来内江还隐藏了如此多高大上的工程</div></td>         <td>小胖妞</td>         <td class="fn-textcenter">2017-09-12 15:37</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505201870459307" data-reportid="1505201162532671">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1505201744697681"><input name="id" type="checkbox" value="1505201842564322"></label>         </td>         <td><div class="fn-w520 fn-break">似乎有两个机位了，高大上了</div></td>         <td>小胖妞</td>         <td class="fn-textcenter">2017-09-12 15:37</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505201842564322" data-reportid="1505201744697681">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="150518478768839"><input name="id" type="checkbox" value="1505200534538313"></label>         </td>         <td><div class="fn-w520 fn-break">这个直播好，长见识，了解我们这座城市关于国防安全的知识。</div></td>         <td>音乐狗熊</td>         <td class="fn-textcenter">2017-09-12 15:15</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1505200534538313" data-reportid="150518478768839">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1504960492963911"><input name="id" type="checkbox" value="150496058671040"></label>         </td>         <td><div class="fn-w520 fn-break">这次直播有看头</div></td>         <td>小胖妞</td>         <td class="fn-textcenter">2017-09-09 20:36</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="150496058671040" data-reportid="1504960492963911">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1504958808615424"><input name="id" type="checkbox" value="150496056555839"></label>         </td>         <td><div class="fn-w520 fn-break">看的人很多耶</div></td>         <td>小胖妞</td>         <td class="fn-textcenter">2017-09-09 20:36</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="150496056555839" data-reportid="1504958808615424">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1504960405203909"><input name="id" type="checkbox" value="150496054248138"></label>         </td>         <td><div class="fn-w520 fn-break">如此妖娆的舞蹈，佩服</div></td>         <td>小胖妞</td>         <td class="fn-textcenter">2017-09-09 20:35</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="150496054248138" data-reportid="1504960405203909">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1504960492963911"><input name="id" type="checkbox" value="150496052809337"></label>         </td>         <td><div class="fn-w520 fn-break">美女好多</div></td>         <td>小胖妞</td>         <td class="fn-textcenter">2017-09-09 20:35</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="150496052809337" data-reportid="1504960492963911">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1504956682854965"><input name="id" type="checkbox" value="1504957526966537"></label>         </td>         <td><div class="fn-w520 fn-break">很精彩！</div></td>         <td>梁霜</td>         <td class="fn-textcenter">2017-09-09 19:45</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1504957526966537" data-reportid="1504956682854965">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1504955391196953"><input name="id" type="checkbox" value="1504955675732561"></label>         </td>         <td><div class="fn-w520 fn-break">扯把子，还国内顶级师资团队</div></td>         <td>龙🐍</td>         <td class="fn-textcenter">2017-09-09 19:14</td>         <td class="fn-textcenter">                      <a class="j-verify pz-color-green" href="javascript:void(0)" data-id="1504955675732561" data-reportid="1504955391196953">通过</a>                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1504955675732561" data-reportid="1504955391196953">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1503058432646261"><input name="id" type="checkbox" value="150305874254318"></label>         </td>         <td><div class="fn-w520 fn-break">好想去现场T^T</div></td>         <td>梁霜</td>         <td class="fn-textcenter">2017-08-18 20:19</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="150305874254318" data-reportid="1503058432646261">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1502285987772485"><input name="id" type="checkbox" value="1502290959386424"></label>         </td>         <td><div class="fn-w520 fn-break">他们辛苦啥子，没你们辛苦</div></td>         <td>在文WONG</td>         <td class="fn-textcenter">2017-08-09 23:02</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1502290959386424" data-reportid="1502285987772485">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1502286090394495"><input name="id" type="checkbox" value="1502286245048438"></label>         </td>         <td><div class="fn-w520 fn-break">主持人也辛苦啦</div></td>         <td>思娃2261</td>         <td class="fn-textcenter">2017-08-09 21:44</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1502286245048438" data-reportid="1502286090394495">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1502281749744519"><input name="id" type="checkbox" value="1502284993159427"></label>         </td>         <td><div class="fn-w520 fn-break">电力员工辛苦了！致敬你们！多多保重！</div></td>         <td>老黄</td>         <td class="fn-textcenter">2017-08-09 21:23</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1502284993159427" data-reportid="1502281749744519">删除</a>         </td>       </tr>              <tr>         <td class="checkbox">           <label data-reportid="1502283427126539"><input name="id" type="checkbox" value="1502283716893407"></label>         </td>         <td><div class="fn-w520 fn-break">摄像大姐声音挺好听得哈</div></td>         <td>人肉榨汁机</td>         <td class="fn-textcenter">2017-08-09 21:01</td>         <td class="fn-textcenter">                      <a class="j-delete pz-color-red fn-ml10" href="javascript:void(0)" data-id="1502283716893407" data-reportid="1502283427126539">删除</a>         </td>       </tr>            </tbody></table>   </div>   </div>
-<div id="j-page" class="pz-page fn-mb40 fn-textcenter"><span class="page-first page-disabled"><i class="pz-icon icon-first"></i>首页</span><span class="page-disabled"><i class="pz-icon icon-back"></i>上一页</span><span class="page-current">1</span><span data-page="2">2</span><span data-page="3">3</span><span data-page="4">4</span><span data-page="5">5</span><span data-page="6">6</span><span data-page="7">7</span><span data-page="8">8</span><span data-page="2">下一页<i class="pz-icon icon-more"></i></span><span class="page-last" data-page="14">尾页<i class="pz-icon icon-last"></i></span></div>
+<div id="j-list" class="fn-pt30 fn-pb30 fn-pl40 fn-pr40" style="display: none" v-show="loaded">
+    <div class="pz-table">
+        <table id="j-checktable" class="table-noborder">       <tbody>
+            <tr>
+                <th class="checkbox">
+                    <label>
+                        <input id="j-checkall" type="checkbox">
+                    </label>
+                </th>
 
+                <th class="fn-textleft">现场名称</th>
+                <th>评论内容</th>
+                <th>用户名</th>
+                <th>创建时间</th>
+                <th>操作</th>
 
-</body></html>
+            </tr>
+            <tr v-for="(v,i) in dates">
+                <td class="checkbox">
+                    <label data-reportid="1505203007569691">
+                        <input name="id" type="checkbox" value="1505203224419348">
+                    </label>
+                </td>
+                <td>[[v.scene]]</td>
+                <td>
+                    <div class="fn-w520 fn-break">[[v.content]]</div>
+                </td>
+                <td>[[v.name]]</td>
+                <td class="fn-textcenter">[[v.creatAt]]</td>
+                <td class="fn-textcenter">
+
+                    <a v-if="v.status==0" class="j-delete pz-color-green fn-ml10" @click="deal(v.id,'pass',i,v.pid)" href="javascript:void(0)" >通过</a>
+                    <a  v-if="v.status==1" class="j-delete pz-color-red fn-ml10" @click="deal(v.id,'del',i,v.pid)" href="javascript:void(0)" >删除</a>
+                </td>
+            </tr>
+               </tbody></table>
+    </div>   </div>
+</div>
+<script>
+    new Vue({
+        delimiters: ['[[', ']]'],
+        el:'#app',
+        data:{
+            dates:'',
+            loaded:false
+        },
+        methods:{
+                deal:function (id,action,i,pid) {
+                    var that=this;
+                    var doNext=true;
+                    if (action == 'pass'){
+                        if(!confirm('确认通过吗？')){
+                          doNext=false;
+                        }
+                    }else{
+                        if(!confirm('确认删除此评论吗？')){
+                            doNext=false;
+                        }
+                    }
+                    if(doNext){
+                        this.$http.post('/Api/signedCommits',{act:action,'id':id,'pid':pid,'_token':'{{csrf_token()}}'}).then(function (res) {
+                            if(res.body=='1'){
+                                alert('操作成功')
+                                that.dates[i]['status']=1;//sysnchronization
+                            }else if (res.body=='2'){
+                                alert('操作成功')
+                                that.dates.splice(i,1);//sysnchronization
+                            }
+                        },function (e) {
+                            console.log(e)
+                        })
+                    }
+
+                }
+        },
+        mounted:function () {
+         this.$http.post('/Api/signedCommits',{act:'getAll','_token':'{{csrf_token()}}'}).then(function (res) {
+             this.dates=eval('('+res.body+')');
+             this.loaded=true;
+         },function (e) {
+             console.log(e)
+         })
+        }
+    })
+</script>
+</body>
+</html>

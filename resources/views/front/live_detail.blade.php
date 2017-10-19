@@ -29,7 +29,7 @@
         .loadtip { display: block;width: 100%;line-height: 40px; height: 40px;text-align: center;color: #999;border-top: 1px solid #ddd;}
 
         .swiper-slide{height: auto;}
-
+        .zans:hover{cursor: pointer}
         .text-center{text-align: center;}
         .list-group{padding-left: 0;margin-bottom: 20px;}
         .list-group-item{    position: relative; display: block;padding: 10px 15px;margin-bottom: -1px;background-color: #fff;border: 1px solid #ddd;}
@@ -94,19 +94,18 @@
                             </div>
                             <div class="swiper-slide list-group swiper-slide-next" >
                                 <ul class="comments">
-                                    <li v-for="x in 5">
+                                    <li v-for="(v,i) in commits">
                                         <div class="ctop">
-
                                             <div>
-                                                <img style="width: 35px;" src="/img/comment_user_head_icon.png" alt="head">
-                                                <span  class="cname"> 网友</span>
-                                                <span class="zans"><img src="/img/great_button.png" alt=""><span>0</span></span>
+                                                <img style="width: 35px;" :src="v.headImg" alt="head">
+                                                <span  class="cname"> [[v.name]]</span>
+                                                <span class="zans"><img @click="zan(v.id,i,$event)" src="/img/great_button.png" alt=""><span>[[v.zans]]</span></span>
 
                                             </div>
-                                            <div class="ctime">12-28 09:46</div>
+                                            <div class="ctime">[[v.creatAt]]</div>
                                         </div>
                                         <div style="text-indent: 41px;padding-bottom: 10px;color: #999999;">
-                                            内容asddddddddddddddddddddddddddddddddddd
+                                            [[v.content]]
                                         </div>
                                     </li>
                                 </ul>
@@ -138,19 +137,37 @@
         data:{
             pid:'{{$id}}',
             name:'name',
-            comments:''
+            comments:'',
+            commits:''
         }
         ,methods:{
+            zan:function (id,index,e) {
+                    var that=this;
+                this.$http.post('/Api/makeComments',{act:'zans','_token':'{{csrf_token()}}','id':id}).then(function (res) {
+                    if(res.body=='1'){
+                      e.target.src='/img/great_cancel_button.png';
+                      that.commits[index]['zans']+=1;
+                    }else{
+                        alert('失败！')
+                    }
+                },function (e) {
+                    console.log(e)
+                })
+            },
             submit:function (pid) {
+                var vm=this;
                 this.$http.post('/Api/makeComments',{act:'makeComments','scene':'{{$scene}}','_token':'{{csrf_token()}}','pid':pid,'name':this.name,'content':this.comments}).then(function (res) {
-                    console.log(res)
+                    if(res.body=='1'){
+                        alert('提交成功！');
+                       vm.comments='';
+                    }
                 },function (e) {
                     console.log(e)
                 })
             },
             getCommits:function () {
-                this.$http.post('/Api/makeComments',{act:'getComments','_token':'{{csrf_token()}}','pid':this.pid}).then(function (res) {
-                    console.log(res)
+                this.$http.get("/dates/"+this.pid+".json").then(function (res) {
+                    this.commits=JSON.parse(res.body);
                 },function (e) {
                     console.log(e)
                 })

@@ -396,8 +396,9 @@ class SceneController extends Controller
           $re= DB::table('commits')->insert([
                'pid'=>$request->input('pid'),
                'content'=>$request->input('content'),
-               'creatAt'=>date('m-d H-i',time()),
+               'creatAt'=>date('Y-m-d H:i',time()),
                'scene'=>$request->input('scene'),
+               'headImg'=>'/img/comment_user_head_icon.png',//default values
                'name'=>$request->input('name')
            ]);
           if ($re){
@@ -405,10 +406,31 @@ class SceneController extends Controller
           }else{
               return 0;
           }
-       }elseif ($request->input('act')=='getComments'){
-           $re=DB::table('commits')->get()->toArray();
-           var_dump($re);
+       }elseif ($request->input('act')=='zans'){
+           if(DB::table('commits')->where(['id'=>$request->input('id')])->increment('zans')){
+                return 1;
+           }
        }
     }
-
+    public function signedCommits(Request $request){
+        if ($request->input('act')=='getAll'){
+            return json_encode(DB::table('commits')->get());
+        }elseif ($request->input('act')=='pass'){
+           if (DB::table('commits')->where(['id'=>$request->input('id')])->update(['status'=>1])){
+               $id=$request->input('pid');
+               $jsonDates=json_encode(DB::table('commits')->where(['pid'=>$id,'status'=>1])->get());
+               //$re=DB::table('commits')->get()->toArray();
+               $myfile = fopen("dates/$id.json", "w") or die("Unable to open file!");//打开
+               fwrite($myfile, $jsonDates);
+               fclose($myfile);
+               return 1;//pass
+           }
+        }elseif ($request->input('act')=='del'){
+            if (DB::table('commits')->where(['id'=>$request->input('id')])->delete()){
+                return 2;//ng
+            }
+        } else{
+            return 0;
+        }
+    }
 }

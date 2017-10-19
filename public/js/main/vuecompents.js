@@ -5,7 +5,7 @@ var vue=new Vue({
     data:{
         user:'',
       //  page:"/admin/scene/scenelist"
-        page:"/admin/scene/reportlist"
+        page:"/admin/scene/comment"
     },
     mounted:function(){
 
