@@ -317,7 +317,7 @@ class SceneController extends Controller
        if(!$dates->isEmpty()){
             return json_encode($dates);
        }
-        return $username;
+        return 0;
     }
     public function logout(Request $request)
     {
@@ -362,7 +362,7 @@ class SceneController extends Controller
                 'commiter'=>\cache('user'),
                 'status'=>0//unsigned
             ]);
-            if ($logInfo){
+            if ($logInfo  && DB::table('createscene')->where(['id'=>$datas['id']])->increment('reports')){
                 return 1;
             }else{
                 return 0;
@@ -377,7 +377,8 @@ class SceneController extends Controller
             return json_encode($r);
         }elseif ($request->input('act')=='saveEdits'){
             $datas=$request->input('dates');
-            $datas['pics']==null?$pics=$datas['pics']:$pics=join(',',$datas['pics']);
+            $datas['pics']==null?$pics='':$pics=join(',',$datas['pics']);
+            $datas['video']==null?$datas['video']='':'';
             $logInfo=DB::table('comments')->where(['id'=>$datas['id']])->update([
                 'content'=>$datas['content'],
                 'pics'=>$pics,
@@ -401,20 +402,30 @@ class SceneController extends Controller
                'headImg'=>'/img/comment_user_head_icon.png',//default values
                'name'=>$request->input('name')
            ]);
-          if ($re){
+          if ($re && DB::table('createscene')->where(['pid'=>$request->input('pid')])->increment('Ccommits')){
               return 1;
           }else{
               return 0;
           }
        }elseif ($request->input('act')=='zans'){
            if(DB::table('commits')->where(['id'=>$request->input('id')])->increment('zans')){
+               $pid=$request->input('pid');
+               $jsonDates=json_encode(DB::table('commits')->where(['pid'=>$pid,'status'=>1])->get());
+               //$re=DB::table('commits')->get()->toArray();
+               $myfile = fopen("dates/$pid.json", "w") or die("Unable to open file!");//打开
+               fwrite($myfile, $jsonDates);
+               fclose($myfile);
                 return 1;
            }
+       }elseif ($request->input('act')=='FgetAll'){
+           return json_encode(DB::table('comments')->where(['pid'=>$request->input('oid')])->orderby('id','DESC')->get());
+       }else{
+           return 0;
        }
     }
     public function signedCommits(Request $request){
         if ($request->input('act')=='getAll'){
-            return json_encode(DB::table('commits')->get());
+            return json_encode(DB::table('commits')->orderby('id','DESC')->get());
         }elseif ($request->input('act')=='pass'){
            if (DB::table('commits')->where(['id'=>$request->input('id')])->update(['status'=>1])){
                $id=$request->input('pid');

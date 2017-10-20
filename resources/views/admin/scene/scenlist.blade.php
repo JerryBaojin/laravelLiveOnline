@@ -273,7 +273,6 @@ var list=new Vue({
     created:function () {
         this.$http.post('/Api/scenelist',{act:"getList",'_token':'{{csrf_token()}}'}).then(function (res) {
             this.scenLists=eval(res.body);
-            //备份一份数组
             this.bakArr=this.scenLists;
         },function (error) {
             console.log(error);

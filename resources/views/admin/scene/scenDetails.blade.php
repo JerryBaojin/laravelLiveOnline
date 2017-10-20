@@ -10,8 +10,8 @@
     <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
     <script src="/js/video.min.js"></script>
 </head>
-    <div id="scenDe">
-
+<body>
+    <div id="app">
         <div id="j-search" class=" pz-form pz-searchform xcy-search fn-clear">
             <span id="j-back" class="  fn-left pz-btn btn-white"><i @click="goback" class="pz-icon icon-back1"></i> 返回</span>
             <div class="other">
@@ -39,7 +39,7 @@
                         <div class="group2">
                             <div class="row xcy-row fn-mb15">
                                 <div class="row-title">现场类型</div>
-                                <div class="row-content" data-field="type"><div>
+                                <div class="row-content"><div>
                                         <input type="hidden" :value="id" name="id">
                                                 <label> <input type="radio" v-model="arrs.type" name="type" value="4" >视频直播</label>
                                                 <label><input type="radio" v-model="arrs.type" name="type"  value="1"  > 图文直播</label>
@@ -156,6 +156,134 @@
         <component :is="currentView" v-if="isalive" :dir="arrs" v-on:refreshbizlines="close"></component>
     </div>
 
+    <script>
+        new Vue({
+            delimiters:['[[', ']]'],
+            el:'#app',
+            data:{
+                Alength:0,
+                id:0,
+                currentView:'',
+                content:'',
+                arrs:null,
+                isalive:true
+            },
+            watch:{
+                content:function (newValue) {
+                    this.Alength=newValue.length;
+                }
+            },
+            methods:{
+                goback:function () {
+                    window.history.go(-1);
+                },
+                changePic:function (m,e) {
+                    var imgUrl=window.URL.createObjectURL(e.currentTarget.files[0]);
+                    this.arrs.coverPic=imgUrl;
+                },
+                submit:function (e) {
+                    e.preventDefault();
+                    var tag=document.getElementById('j-sceneform');
+                    var dates=new FormData(tag);
+                    this.$http.post('/Api/editScene',dates).then(function (res) {
+                        if (res.body=='1'){
+                            alert('编辑成功！')
+                        }else{
+                            alert('请重试！')
+                        }
+                    },function (e) {
+                        console.log(e);
+                    })
+                },
+                del:function () {
+                    if(confirm('确认删除此场景吗？')){
+                        this.$http.post('/Api/getDetails',{act:'delScen','id':this.id,'_token':'{{csrf_token()}}'}).then(function (res) {
+                            this.arrs=eval(res.body)[0];
+                            this.content=this.arrs.content;
+                        },function (error) {
+                            console.log(error)
+                        })
+                    }
+                },
+                close:function (id) {
+                    if (id=='viewScen'){
+                        var myPlayer=videojs("example_video_1");
+                        myPlayer.dispose();
+                    }
+                    this.isalive=false;
+                },
+                play:function () {
+                    this.isalive=true;
+                    this.currentView='viewScen';
+                },viewRtpAddr:function () {
+                    this.isalive=true;
+                    this.currentView='rtmpAdd';
+                },delScene:function () {
+                    console.log('del');
+                }
+            },
+            components:{
+                viewScen:{//#j-overlay-view
+                    delimiters: ['[[', ']]'],
+                    template:"#j-overlay-view",
+                    props:['dir'],
+                    data:function () {
+                        return{
+
+                        }
+                    },
+                    methods:{
+                        close:function () {
+                            this.$emit('refreshbizlines','viewScen');
+                        }
+                    },
+                    mounted:function () {
+                        var that=this;
+                        var rtmpUrls=that.dir.rtmpUrl.split("|||");
+                        if (that.dir.rtmpUrl.indexOf("|||")>=0){
+                            rtmpUrls[0]=rtmpUrls[0]+ rtmpUrls[1].split("?")[0];
+                            that.dir["rtmpUrl"]= rtmpUrls[0];
+                        }else{
+                            that.dir["rtmpUrl"]= rtmpUrls[0];
+                        }
+                        var myPlayer=videojs("example_video_1");
+                        myPlayer.src(that.dir["rtmpUrl"]);
+                        myPlayer.load(that.dir["rtmpUrl"]);
+                    }
+                } ,
+                rtmpAdd:{
+                    delimiters: ['[[', ']]'],
+                    props:['dir'],
+                    template:'#j-overlay-streamurl',
+                    data:function () {
+                        return{
+                            rtmpUrl:'',
+                            keycode:''
+                        }
+                    },methods:{
+                        close:function () {
+                            this.$emit('refreshbizlines','rtmp');
+                        }
+                    },
+                    mounted:function () {
+                        var that=this;
+                        var rtmpUrls=that.dir.rtmpUrl.split("|||");
+                        this.rtmpUrl=rtmpUrls[0];
+                        this.keycode=rtmpUrls[1];
+                    }
+                },
+            },
+            mounted:function () {
+               this.id=parent.document.getElementById('inframe').dataset.pid;
+                this.$http.post('/Api/getDetails',{act:'getDetail','id': this.id,'_token':'{{csrf_token()}}'}).then(function (res) {
+                    this.arrs=eval(res.body)[0];
+                    this.content=this.arrs.content;
+                },function (error) {
+                    console.log(error)
+                })
+            }
+        })
+    </script>
         <script type="text/template" id="j-overlay-delete">
             <div class="pz-boxhead fn-w520">
                 <em class="icon pz-icon icon-warning"></em>
@@ -256,132 +384,8 @@
 
 
         </script>
-<script>
-    new Vue({
-        delimiters: ['[[', ']]'],
-        el:'#scenDe',
-        data:{
-            Alength:0,
-            id:null,
-            currentView:'',
-            content:'',
-            arrs:null,
-            isalive:true
-        },
-        watch:{
-            content:function (newValue) {
-                this.Alength=newValue.length;
-            }
-        },
-        methods:{
-            goback:function () {
-                window.history.go(-1)
-            },
-            changePic:function (m,e) {
-                var imgUrl=window.URL.createObjectURL(e.currentTarget.files[0]);
-                this.arrs.coverPic=imgUrl;
-            },
-            submit:function (e) {
-              e.preventDefault();
-              var tag=document.getElementById('j-sceneform');
-              var dates=new FormData(tag);
-              this.$http.post('/Api/editScene',dates).then(function (res) {
-                  if (res.body=='1'){
-                      alert('编辑成功！')
-                  }else{
-                      alert('请重试！')
-                  }
-              },function (e) {
-                  console.log(e);
-              })
-            },
-            del:function () {
-              if(confirm('确认删除此场景吗？')){
-                  this.$http.post('/Api/getDetails',{act:'delScen','id':this.id,'_token':'{{csrf_token()}}'}).then(function (res) {
-                      this.arrs=eval(res.body)[0];
-                      this.content=this.arrs.content;
-                  },function (error) {
-                      console.log(error)
-                  })
-              }
-            },
-            close:function (id) {
-                 if (id=='viewScen'){
-                     var myPlayer=videojs("example_video_1");
-                     myPlayer.dispose();
-                 }
-                this.isalive=false;
-            },
-            play:function () {
-                this.isalive=true;
-                this.currentView='viewScen';
-            },viewRtpAddr:function () {
-                this.isalive=true;
-                this.currentView='rtmpAdd';
-            },delScene:function () {
-                console.log('del')
-            }
-        }
-        ,components:{
-            viewScen:{//#j-overlay-view
-                delimiters: ['[[', ']]'],
-                template:"#j-overlay-view",
-                props:['dir'],
-                data:function () {
-                    return{
-                    }
-                },methods:{
-                    close:function () {
-                        this.$emit('refreshbizlines','viewScen');
-                    }
-                },
-                mounted:function () {
-                    var that=this;
-                    var rtmpUrls=that.dir.rtmpUrl.split("|||");
-                    if (that.dir.rtmpUrl.indexOf("|||")>=0){
-                        rtmpUrls[0]=rtmpUrls[0]+ rtmpUrls[1].split("?")[0];
-                        that.dir["rtmpUrl"]= rtmpUrls[0];
-                    }else{
-                        that.dir["rtmpUrl"]= rtmpUrls[0];
-                    }
-                    var myPlayer=videojs("example_video_1");
-                    myPlayer.src(that.dir["rtmpUrl"]);
-                    myPlayer.load(that.dir["rtmpUrl"]);
-                }
-            } ,
-            rtmpAdd:{
-                delimiters: ['[[', ']]'],
-                props:['dir'],
-                data:function () {
-                    return{
-                        rtmpUrl:'',
-                        keycode:''
-                    }
-                },methods:{
-                    close:function () {
-                        this.$emit('refreshbizlines','rtmp');
-                    }
-                },
-                template:'#j-overlay-streamurl',
-                mounted:function () {
-                    var that=this;
-                    var rtmpUrls=that.dir.rtmpUrl.split("|||");
-                    this.rtmpUrl=rtmpUrls[0];
-                    this.keycode=rtmpUrls[1];
-                }
-            },
-        },
-        mounted:function () {
-            this.id=parent.document.getElementById('inframe').dataset.pid;
-            this.$http.post('/Api/getDetails',{act:'getDetail','id':this.id,'_token':'{{csrf_token()}}'}).then(function (res) {
-                this.arrs=eval(res.body)[0];
-                this.content=this.arrs.content;
-            },function (error) {
-                console.log(error)
-            })
-        }
-    })
-</script>
-    </div>
+
+
+</body>
 </html>
 

@@ -4,7 +4,7 @@ var vue=new Vue({
     el:'#app',
     data:{
         user:'',
-      //  page:"/admin/scene/scenelist"
+            //page:"/admin/scene/scenelist"
         page:"/admin/scene/comment"
     },
     mounted:function(){

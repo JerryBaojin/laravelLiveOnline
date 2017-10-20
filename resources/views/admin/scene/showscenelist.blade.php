@@ -9,6 +9,7 @@
 </head>
 <body>
 <style>
+
     .fn-pt25 {
         padding-top: 20px!important;
     }
@@ -30,7 +31,9 @@
     .xcy-video{background: #000}
 </style>
 <div id="app">
+
     <component :is="currentView" :dir="items" v-on:refreshbizlines="makeReport"></component>
+
 </div>
 <script id="edit" type="text/template">
     <div>
@@ -182,8 +185,9 @@
     </div>
 </script>
 
+
 <script>
-  new Vue({
+ var vm= new Vue({
         delimiters: ['[[', ']]'],
         el:'#app',
         data:{
@@ -355,13 +359,18 @@
           },
         mounted:function () {
                this.$http.post('/Api/makerepot',{act:'makereport','_token':'{{csrf_token()}}'}).then(function (res) {
+                if(res.body=='0'){
+                    return false
+                }
                this.items=eval('('+res.body+')');
+
                this.currentView='mainS';
             },function (e) {
                 console.log(e)
             })
         }
     })
+
 </script>
 <script src="/js/jq.min.js"></script>
 </body></html>

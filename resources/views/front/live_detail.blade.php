@@ -34,6 +34,10 @@
         .list-group{padding-left: 0;margin-bottom: 20px;}
         .list-group-item{    position: relative; display: block;padding: 10px 15px;margin-bottom: -1px;background-color: #fff;border: 1px solid #ddd;}
         .list-group-item:first-child {border-top-left-radius: 4px;border-top-right-radius: 4px;}
+        .sContent{font-size: 16px;color: #999;word-break: break-all;overflow: hidden;height: auto;position: relative;    padding: 10px 18px 0 0;}
+        .descclamp{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+        .act{transform: rotate(180deg);background: url(/img/act.png) center center no-repeat;background-size: 100% auto;position: absolute;right: 0;bottom: 0; width: 20px;height: 20px;}
+        .zero{transform: rotate(0)}
     </style>
 </head>
 <body>
@@ -48,6 +52,24 @@
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
             </video>
         </div>
+{{--摘要--}}
+            <div class="scenInfo">
+
+
+                <div class="title" style="    font-size: 24px;">
+                   {{$scene}}
+                </div>
+                <div class="sContent descclamp" @click="showContent($event)">
+                    <span class="act zero"></span>
+                     <span>摘要:</span>
+                    <span>{{$content}}</span>
+                </div>
+                @if($partakeState!=1)
+                    <div style="float: right;color:#999;font-size: 14px;">浏览量:{{$viewCount}}</div>
+                @endif
+
+            </div>
+
         <div class="tab">
             <a class="active" href="javascript:;">直播</a>
             <a href="javascript:;" >聊天室</a>
@@ -64,7 +86,7 @@
                         <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
 
                             <div class="swiper-slide list-group swiper-slide-active" >
-                                <div v-for="x in 5" class="live-tag" >
+                                <div v-for="(x,i) in reports" class="live-tag" >
                                     <div  class="move">
                                         <div  style="background: white">
                                             <div class="blueI"></div>
@@ -72,21 +94,24 @@
                                             <div class="main_content">
                                                 <div>
                                             <span>
-                                            <img src="/img/live_user_header_bg.png" alt=""><span style="color: #13b7f6;margin-left: 4px;">主持人 小1</span>
+                                            <img src="/img/live_user_header_bg.png" alt=""><span style="color: #13b7f6;margin-left: 4px;">主持人 [[x.commiter]]</span>
                                             </span>
-                                                    <span class="time" style="float: right">01-19 23:25</span>
+                                                    <span class="time" style="float: right">[[x.commitAt]]</span>
                                                 </div>
                                                 <div>
-                                                    舞蹈  《梦幻羌寨》  曾获四川省第二届广场舞大赛一等奖。舞蹈编导张亚龄是一个90后帅小伙，舞蹈专业科班出身，这是他的第一支编舞作品。《梦幻羌寨》这个节目里添加了不少难度较高的动作和队形，且18名舞蹈演员全是业余爱好者，来自不同行业，如卖奶茶的、搞婚庆的，都是各行各业的舞蹈爱好者。
+                                                    [[x.content]]
                                                 </div>
                                                 <div class="img c">
                                                     <ul>
-                                                        <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
-                                                        <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
-                                                        <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
-                                                        <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
+                                                        <li v-for="pic in x.pics">
+                                                            <img :src="pic" alt="">
+                                                        </li>
                                                     </ul>
                                                 </div>
+                                                <div class="svideo" style="overflow:hidden;" v-if="x.video">
+                                                    <video controls :src="x.video"></video>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -99,8 +124,7 @@
                                             <div>
                                                 <img style="width: 35px;" :src="v.headImg" alt="head">
                                                 <span  class="cname"> [[v.name]]</span>
-                                                <span class="zans"><img @click="zan(v.id,i,$event)" src="/img/great_button.png" alt=""><span>[[v.zans]]</span></span>
-
+                                                <span class="zans" style="width: 60px"><img @click="zan(v.id,i,$event)" src="/img/great_button.png" alt=""><span>[[v.zans]]</span></span>
                                             </div>
                                             <div class="ctime">[[v.creatAt]]</div>
                                         </div>
@@ -116,7 +140,6 @@
             </div>
         </div>
 
-        <div class="loadtip">上拉加载更多</div>
 
         <div class="swiper-scrollbar" style="display: none; opacity: 0;"><div class="swiper-scrollbar-drag" style="height: 0px;"></div></div>
 
@@ -136,14 +159,26 @@
         el: '#app',
         data:{
             pid:'{{$id}}',
+            id:'{{$oid}}',
             name:'name',
             comments:'',
+            reports:'',
             commits:''
         }
         ,methods:{
+            showContent:function (e) {
+
+           if( e.currentTarget.className=='sContent'){
+               e.currentTarget.getElementsByClassName('act')[0].className='act zero';
+               e.currentTarget.className='descclamp sContent';
+           }else{
+               e.currentTarget.getElementsByClassName('act')[0].className='act';
+               e.currentTarget.className= 'sContent';
+           }
+            },
             zan:function (id,index,e) {
                     var that=this;
-                this.$http.post('/Api/makeComments',{act:'zans','_token':'{{csrf_token()}}','id':id}).then(function (res) {
+                this.$http.post('/Api/makeComments',{act:'zans','_token':'{{csrf_token()}}','pid':this.pid,'id':id}).then(function (res) {
                     if(res.body=='1'){
                       e.target.src='/img/great_cancel_button.png';
                       that.commits[index]['zans']+=1;
@@ -160,26 +195,45 @@
                     if(res.body=='1'){
                         alert('提交成功！');
                        vm.comments='';
+                    }else{
+                        alert('提交失败')
                     }
                 },function (e) {
                     console.log(e)
                 })
             },
             getCommits:function () {
-                this.$http.get("/dates/"+this.pid+".json").then(function (res) {
+                this.$http.get("/dates/"+this.pid+".json?"+new Date().getTime()).then(function (res) {
                     this.commits=JSON.parse(res.body);
+                },function (e) {
+                    console.log(e)
+                })
+            },
+            getReports:function () {
+                var that=this;
+                this.$http.post("/Api/makeComments",{act:'FgetAll','_token':'{{csrf_token()}}','oid':this.id}).then(function (res) {
+                    this.reports=JSON.parse(res.body);
+
+                    this.reports.map(function (v,i,a){
+                        that.reports[i]['pics']=v['pics'].split(',');
+                       that.reports[i]['commitAt']=v['commitAt'].substring(5,16)
+                    })
+                    console.log(this.reports);
                 },function (e) {
                     console.log(e)
                 })
             }
         },
         mounted:function () {
+            this.getReports();
               this.getCommits();
         }
     })
 
 </script>
+<script>
 
+</script>
 <script src="/js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
     //计算 boo属性
@@ -282,5 +336,6 @@
     });
 </script>
 <script src="/js/bootstrap.min.js"></script>
+
 
 </body></html>

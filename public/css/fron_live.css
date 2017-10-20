@@ -13,7 +13,7 @@
 
 .c:after {content:'';display:block;clear:both;height:0px;}
 .img li{
-    width: 33.3%;
+    width: 99%;
     height:auto;
     float: left;
     padding: 4px;

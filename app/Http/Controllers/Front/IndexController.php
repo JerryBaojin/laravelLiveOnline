@@ -11,6 +11,7 @@ class IndexController extends Controller
     //
     public function index($id){
         //过滤$id
+
         if(!is_numeric($id) || strpos($id,'.') ) return view('error.error');
         $scenDeatails=DB::table('createscene')->where(['pid'=>$id])->first();
 
@@ -24,6 +25,11 @@ class IndexController extends Controller
              ]);
          }
         $dates=array(
+            'partakeState'=>$scenDeatails->partakeState,
+            'viewCount'=>$scenDeatails->viewCount,
+            'coverPic'=>$scenDeatails->coverPic,
+            'content'=>$scenDeatails->content,
+            'oid'=>$scenDeatails->id,
             'scene'=>$scenDeatails->title,
            'id'=>$id,
            'rtmpUrl'=>$rtmpUrl

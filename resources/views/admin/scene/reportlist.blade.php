@@ -219,12 +219,12 @@
     <div id="j-card" class="xcy-card fn-pt30 fn-pb30 fn-pl40 fn-clear">
         <ul>
             <li v-for="(x,index) in dir">
-                <div v-if="x.pics==null && x.video==null" >
+                <div v-if="!x.pics && !x.video" >
                 <div class="picbar" @click="report(index,x.id)">
                     <div class="content j-edit" >[[x.content]]</div>
                 </div>
                 </div>
-                <div v-else-if="x.pics!=null">
+                <div v-else-if="x.pics">
 
                     <div class="picbar" @click="report(index,x.id)">
                         <span v-show="x.pics.length>1" class="type">[[x.video!=null?"多图,视频":"多图"]]</span>
@@ -234,7 +234,7 @@
                             <img :src="x.pics[0]"></div>
                     </div>
                 </div>
-                <div v-else-if="x.video!=null">
+                <div v-else-if="x.video">
                     <div class="picbar" @click="report(index,x.id)">
                         <span  class="type">视频</span>
                         <div class="title fn-ellipsis">[[x.content]]</div>
@@ -329,7 +329,7 @@
                         this.process='';
                     },
                     submit:function () {
-                        if (this.dir[this.dirIndex]['pics']!=null){
+                        if (this.dir[this.dirIndex]['pics']){
                            // this.dir[this.dirIndex]['pics']=this.dir[this.dirIndex]['pics'].join(',');
                         }
                         this.$http.post('/Api/editReport',{act:'saveEdits','_token':'{{csrf_token()}}',dates:this.dir[this.dirIndex]}).then(function (res) {
@@ -456,14 +456,14 @@
                       var that=this;
                     this.dirIndex=parseInt(localStorage.getItem('index'));
                     this.originalDates=JSON.stringify(this.dir[this.dirIndex]);
-                    if (this.dir[this.dirIndex]['pics'] !=null){
+                    if (this.dir[this.dirIndex]['pics']){//null
                         this.dir[this.dirIndex]['pics'].map(function (value,index,array) {
                             that.picList.push(value);
                             that.bakpicList.push(value);
                         })
                     }
                     //init video tag
-                    if (this.dir[this.dirIndex]['video']!=null ){
+                    if (this.dir[this.dirIndex]['video']){
                         this.items=this.dir[this.dirIndex]['video'];
                         this.hasVideo=true;
                         this.uploadsDtail.close=true;
