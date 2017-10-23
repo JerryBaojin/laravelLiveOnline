@@ -198,7 +198,7 @@
 <div>
     <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
         <div class="row-content" data-field="keyword">
-            <input type="text" id="j-keyword" name="keyword" class="input-search" placeholder="请输入标题关键字">
+            <input type="text" id="j-keyword" name="keyword" class="input-search" placeholder="请输入标题关键字" v-model="search">
         </div>
         <div class="actions">
             <input id="j-searchbtn" type="button" class="pz-btn pz-icon btn-search" value="">
@@ -278,16 +278,32 @@
                         var a=[index,id];
                         this.$emit('refreshbizlines',a);
                     }
+                },watch:{
+                    search:function (newvalue) {
+                        if (newvalue==''){
+                            this.dates=this.dir;
+                        }else{
+                            this.dates= this.dir.filter(function (x){
+                                if (x.title==newvalue){
+                                    return true;
+                                }else{
+                                    return false;
+                                }
+                            });
+                        }
+                    }
                 },
                 data:function(){
                     return{
                         dates:'',
-                        flag:'1'
+                        flag:'1',
+                        search:null
                     }
                 },
                 props:['dir'],
                 mounted:function () {
                     this.dates=this.dir;
+                    console.log(this.dates)
                 }
             },
             makereport:{

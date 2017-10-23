@@ -65,7 +65,7 @@ class SceneController extends Controller
     public function getScenelist(Request $request){
         $id=Input::get('id');//对应的id
           if ($request->input('act')=='getList'){
-              $re=DB::table('createscene')->orderby('setTop','desc')->get();
+              $re=DB::table('createscene')->orderby('id','DESC')->get();
              return json_encode($re);
           }elseif ($request->input('act')=='setTop'){
             //setTop 选找出最大数，然后+1
@@ -435,12 +435,39 @@ class SceneController extends Controller
                fwrite($myfile, $jsonDates);
                fclose($myfile);
                return 1;//pass
+           }else{
+               return 0;
            }
         }elseif ($request->input('act')=='del'){
             if (DB::table('commits')->where(['id'=>$request->input('id')])->delete()){
                 return 2;//ng
             }
-        } else{
+        } elseif($request->input('act')=='delParts'){
+            $flag=true;
+            foreach (json_decode($request->input('dates')) as $k=>$v){
+               if (!DB::table('commits')->where(['id'=>$v])->delete()){
+                   $flag=false;
+               }
+            }
+            if ($flag){
+                return 1;
+            }else{
+                return 0;
+            }
+        } elseif($request->input('act')=='passParts'){
+            $flag=true;
+            foreach (json_decode($request->input('dates')) as $k=>$v){
+
+                if (!DB::table('commits')->where(['id'=>$v])->update(['status'=>1])){
+                    $flag=false;
+                }
+            }
+            if ($flag){
+                return 1;
+            }else{
+                return 0;
+            }
+        }else{
             return 0;
         }
     }

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html><head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -43,7 +44,8 @@
 <div id="app">
 <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
     <div class="row-content" data-field="keyword">
-        <input type="text" id="j-keyword" name="keyword" class="input-search" placeholder="请输入标题关键字(暂时未启用)">
+        <input type="text" id="j-keyword" name="keyword" class="input-search" placeholder="请输入标题关键字(暂时未启用)" v-model="search">
+
     </div>
     <div class="actions">
         <input id="j-searchbtn" type="button" class="pz-btn pz-icon btn-search" value="">
@@ -129,6 +131,7 @@ var list=new Vue({
         setCurrent:0,
         currentView:"",
         arrHolder:'',
+        search:null,
         singleTag:null
     },
     components:{
@@ -260,6 +263,19 @@ var list=new Vue({
         }
     },
     watch:{
+        search:function(newvalue){
+            if (newvalue==''){
+                this.scenLists=this.bakArr;
+            }else{
+                this.scenLists= this.bakArr.filter(function (x){
+                    if (x.title==newvalue){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                });
+            }
+        },
         filterList:function(newValue,old){
             if (newValue==0){
                 this.scenLists=this.bakArr;
@@ -274,6 +290,7 @@ var list=new Vue({
         this.$http.post('/Api/scenelist',{act:"getList",'_token':'{{csrf_token()}}'}).then(function (res) {
             this.scenLists=eval(res.body);
             this.bakArr=this.scenLists;
+            console.log(this.scenLists);
         },function (error) {
             console.log(error);
         })

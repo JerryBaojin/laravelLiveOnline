@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <html><head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -44,8 +45,8 @@
 <div id="app">
 
 <div id="j-search" class="pz-form pz-searchform xcy-search fn-clear">
-    <span id="j-verify" class="pz-btn btn-white pz-color-green">批量通过</span>
-    <span id="j-delete" class="pz-btn btn-white pz-color-red fn-ml10">批量删除</span>
+    <span id="j-verify" class="pz-btn btn-white pz-color-green" @click="delParts('passParts')">批量通过</span>
+    <span id="j-delete" class="pz-btn btn-white pz-color-red fn-ml10" @click="delParts('delParts')">批量删除</span>
 </div>
 <div id="j-list" class="fn-pt30 fn-pb30 fn-pl40 fn-pr40" style="display: none" v-show="loaded">
     <div class="pz-table">
@@ -53,21 +54,19 @@
             <tr>
                 <th class="checkbox">
                     <label>
-                        <input id="j-checkall" type="checkbox">
+                        <input id="j-checkall" type="checkbox" v-model="checkAll">
                     </label>
                 </th>
-
                 <th class="fn-textleft">现场名称</th>
                 <th>评论内容</th>
                 <th>用户名</th>
                 <th>创建时间</th>
                 <th>操作</th>
-
             </tr>
             <tr v-for="(v,i) in dates">
                 <td class="checkbox">
-                    <label data-reportid="1505203007569691">
-                        <input name="id" type="checkbox" value="1505203224419348">
+                    <label >
+                        <input name="id" type="checkbox" v-model="selected" :value="v.aindex">
                     </label>
                 </td>
                 <td>[[v.scene]]</td>
@@ -77,8 +76,8 @@
                 <td>[[v.name]]</td>
                 <td class="fn-textcenter">[[v.creatAt]]</td>
                 <td class="fn-textcenter">
-                    <a v-if="v.status==0" class="j-delete pz-color-green fn-ml10" @click="deal(v.id,'pass',i,v.pid)" href="javascript:void(0)" >通过</a>
-                    <a  v-if="v.status==1" class="j-delete pz-color-red fn-ml10" @click="deal(v.id,'del',i,v.pid)" href="javascript:void(0)" >删除</a>
+                    <a v-if="v.status==0" class="j-delete pz-color-green fn-ml10" @click="deal(v.id,'pass',v.aindex,v.pid)" href="javascript:void(0)" >通过</a>
+                    <a  v-if="v.status==1" class="j-delete pz-color-red fn-ml10" @click="deal(v.id,'del',v.aindex,v.pid)" href="javascript:void(0)" >删除</a>
                 </td>
             </tr>
                </tbody></table>
@@ -103,9 +102,57 @@
         data:{
             dates:new Array(),
             loaded:false,
-            allDates:''
+            allDates:'',
+            selected:[],
+            allPage:0,
+        },
+        computed:{
+          checkAll:{
+              get:function (v) {
+                  return this.dates ? this.selected.length == this.dates.length : false;
+              },
+              set:function(value){
+                    var selected=[];
+                    if (value){
+                        this.dates.forEach(function (index) {
+                            selected.push(index.aindex)
+                        })
+                    }
+                    this.selected=selected;
+              }
+          }
         },
         methods:{
+                delParts:function (act) {
+                    var that=this;
+                    var info;
+                    act=='pass'?info="确认删除所选中的评论吗？":info="确认通过所选中的评论吗？";
+                    if (this.selected.length==0){
+                        return false
+                    }else{
+                        this.selected.map(function (a,i) {
+                            that.selected[i]=that.allDates[a]['id']
+                        })
+                        if (confirm(info))
+                            this.$http.post('/Api/signedCommits',{act:act,'dates':JSON.stringify(this.selected),'_token':'{{csrf_token()}}'}).then(function (res) {
+                                if(res.body=='1'){
+                                    //如果是删除 就直接重新载入页面
+                                    if (act=='delParts'){
+                                        alert('操作成功')
+                                        parent.document.getElementById('inframe').src="/admin/scene/comment";
+                                    }
+
+                                }else if(act=='passParts'){
+                                    alert('操作成功');
+                                    parent.document.getElementById('inframe').src="/admin/scene/comment";
+                                }else{
+                                    alert('操作失败，请重试！')
+                                }
+                            },function (e) {
+                                console.log(e)
+                            })
+                    }
+                },
                 deal:function (id,action,i,pid) {
                     var that=this;
                     var doNext=true;
@@ -136,64 +183,93 @@
         mounted:function () {
          this.$http.post('/Api/signedCommits',{act:'getAll','_token':'{{csrf_token()}}'}).then(function (res) {
              this.allDates=eval('('+res.body+')');
+             this.allPage=Math.ceil(this.allDates.length/10);
              this.loaded=true;
-             console.log(this.allDates);
          },function (e) {
              console.log(e)
          })
         }
     })
-    Vue.component("page",{
-        delimiters: ['[[', ']]'],
-        template:"#page",
-        data:function(){
-            return{
-                current:1,
-                showItem:10,
-                allpage:13,
-                from:0
-            }
-        },
-        computed:{
-            loopArr:function () {
-                var begin=this.from;
-                var to=this.from+9;
-                vm.allDates.map(function (v,i,a) {
-                    vm.allDates[i]['aindex']=i;
-                });
-                for (var x=begin;x<=to;x++){
-                    vm.dates.push(vm.allDates[x]);
+    Vue.component("page", {
+            delimiters: ['[[', ']]'],
+            template: "#page",
+            data: function () {
+                return {
+                    current: 1,
+                    showItem: 10,
+                    allpage: 13,
+                    from: 0,
+                    logo:null
                 }
             },
-            pages:function(){
-                var pag = [];
-                if( this.current < this.showItem ){ //如果当前的激活的项 小于要显示的条数
-                    //总页数和要显示的条数那个大就显示多少条
-                    var i = Math.min(this.showItem,this.allpage);
-                    while(i){
-                        pag.unshift(i--);
+            watch:{
+              current(a,o){
+                  var that=this;
+                if (a!=1)
+                {
+                   this.from=(this.current-1)*10;
+                }else if(a==1){
+                    this.from=0;
+                }
+                this.changeDetails();
+              }
+            },
+            computed: {
+                pages: function () {
+                    vm.selected=[];
+                    var pag = [];
+                    if (this.current < this.showItem) { //如果当前的激活的项 小于要显示的条数
+                        //总页数和要显示的条数那个大就显示多少条
+                        var i = Math.min(this.showItem, this.allpage);
+                        while (i) {
+                            pag.unshift(i--);
+                        }
+                    } else { //当前页数大于显示页数了
+                        var middle = this.current - Math.floor(this.showItem / 2),//从哪里开始
+                            i = this.showItem;
+                        if (middle > (this.allpage - this.showItem)) {
+                            middle = (this.allpage - this.showItem) + 1
+                        }
+                        while (i--) {
+                            pag.push(middle++);
+                        }
                     }
-                }else{ //当前页数大于显示页数了
-                    var middle = this.current - Math.floor(this.showItem / 2 ),//从哪里开始
-                        i = this.showItem;
-                    if( middle >  (this.allpage - this.showItem)  ){
-                        middle = (this.allpage - this.showItem) + 1
+                    return pag
+                }
+            },
+            methods: {
+                goto: function (index) {
+                    this.logo=index;
+                    if (index==this.allpage){
+                        vm.allDates.length==vm.allPage*10?'':this.showItem=vm.allDates.length-(index-1)*10;
                     }
-                    while(i--){
-                        pag.push( middle++ );
+                    if (index == this.current) return;
+                    this.current = index;
+                    //这里可以发送ajax请求
+                },
+                changeDetails:function () {
+                    var p=9;
+                    if (this.logo==this.allpage){
+                        vm.allDates.length==vm.allPage*10?'':p=vm.allDates.length-(this.logo-1)*10-1;
+                    }
+                    var begin = this.from;
+                    var to = this.from + p;
+                    vm.allDates.map(function (v, i, a) {
+                        vm.allDates[i]['aindex'] = i;
+                    });
+                vm.dates.length!=0?vm.dates.splice(0,vm.dates.length):'';
+                    for (var x = begin; x <=to; x++) {
+                        vm.dates.push(vm.allDates[x]);
                     }
                 }
-                return pag
-            }
-        },
-        methods:{
-            goto:function(index){
-                if(index == this.current) return;
-                this.current = index;
-                //这里可以发送ajax请求
+            },
+            mounted: function () {
+                //刷新时重置多选
+                    this.allpage=vm.allPage;
+                    this.changeDetails();
             }
         }
-    })
+    )
 </script>
 </body>
 </html>
