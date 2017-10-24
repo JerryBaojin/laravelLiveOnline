@@ -21,6 +21,7 @@ class LoginController extends Controller
     public function check()
     {
         $input = Input::all();
+
         $username = $input['logname'];
         $tableP='admin';
         $verti='name';
@@ -30,11 +31,12 @@ class LoginController extends Controller
         }
         $pwd = $input['logpass'];
         $table = DB::table($tableP)->where([$verti => $username])->first();
-
-        $ppname=$table->name;
+     $ppname=null;
+        empty($table)?$ppname=$username:   $ppname=$table->name;
      if (empty($table)) {
             return back() ->with('errorname', '用户名不存在!');
         } elseif (Crypt::decrypt($table->password) != $pwd) {
+         $ppname=$table->name;
             return back() -> with('errorpwd', '密码错误!');
         }else{
             $time= date('Y-m-d H:i:s',time());

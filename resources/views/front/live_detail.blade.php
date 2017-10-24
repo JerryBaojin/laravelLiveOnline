@@ -24,7 +24,7 @@
         .tab .active{border-bottom: 1px #0e90d2 solid; color: #0e90d2;}
         .panel{margin: 0;}
 
-        .refreshtip {position: absolute;left: 0;width: 100%;margin: 10px 0;text-align: center;color: #999;}
+        .refreshtip {position: absolute;left: 0;width: 100%;margin: 6px 0;text-align: center;color: #999;}
         .swiper-container{overflow: visible;}
         .loadtip { display: block;width: 100%;line-height: 40px; height: 40px;text-align: center;color: #999;border-top: 1px solid #ddd;}
 
@@ -38,19 +38,25 @@
         .descclamp{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
         .act{transform: rotate(180deg);background: url(/img/act.png) center center no-repeat;background-size: 100% auto;position: absolute;right: 0;bottom: 0; width: 20px;height: 20px;}
         .zero{transform: rotate(0)}
+        [v-cloak] {
+            display: none;
+        }
     </style>
 </head>
 <body>
-
-<div class="container" id="app">
+<div class="container" id="app" v-cloak>
     {{--col-md-4 col-md-offset-4--}}
     <div id="main" class="col-md-6 col-md-offset-4 .col-sm-1 	col-xs-12">
 
         <div class="live">
+            @if($type==4)
             <video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                <source src="rtmp://220.166.83.187:1935/live/a" type="rtmp/flv">
+                <source src="{{$rtmpUrl}}" type="rtmp/flv">
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
             </video>
+                @else
+                <img style="width: 100%" src="{{$coverPic}}" alt="">
+                @endif
         </div>
 {{--摘要--}}
             <div class="scenInfo">
@@ -152,7 +158,7 @@
 
     </div>
 
-</div>
+</div >
 <script>
     var   vue=new Vue({
         delimiters: ['[[', ']]'],
@@ -298,12 +304,16 @@
                 loadFlag = true;
 
                 setTimeout(function() {
+                    vue.getReports();
+                    vue.getCommits();
+
                     $(".refreshtip").show(0);
                     $(".init-loading").html('刷新成功！');
                     setTimeout(function(){
                         $(".init-loading").html('').hide();
                     },800);
                     $(".loadtip").show(0);
+                    console.log('ajax')
 
                     //刷新操作
                     mySwiper.update(); // 重新计算高度;

@@ -32,7 +32,8 @@ class IndexController extends Controller
             'oid'=>$scenDeatails->id,
             'scene'=>$scenDeatails->title,
            'id'=>$id,
-           'rtmpUrl'=>$rtmpUrl
+           'rtmpUrl'=>$rtmpUrl,
+            'type'=>$scenDeatails->type
        );
          //pv+1
 
