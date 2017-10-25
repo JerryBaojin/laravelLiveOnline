@@ -210,7 +210,10 @@
             },
             getCommits:function () {
                 this.$http.get("/dates/"+this.pid+".json?"+new Date().getTime()).then(function (res) {
-                    this.commits=JSON.parse(res.body);
+                    if(res.status!=404){
+                        this.commits=JSON.parse(res.body);
+                    }
+
                 },function (e) {
                     console.log(e)
                 })
