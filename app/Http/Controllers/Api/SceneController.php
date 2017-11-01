@@ -50,7 +50,12 @@ class SceneController extends Controller
             $path= '/uploads/'.$filename;
         }
         $dates=$request->input();
-    $rtmpUrl="rtmp://220.166.83.187:1935/live/|||".uniqid()."?pass=njrb";
+        $ip=$_ENV['IP_ADDR'];
+        $time=strtotime("2030-11-10 22:19:21");
+        $uid=uniqid();
+
+        $md5v=md5("/live/$uid-$time-njrb");
+    $rtmpUrl="rtmp://$ip:1935/live/|||".$uid."?sign=$time-$md5v";
         //处理字段
         $pid=time();
         $viewUrl=$_ENV['SITENAME'].'/scen/'.(string)$pid;
@@ -62,6 +67,14 @@ class SceneController extends Controller
            return 0;
        }
     }
+
+    public function  getCount(Request $request){
+            if($request->input('act')=='a'){
+                $a=DB::table('createscene')->orderby('id','DESC')->get();
+                return $a;
+            }
+    }
+
     public function getScenelist(Request $request){
         $id=Input::get('id');//对应的id
           if ($request->input('act')=='getList'){

@@ -11,7 +11,13 @@
     <script src="/js/video.min.js"></script>
 </head>
 <body>
-    <div id="app">
+<style>
+    [v-cloak] {
+        display: none;
+    }
+
+</style>
+    <div id="app" v-cloak>
         <div id="j-search" class=" pz-form pz-searchform xcy-search fn-clear">
             <span id="j-back" class="  fn-left pz-btn btn-white"><i @click="goback" class="pz-icon icon-back1"></i> 返回</span>
             <div class="other">

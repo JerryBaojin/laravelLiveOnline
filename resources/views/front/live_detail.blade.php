@@ -10,6 +10,7 @@
     <link href="/css/fron_live.css" rel="stylesheet">
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
+
     <style type="text/css">
         html, body{height: 100%;font-family: "微软雅黑";}
         *{margin: 0;padding: 0;box-sizing: border-box;}
@@ -49,8 +50,10 @@
     <div id="main" class="col-md-6 col-md-offset-4 .col-sm-1 	col-xs-12">
 
         <div class="live">
+
+            {{$rtmpUrl}}
             @if($type==4)
-            <video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+            <video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="680px" height="680" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
                 <source src="{{$rtmpUrl}}" type="rtmp/flv">
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
             </video>
@@ -60,8 +63,6 @@
         </div>
 {{--摘要--}}
             <div class="scenInfo">
-
-
                 <div class="title" style="    font-size: 24px;">
                    {{$scene}}
                 </div>
@@ -215,7 +216,10 @@
                     }
 
                 },function (e) {
-                    console.log(e)
+                    if(e.status==404){
+
+                    }
+                   // console.log(e)
                 })
             },
             getReports:function () {

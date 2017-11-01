@@ -38,6 +38,7 @@ Route::group(['middleware' => ['web'],'prefix'=>'Api','namespace'=>'Api'], funct
     Route::post('/editReport','SceneController@editReport');
     Route::post('/makeComments','SceneController@makeComments');
     Route::post('/signedCommits','SceneController@signedCommits');
+    Route::post('/getCount','SceneController@getCount');
 });
 
 Route::group(['middleware' => ['web'],'prefix'=>'admin'], function () {

@@ -31,7 +31,7 @@ class LoginController extends Controller
         }
         $pwd = $input['logpass'];
         $table = DB::table($tableP)->where([$verti => $username])->first();
-     $ppname=null;
+          $ppname=null;
         empty($table)?$ppname=$username:   $ppname=$table->name;
      if (empty($table)) {
             return back() ->with('errorname', '用户名不存在!');

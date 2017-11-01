@@ -5,6 +5,8 @@
     <title>数据统计</title>
     <link rel="stylesheet" href="/css/main/ui.css">
     <link rel="stylesheet" href="/css/main/chart.css">
+    <script src="/js/vue-min.js"></script>
+    <script src="/js/vue-resource.js"></script>
 </head>
 <body class="pz-contain">
 <!--
@@ -19,14 +21,62 @@
   </div>
 </div>
 -->
+<div id="app">
 <div class="pz-boxhead">
     <em class="icon pz-icon icon-table"></em>
     <span class="title">直播统计</span>
 
 </div>
 <div class="fn-pb30">
-    <div id="j-list" class="pz-table">     <table class="table-noborder">       <tbody><tr>         <th>ID</th>         <th>直播标题</th>         <th>创建时间</th>         <th>用户量(UV)</th>         <th>访问量(PV)</th>         <th>报道数</th>         <th>评论数</th>         <th>点赞数</th>         <th>报道来源</th>         <th>用户来源</th>       </tr>              <tr>         <td>15051845835167</td>         <td>探秘内江人防工程<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-09-12 10:49</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">11875</td>         <td class="fn-textcenter">39</td>         <td class="fn-textcenter">9</td>         <td class="fn-textcenter">81</td>         <td class="fn-textcenter">记者：3<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>150548741286080</td>         <td>内江市第86个“九·一八”纪念日活动(直播)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-09-15 22:56</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">9</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">记者：0<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>150548598073563</td>         <td>四川省2017年国家网络安全宣传周(直播)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-09-15 22:33</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">4</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">记者：0<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>150493403723932</td>         <td>鹿之影舞蹈学苑新校开业典礼<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-09-09 13:13</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">11718</td>         <td class="fn-textcenter">43</td>         <td class="fn-textcenter">6</td>         <td class="fn-textcenter">42</td>         <td class="fn-textcenter">记者：2<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>1503025614947761</td>         <td>金科 美好音乐季-内江之声交响音乐会<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-08-18 11:06</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">11272</td>         <td class="fn-textcenter">59</td>         <td class="fn-textcenter">1</td>         <td class="fn-textcenter">26</td>         <td class="fn-textcenter">记者：2<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>1502263638774619</td>         <td>跟拍国网四川电力内江供电公司<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-08-09 15:27</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">29062</td>         <td class="fn-textcenter">35</td>         <td class="fn-textcenter">8</td>         <td class="fn-textcenter">111</td>         <td class="fn-textcenter">记者：4<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>1501833212756547</td>         <td>2017第三届中国·四川(威远)无花果采摘节(回放)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-08-04 15:53</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">76910</td>         <td class="fn-textcenter">132</td>         <td class="fn-textcenter">36</td>         <td class="fn-textcenter">515</td>         <td class="fn-textcenter">记者：19<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>150172671169627</td>         <td>“内江高新杯”创客大赛 决赛(回放)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-08-03 10:18</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">44318</td>         <td class="fn-textcenter">132</td>         <td class="fn-textcenter">58</td>         <td class="fn-textcenter">516</td>         <td class="fn-textcenter">记者：1<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>15014954981375</td>         <td>跟拍国网四川电力内江共产党员服务队(回放)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-07-31 18:04</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">18141</td>         <td class="fn-textcenter">46</td>         <td class="fn-textcenter">10</td>         <td class="fn-textcenter">273</td>         <td class="fn-textcenter">记者：4<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>15003485081471</td>         <td>“践行十爱•德耀甜城•感动资中”典型人物事迹展演(直播回放)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-07-18 11:28</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">109092</td>         <td class="fn-textcenter">51</td>         <td class="fn-textcenter">122</td>         <td class="fn-textcenter">1617</td>         <td class="fn-textcenter">记者：1<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>15000078608086</td>         <td>2017第六届永安葡萄采摘节(直播回放)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-07-14 12:51</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">38449</td>         <td class="fn-textcenter">234</td>         <td class="fn-textcenter">1</td>         <td class="fn-textcenter">1</td>         <td class="fn-textcenter">记者：12<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>              <tr>         <td>1499839764019260</td>         <td>姚明来内江了！(直播回放)<p class="fn-color-gray">类型：视频现场</p></td>         <td class="fn-textcenter">2017-07-12 14:09</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">28762</td>         <td class="fn-textcenter">92</td>         <td class="fn-textcenter">29</td>         <td class="fn-textcenter">0</td>         <td class="fn-textcenter">记者：3<br>用户：0</td>         <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>       </tr>            </tbody></table>     </div>
-</div>
+    <div id="j-list" class="pz-table">
+        <table class="table-noborder">
+            <tbody><tr>
+                <th>ID</th>
+                <th>直播标题</th>
+                <th>创建时间</th>
+                <th>用户量(UV)</th>
+                <th>访问量(PV)</th>
+                <th>报道数</th>
+                <th>评论数</th>
 
+                <th>报道来源</th>
+                <th>用户来源</th>
+            </tr>
+            <tr v-for="(v,index) in list">
+                <td>[[v.pid]]</td>
+                <td>[[v.title]]<p class="fn-color-gray">类型：[[v.type=='4'?"视频现场":"直播现场"]]</p></td>
+                <td class="fn-textcenter">[[v.createAt]]</td>
+                <td class="fn-textcenter">0</td>
+                <td class="fn-textcenter">[[v.viewCount]]</td>
+                <td class="fn-textcenter">[[v.reports]]</td>
+                <td class="fn-textcenter">[[v.Ccommits]]</td>
+
+                <td class="fn-textcenter">记者：0<br>用户：0</td>
+                <td class="fn-textcenter">APP：0<br>微信：0<br>微博：0</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+<script>
+    new Vue({
+        delimiters:['[[', ']]'],
+        el:'#app',
+        data:{
+          list:''
+        },
+        mounted:function () {
+            var that=this;
+            this.$http.post('/Api/getCount',{act:'a','_token':'{{csrf_token()}}'}).then(function (res) {
+                that.list=JSON.parse(res.body);
+                console.log(that.list);
+            },function (e) {
+
+            })
+        }
+    })
+</script>
 
 </body></html>
