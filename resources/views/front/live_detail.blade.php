@@ -76,7 +76,7 @@
                 {{--<source src="{{$rtmpUrl}}" type="rtmp/flv">--}}
                 {{--<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that--}}
             {{--</video>--}}
-                <div  class="prism-player" id="J_prismPlayer" style="left:0%;height:3.4rem"></div>
+                <div  class="prism-player" id="J_prismPlayer" style="left:0%;height:3.5rem"></div>
                 <script>
                     var player = new Aliplayer({
                         id: "J_prismPlayer",
