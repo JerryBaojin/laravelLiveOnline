@@ -1,84 +1,145 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
+<html><head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/swiper-3.3.1.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
     <script src="/js/video.min.js"></script>
-    <script src="/js/idangerous.swiper.min.js"></script>
     <link href="/css/fron_live.css" rel="stylesheet">
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
+
+    <style type="text/css">
+        html, body{height: 100%;font-family: "微软雅黑";}
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        a {color: #428bca;text-decoration: none;}
+        a:hover,a:focus {color: #2a6496;text-decoration: none;}
+        a:focus {outline: thin dotted;outline: 5px auto -webkit-focus-ring-color;outline-offset: -2px;}
+
+        .padd_40{padding-top: 80px;background: #F5F5F5;overflow-x:hidden;}
+        .a{text-align:center;line-height: 40px;position: fixed;top: 0;left: 0;width: 100%;z-index: 10;border-bottom: 1px #ccc solid; background: #f50;color: #fff;}
+        .tab{display: flex;line-height: 40px;top: 40px;width: 100%;z-index: 10;}
+        .tab a{width: 50%;background: #fff;text-align: center;color: #999999;height: 42px;line-height: 42px;}
+        .tab .active{border-bottom: 1px #0e90d2 solid; color: #0e90d2;}
+        .panel{margin: 0;}
+
+        .refreshtip {position: absolute;left: 0;width: 100%;margin: 6px 0;text-align: center;color: #999;}
+        .swiper-container{overflow: visible;}
+        .loadtip { display: block;width: 100%;line-height: 40px; height: 40px;text-align: center;color: #999;border-top: 1px solid #ddd;}
+
+        .swiper-slide{height: auto;}
+        .zans:hover{cursor: pointer}
+        .text-center{text-align: center;}
+        .list-group{padding-left: 0;margin-bottom: 20px;}
+        .list-group-item{    position: relative; display: block;padding: 10px 15px;margin-bottom: -1px;background-color: #fff;border: 1px solid #ddd;}
+        .list-group-item:first-child {border-top-left-radius: 4px;border-top-right-radius: 4px;}
+        .sContent{font-size: 16px;color: #999;word-break: break-all;overflow: hidden;height: auto;position: relative;    padding: 10px 18px 0 0;}
+        .descclamp{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+        .act{transform: rotate(180deg);background: url(/img/act.png) center center no-repeat;background-size: 100% auto;position: absolute;right: 0;bottom: 0; width: 20px;height: 20px;}
+        .zero{transform: rotate(0)}
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
-<style>
-
-</style>
 <body>
-
-<div class="container" id="app">
+<div class="container" id="app" v-cloak>
     {{--col-md-4 col-md-offset-4--}}
     <div id="main" class="col-md-6 col-md-offset-4 .col-sm-1 	col-xs-12">
-        <!--直播addr-->
+
         <div class="live">
-            <video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                <source src="rtmp://220.166.83.187:1935/live/a" type="rtmp/flv">
+
+            {{$rtmpUrl}}
+            @if($type==4)
+            <video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="680px" height="680" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+                <source src="{{$rtmpUrl}}" type="rtmp/flv">
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
             </video>
+                @else
+                <img style="width: 100%" src="{{$coverPic}}" alt="">
+                @endif
         </div>
-        <div class="containA">
-            <div class="tagactive" data-pid="live">直播</div>
-            <div data-pid="chat">聊天室</div>
-        </div>
-        <div class="section" style="left: 0;">
-            <div class="live-tag leftTag" >
-                <div class="live_section" >
-                    <div  id="move" style="border-left:1px solid #dddddd; margin-left: 17px;margin-right: 5px;">
-                        <div class="swiper-container ">
-                            <div class="preloader"> Loading... </div>
-                            <div class="swiper-wrapper">
-                                <div v-for="x in 6" class="swiper-slide green-slide swiper-slide-visible swiper-slide-active">
-                                    <div class="blueI"></div>
-                                    <div class="out"></div>
-                                    <div class="main_content">
-                                        <div>
-                                            <span>
-                                            <img src="/img/live_user_header_bg.png" alt=""><span style="color: #13b7f6;margin-left: 4px;">主持人 小1</span>
-                                            </span>
-                                            <span class="time" style="float: right">01-19 23:25</span>
-                                        </div>
-                                        <div>
-                                            舞蹈  《梦幻羌寨》  曾获四川省第二届广场舞大赛一等奖。舞蹈编导张亚龄是一个90后帅小伙，舞蹈专业科班出身，这是他的第一支编舞作品。《梦幻羌寨》这个节目里添加了不少难度较高的动作和队形，且18名舞蹈演员全是业余爱好者，来自不同行业，如卖奶茶的、搞婚庆的，都是各行各业的舞蹈爱好者。
-                                        </div>
-                                        <div class="img c">
-                                                <ul>
-                                                    <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
-                                                    <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
-                                                    <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
-                                                    <li><img src="https://img.newaircloud.com/njrb/pic/201701/19/62a3e02c-2e96-4750-9081-cc9642cf8bd8.jpg@!md11" alt=""></li>
+{{--摘要--}}
+            <div class="scenInfo">
+                <div class="title" style="    font-size: 24px;">
+                   {{$scene}}
+                </div>
+                <div class="sContent descclamp" @click="showContent($event)">
+                    <span class="act zero"></span>
+                     <span>摘要:</span>
+                    <span>{{$content}}</span>
+                </div>
+                @if($partakeState!=1)
+                    <div style="float: right;color:#999;font-size: 14px;">浏览量:{{$viewCount}}</div>
+                @endif
 
-                                                </ul>
+            </div>
+
+        <div class="tab">
+            <a class="active" href="javascript:;">直播</a>
+            <a href="javascript:;" >聊天室</a>
+
+        </div>
+
+        <div class="swiper-container swiper-container-vertical swiper-container-free-mode swiper-container-android">
+
+            <div class="refreshtip">下拉可以刷新</div>
+            <div class="swiper-wrapper w" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="swiper-slide d swiper-slide-active">
+                    <div class="init-loading list-group-item text-center" style="display: none;">下拉可以刷新</div>
+                    <div class=" swiper-container2 swiper-container-horizontal swiper-container-android">
+                        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+
+                            <div class="swiper-slide list-group swiper-slide-active" >
+                                <div v-for="(x,i) in reports" class="live-tag" >
+                                    <div  class="move">
+                                        <div  style="background: white">
+                                            <div class="blueI"></div>
+                                            <div class="out"></div>
+                                            <div class="main_content">
+                                                <div>
+                                            <span>
+                                            <img src="/img/live_user_header_bg.png" alt=""><span style="color: #13b7f6;margin-left: 4px;">主持人 [[x.commiter]]</span>
+                                            </span>
+                                                    <span class="time" style="float: right">[[x.commitAt]]</span>
+                                                </div>
+                                                <div>
+                                                    [[x.content]]
+                                                </div>
+                                                <div class="img c">
+                                                    <ul>
+                                                        <li v-for="pic in x.pics">
+                                                            <img :src="pic" alt="">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="svideo" style="overflow:hidden;" v-if="x.video">
+                                                    <video controls :src="x.video"></video>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="live-tag rightTag" >
-                <div class="live_section" >
-                    <div  id="move" style="border-left:1px solid #dddddd; margin-left: 17px;margin-right: 5px;">
-                        <div class="swiper-container2">
-                            <div class="preloader2"> Loading... </div>
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide green-slide swiper-slide-visible swiper-slide-active">
-                                    <div class="title2">silder 2</div>
-                                </div>
+                            <div class="swiper-slide list-group swiper-slide-next" >
+                                <ul class="comments">
+                                    <li v-for="(v,i) in commits">
+                                        <div class="ctop">
+                                            <div>
+                                                <img style="width: 35px;" :src="v.headImg" alt="head">
+                                                <span  class="cname"> [[v.name]]</span>
+                                                <span class="zans" style="width: 60px"><img @click="zan(v.id,i,$event)" src="/img/great_button.png" alt=""><span>[[v.zans]]</span></span>
+                                            </div>
+                                            <div class="ctime">[[v.creatAt]]</div>
+                                        </div>
+                                        <div style="text-indent: 41px;padding-bottom: 10px;color: #999999;">
+                                            [[v.content]]
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -86,132 +147,212 @@
             </div>
         </div>
 
+
+        <div class="swiper-scrollbar" style="display: none; opacity: 0;"><div class="swiper-scrollbar-drag" style="height: 0px;"></div></div>
+
+
+        <div class="boo">
+            <input type="hidden" v-model="name">
+            <input type="text"  id="comment" v-model="comments" placeholder="我也说俩句...">
+            <button type="button" id="btn" @click="submit(  {{$id}})" class="btn btn-primary">提交</button>
+        </div>
+
     </div>
-</div>
 
+</div >
 <script>
-//init
-//
-//    var holdPosition = 0;
-//    var mySwiper2= new Swiper('.swiper-container2',{
-//        slidesPerView:'auto',
-//        mode:'vertical',
-//        watchActiveIndex: true,
-//        onTouchStart: function() {
-//            holdPosition = 0;
-//        },
-//        onResistanceBefore: function(s, pos){
-//            holdPosition = pos;
-//        },
-//        onTouchEnd: function(){
-//            if (holdPosition>100) {
-//                mySwiper2.setWrapperTranslate(0,100,0)
-//                mySwiper2.params.onlyExternal=true
-//                $('.preloader2').addClass('animate2');
-//                loadNewSlides2();
-//            }
-//        }
-//    })
-//    var slideNumber2 = 0;
-//    function loadNewSlides2(){
-//        setTimeout(function(){
-//            //Prepend new slide
-//            var colors = ['red','blue','green','orange','pink'];
-//            var color = colors[Math.floor(Math.random()*colors.length)];
-//            mySwiper2.prependSlide('<div class="title2">silder '+slideNumber2+'</div>', 'swiper-slide '+color+'-slide');
-//            //Release interactions and set wrapper
-//            mySwiper2.setWrapperTranslate(0,0,0)
-//            mySwiper2.params.onlyExternal=false;
-//            //Update active slide
-//            mySwiper2.updateActiveSlide(0)
-//            //Hide loader
-//            $('.preloader2').removeClass('animate2');
-//        },1000)
-//        slideNumber2++;
-//    }
-</script>
-<script>
-//    var holdPosition = 0;
-//    var mySwiper = new Swiper('.swiper-container',{
-//        slidesPerView:'auto',
-//        mode:'vertical',
-//        observer:true,//修改swiper自己或子元素时，自动初始化swiper    重要
-//        observeParents:true,//修改swiper的父元素时，自动初始化swiper  重要
-//        watchActiveIndex: false,
-//        onTouchStart: function() {
-//            holdPosition = 0;
-//        },
-//        onResistanceBefore: function(s, pos){
-//            holdPosition = pos;
-//        },
-//        onTouchEnd: function(){
-//            if (holdPosition>100) {
-//                mySwiper.setWrapperTranslate(0,100,0)
-//                mySwiper.params.onlyExternal=true
-//                $('.preloader').addClass('visible');
-//                loadNewSlides();
-//            }
-//        }
-//    })
-//    var slideNumber = 0;
-//    function loadNewSlides(){
-//        setTimeout(function(){
-//            //Prepend new slide
-//            mySwiper.prependSlide('<div class="title">silder '+slideNumber+'</div>', 'swiper-slide');
-//            //Release interactions and set wrapper
-//            mySwiper.setWrapperTranslate(0,0,0)
-//            mySwiper.params.onlyExternal=false;
-//            //Update active slide
-//            mySwiper.updateActiveSlide(0)
-//            //Hide loader
-//            $('.preloader').removeClass('visible');
-//        },1000)
-//        slideNumber++;
-//    }
-    //part two
-
-</script>
-
-<script src="/js/jq.min.js"></script>
-
-<script src="/js/bootstrap.min.js"></script>
-
-<script>
-
-    $(function () {
-        $('.live').on('click',function () {
-            console.log('clicked');
-        })
-      var _width=$("#main").width()*2;
-       $('.section').css('width',_width);
-        $('.containA').click(function (e) {
-          for (var i=0;i<2;i++){
-             $(this).find('div')[i].className='';
-          }
-          e.target.className='tagactive';
-            console.log('clicked3');
-            $('.section').animate({'left':'-'+_width/2});
-            if (e.target.dataset.pid=='chat'){
-                console.log(_width/2)
-                $('.section').animate({'left':'-'+_width/2});
-                console.log('clicked4');
-            }else{
-                $('.section').animate({'left':'0'});
-            }
-        })
-    })
-
-</script>
-<script>
-
-    vue=new Vue({
+    var   vue=new Vue({
         delimiters: ['[[', ']]'],
         el: '#app',
         data:{
+            pid:'{{$id}}',
+            id:'{{$oid}}',
+            name:'name',
+            comments:'',
+            reports:'',
+            commits:''
+        }
+        ,methods:{
+            showContent:function (e) {
 
+           if( e.currentTarget.className=='sContent'){
+               e.currentTarget.getElementsByClassName('act')[0].className='act zero';
+               e.currentTarget.className='descclamp sContent';
+           }else{
+               e.currentTarget.getElementsByClassName('act')[0].className='act';
+               e.currentTarget.className= 'sContent';
+           }
+            },
+            zan:function (id,index,e) {
+                    var that=this;
+                this.$http.post('/Api/makeComments',{act:'zans','_token':'{{csrf_token()}}','pid':this.pid,'id':id}).then(function (res) {
+                    if(res.body=='1'){
+                      e.target.src='/img/great_cancel_button.png';
+                      that.commits[index]['zans']+=1;
+                    }else{
+                        alert('失败！')
+                    }
+                },function (e) {
+                    console.log(e)
+                })
+            },
+            submit:function (pid) {
+                var vm=this;
+                this.$http.post('/Api/makeComments',{act:'makeComments','scene':'{{$scene}}','_token':'{{csrf_token()}}','pid':pid,'name':this.name,'content':this.comments}).then(function (res) {
+                    if(res.body=='1'){
+                        alert('提交成功！');
+                       vm.comments='';
+                    }else{
+                        alert('提交失败')
+                    }
+                },function (e) {
+                    console.log(e)
+                })
+            },
+            getCommits:function () {
+                this.$http.get("/dates/"+this.pid+".json?"+new Date().getTime()).then(function (res) {
+                    if(res.status!=404){
+                        this.commits=JSON.parse(res.body);
+                    }
+
+                },function (e) {
+                    if(e.status==404){
+
+                    }
+                   // console.log(e)
+                })
+            },
+            getReports:function () {
+                var that=this;
+                this.$http.post("/Api/makeComments",{act:'FgetAll','_token':'{{csrf_token()}}','oid':this.id}).then(function (res) {
+                    this.reports=JSON.parse(res.body);
+
+                    this.reports.map(function (v,i,a){
+                        that.reports[i]['pics']=v['pics'].split(',');
+                       that.reports[i]['commitAt']=v['commitAt'].substring(5,16)
+                    })
+                    console.log(this.reports);
+                },function (e) {
+                    console.log(e)
+                })
+            }
+        },
+        mounted:function () {
+            this.getReports();
+              this.getCommits();
         }
     })
 
 </script>
-</body>
-</html>
+<script>
+
+</script>
+<script src="/js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    //计算 boo属性
+    $(function () {
+        $(window).resize(function () {
+            $('.boo').css('width',$('#main').css('width'));
+        })
+        $(window).on('load',function () {
+            $('.boo').css('width',$('#main').css('width'));
+        })
+    })
+</script>
+<script src="/js/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var loadFlag = true;
+    var oi = 0;
+    var mySwiper = new Swiper('.swiper-container',{
+        direction: 'vertical',
+        scrollbar: '.swiper-scrollbar',
+        slidesPerView: 'auto',
+        mousewheelControl: true,
+        freeMode: true,
+        onTouchMove: function(swiper){		//手动滑动中触发
+            var _viewHeight = document.getElementsByClassName('swiper-wrapper')[0].offsetHeight;
+            var _contentHeight = document.getElementsByClassName('swiper-slide')[0].offsetHeight;
+
+
+            if(mySwiper.translate < 50 && mySwiper.translate > 0) {
+                $(".init-loading").html('下拉刷新...').show();
+            }else if(mySwiper.translate > 50 ){
+                $(".init-loading").html('释放刷新...').show();
+            }
+        },
+        onTouchEnd: function(swiper) {
+            var _viewHeight = document.getElementsByClassName('swiper-wrapper')[0].offsetHeight;
+            var _contentHeight = document.getElementsByClassName('swiper-slide')[0].offsetHeight;
+            // 上拉加载
+            if(mySwiper.translate <= _viewHeight - _contentHeight - 50 && mySwiper.translate < 0) {
+                // console.log("已经到达底部！");
+
+                if(loadFlag){
+                    $(".loadtip").html('正在加载...');
+                }else{
+                    $(".loadtip").html('没有更多啦！');
+                }
+
+                setTimeout(function() {
+
+                    for(var i = 0; i <5; i++) {
+                        oi++;
+                        $(".list-group").eq(mySwiper2.activeIndex).append('<li class="list-group-item">我是加载出来的'+oi+'...</li>');
+                    }
+                    $(".loadtip").html('上拉加载更多...');
+                    mySwiper.update(); // 重新计算高度;
+                }, 800);
+            }
+
+            // 下拉刷新
+            if(mySwiper.translate >= 50) {
+                $(".init-loading").html('正在刷新...').show();
+                $(".loadtip").html('上拉加载更多');
+                loadFlag = true;
+
+                setTimeout(function() {
+                    vue.getReports();
+                    vue.getCommits();
+
+                    $(".refreshtip").show(0);
+                    $(".init-loading").html('刷新成功！');
+                    setTimeout(function(){
+                        $(".init-loading").html('').hide();
+                    },800);
+                    $(".loadtip").show(0);
+                    console.log('ajax')
+
+                    //刷新操作
+                    mySwiper.update(); // 重新计算高度;
+                }, 1000);
+            }else if(mySwiper.translate >= 0 && mySwiper.translate < 50){
+                $(".init-loading").html('').hide();
+            }
+            return false;
+        }
+    });
+    var mySwiper2 = new Swiper('.swiper-container2',{
+        onTransitionEnd: function(swiper){
+
+            $('.w').css('transform', 'translate3d(0px, 0px, 0px)')
+            $('.swiper-container2 .swiper-slide-active').css('height','auto').siblings('.swiper-slide').css('height','0px');
+            mySwiper.update();
+
+            $('.tab a').eq(mySwiper2.activeIndex).addClass('active').siblings('a').removeClass('active');
+        }
+
+    });
+    $('.tab a').click(function(){
+
+        $(this).addClass('active').siblings('a').removeClass('active');
+        mySwiper2.slideTo($(this).index(), 500, false)
+
+        $('.w').css('transform', 'translate3d(0px, 0px, 0px)')
+        $('.swiper-container2 .swiper-slide-active').css('height','auto').siblings('.swiper-slide').css('height','0px');
+        mySwiper.update();
+    });
+</script>
+<script src="/js/bootstrap.min.js"></script>
+
+
+</body></html>

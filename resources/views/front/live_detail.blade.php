@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
     <link rel="stylesheet" type="text/css" href="/css/swiper-3.3.1.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
-    <script src="/js/video.min.js"></script>
+    <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.2.0/skins/default/aliplayer-min.css" />
+    <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.2.0/aliplayer-min.js"></script>
     <link href="/css/fron_live.css" rel="stylesheet">
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
@@ -43,6 +43,25 @@
             display: none;
         }
     </style>
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if(clientWidth>=640){
+                        docEl.style.fontSize = '100px';
+                    }else{
+                        docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
 </head>
 <body>
 <div class="container" id="app" v-cloak>
@@ -51,13 +70,31 @@
 
         <div class="live">
 
-            {{$rtmpUrl}}
+
             @if($type==4)
-            <video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="680px" height="680" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                <source src="{{$rtmpUrl}}" type="rtmp/flv">
-                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
-            </video>
-                @else
+            {{--<video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="680px" height="680" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">--}}
+                {{--<source src="{{$rtmpUrl}}" type="rtmp/flv">--}}
+                {{--<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that--}}
+            {{--</video>--}}
+                <div  class="prism-player" id="J_prismPlayer" style="left:0%;height:3.4rem"></div>
+                <script>
+                    var player = new Aliplayer({
+                        id: "J_prismPlayer",
+                        autoplay: false,
+                        isLive:true,
+                        playsinline:true,
+                        width:"100%",
+                        height:"400px",
+                        x5_type:true,
+                        x5_fullscreen:false,
+                        controlBarVisibility:"always",
+                        useH5Prism:true,
+                        useFlashPrism:false,
+                        source:"//player.alicdn.com/video/aliyunmedia.mp4",
+                        cover:"http://weixin.scnjnews.com/spring/upload/active/img/20171101/1.png"
+                    });
+                </script>
+            @else
                 <img style="width: 100%" src="{{$coverPic}}" alt="">
                 @endif
         </div>
