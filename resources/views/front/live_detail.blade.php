@@ -64,19 +64,21 @@
     </script>
 </head>
 <body>
-<div class="container" id="app" v-cloak>
+
+
+
+<div class="container" >
+
     {{--col-md-4 col-md-offset-4--}}
     <div id="main" class="col-md-6 col-md-offset-4 .col-sm-1 	col-xs-12">
 
-        <div class="live">
-
-
+        <div class="live" style="position: relative">
             @if($type==4)
-            {{--<video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="680px" height="680" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">--}}
+                {{--<video style="width: 100%;height:270px;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="680px" height="680" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">--}}
                 {{--<source src="{{$rtmpUrl}}" type="rtmp/flv">--}}
                 {{--<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that--}}
-            {{--</video>--}}
-                <div  class="prism-player" id="J_prismPlayer" style="left:0%;height:3.5rem"></div>
+                {{--</video>--}}
+                <div  class="prism-player" id="J_prismPlayer" style="position:relative;left:0%;"></div>
                 <script>
                     var player = new Aliplayer({
                         id: "J_prismPlayer",
@@ -84,7 +86,7 @@
                         isLive:true,
                         playsinline:true,
                         width:"100%",
-                        height:"400px",
+                        height:"3.5rem",
                         x5_type:true,
                         x5_fullscreen:false,
                         controlBarVisibility:"always",
@@ -95,10 +97,14 @@
                     });
                 </script>
             @else
-                <img style="width: 100%" src="{{$coverPic}}" alt="">
-                @endif
+                <img style="width: 100%" src="http://weixin.scnjnews.com/spring/upload/active/img/20171101/1.png" alt="">
+            @endif
         </div>
 {{--摘要--}}
+        <div id="app" v-cloak>
+
+
+
             <div class="scenInfo">
                 <div class="title" style="    font-size: 24px;">
                    {{$scene}}
@@ -195,7 +201,7 @@
         </div>
 
     </div>
-
+    </div>
 </div >
 <script>
     var   vue=new Vue({
@@ -254,7 +260,7 @@
 
                 },function (e) {
                     if(e.status==404){
-
+                        console.log('non')
                     }
                    // console.log(e)
                 })
@@ -263,7 +269,6 @@
                 var that=this;
                 this.$http.post("/Api/makeComments",{act:'FgetAll','_token':'{{csrf_token()}}','oid':this.id}).then(function (res) {
                     this.reports=JSON.parse(res.body);
-
                     this.reports.map(function (v,i,a){
                         that.reports[i]['pics']=v['pics'].split(',');
                        that.reports[i]['commitAt']=v['commitAt'].substring(5,16)
