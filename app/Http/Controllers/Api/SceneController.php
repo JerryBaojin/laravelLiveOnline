@@ -55,7 +55,7 @@ class SceneController extends Controller
         $uid=uniqid();
 
         $md5v=md5("/live/$uid-$time-njrb");
-    $rtmpUrl="rtmp://$ip:1935/live/|||".$uid."?sign=$time-$md5v";
+        $rtmpUrl="rtmp://$ip:1935/live/|||".$uid."?sign=$time-$md5v";
         //处理字段
         $pid=time();
         $viewUrl=$_ENV['SITENAME'].'/scen/'.(string)$pid;
@@ -112,14 +112,6 @@ class SceneController extends Controller
               }else{
                   return 0;
               }
-          }elseif($request->input('del')=='del'){
-              //9.26 删除场景  暂时未能处理
-              /*
-              if(DB::table('createscene')->where('id',$id)->update(['status'=>16])){
-                  return 1;
-              }else{
-                  return 0;
-              }*/
           }
     }
     public function getDetails(Request $request)
@@ -128,6 +120,9 @@ class SceneController extends Controller
         if($request->input('act')=='getDetail'){
             $res=DB::table('createscene')->where('id',$id)->get();
             return json_encode($res);
+        }elseif($request->input('act')=='delScen'){
+            $re=DB::table('createscene')->where(['id'=>$request->input('id')])->delete();
+            return json_encode($re);
         }
     }
     public  function changePwd(Request $request){

@@ -9,11 +9,21 @@
     <script src="/js/vue-min.js"></script>
     <script src="/js/vue-resource.js"></script>
     <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.2.0/skins/default/aliplayer-min.css" />
+    <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.2.0/aliplayer-min.js"></script>
+    <script src="/js/jq.min.js"></script>
+
 </head>
 <style>
     .video-js .vjs-big-play-button{
         top: 39%;
         left: 37%;
+    }
+    .prism-ErrorMessage{
+        color: white;
+        line-height: 350px;
+        text-align: center;
+
     }
     .end{
         background:#eee;
@@ -98,7 +108,7 @@
 
         <div class="pz-boxbody fn-w520">
             <div class="pz-form">
-                <div class="wrap fn-pd20 fn-fs16">
+                <div class="wrap  fn-fs16">
                     <div id="j-viewvideo" style="width:480px;height:270px;background:#000;">
                     </div>
                 </div>
@@ -207,10 +217,36 @@ var list=new Vue({
         },
         view:function (id,index) {
             var      placeHappen= document.getElementById('j-list');
+/*
             document.getElementById('j-viewvideo').innerHTML='  <video id="example_video_1" class="video-js vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">\n' +
                 '      <source src="rtmp://220.166.83.187:1935/live/59c075f837c4f" type="rtmp/flv">\n' +
                 '    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>\n' +
                 '  </video>';
+*/
+document.getElementById('j-viewvideo').innerHTML='<div  class="prism-player" id="J_prismPlayer" style="position: absolute;left:0%;"></div>';
+            var player = new Aliplayer({
+                id: "J_prismPlayer",
+                autoplay: true,
+                isLive:false,
+                playsinline:true,
+                width:"100%",
+                height:"400px",
+                controlBarVisibility:"always",
+                useH5Prism:false,
+                useFlashPrism:false,
+                source:"httpe/59c075f837c4f.m3u8",
+                cover:""
+
+            });
+
+            player.on('error',function(e){
+                var errorData = e.paramData;
+                //隐藏
+                var targ= document.getElementsByClassName('prism-ErrorMessage')[0];
+                targ .style.display='none';
+                targ.innerHTML='哎呀~摄像头被挡住了........'
+                targ.style.display='block';
+            });
 
             this.currentView="";
                     var that=this;
@@ -228,9 +264,10 @@ var list=new Vue({
                       }
                     }
                 })
-            var myPlayer=videojs("example_video_1");
+           /* var myPlayer=videojs("example_video_1");
                 myPlayer.src(that.arrHolder["rtmpUrl"]);
                 myPlayer.load(that.arrHolder["rtmpUrl"]);
+                */
             placeHappen .className='pz-overlay fn-pt30 fn-pb30 fn-pl40 fn-pr40 fn-hide';
         },
         setTop:function (id,e,index) {

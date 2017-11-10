@@ -18,6 +18,12 @@
         a:hover,a:focus {color: #2a6496;text-decoration: none;}
         a:focus {outline: thin dotted;outline: 5px auto -webkit-focus-ring-color;outline-offset: -2px;}
 
+        .prism-ErrorMessage{
+            color: white;
+            line-height: 350px;
+            text-align: center;
+
+        }
         .padd_40{padding-top: 80px;background: #F5F5F5;overflow-x:hidden;}
         .a{text-align:center;line-height: 40px;position: fixed;top: 0;left: 0;width: 100%;z-index: 10;border-bottom: 1px #ccc solid; background: #f50;color: #fff;}
         .tab{display: flex;line-height: 40px;top: 40px;width: 100%;z-index: 10;}
@@ -92,9 +98,18 @@
                         controlBarVisibility:"always",
                         useH5Prism:true,
                         useFlashPrism:false,
-                        source:"//player.alicdn.com/video/aliyunmedia.mp4",
+                        source:"{{$rtmpUrl}}",
                         cover:"http://weixin.scnjnews.com/spring/upload/active/img/20171101/1.png"
                     });
+                    player.on('error',function(e){
+                        var errorData = e.paramData;
+                        //隐藏
+                        var targ= document.getElementsByClassName('prism-ErrorMessage')[0];
+                        targ .style.display='none';
+                        targ.innerHTML='哎呀~摄像头被挡住了........'
+                        targ.style.display='block';
+                    });
+
                 </script>
             @else
                 <img style="width: 100%" src="http://weixin.scnjnews.com/spring/upload/active/img/20171101/1.png" alt="">
@@ -217,7 +232,6 @@
         }
         ,methods:{
             showContent:function (e) {
-
            if( e.currentTarget.className=='sContent'){
                e.currentTarget.getElementsByClassName('act')[0].className='act zero';
                e.currentTarget.className='descclamp sContent';

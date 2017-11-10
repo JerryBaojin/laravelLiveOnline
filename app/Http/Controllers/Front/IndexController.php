@@ -11,7 +11,6 @@ class IndexController extends Controller
     //
     public function index($id){
         //过滤$id
-
         if(!is_numeric($id) || strpos($id,'.') ) return view('error.error');
         $scenDeatails=DB::table('createscene')->where(['pid'=>$id])->first();
 
@@ -24,6 +23,10 @@ class IndexController extends Controller
                  'viewCount'=>++$scenDeatails->viewCount
              ]);
          }
+        $ip=$_ENV['IP_ADDR'];//IPtables
+         $kname=explode('live',$rtmpUrl)[1];
+        $playUrl="http://$ip:8081/hls$kname$kname.m3u8";
+
         $dates=array(
             'partakeState'=>$scenDeatails->partakeState,
             'viewCount'=>$scenDeatails->viewCount,
@@ -32,7 +35,7 @@ class IndexController extends Controller
             'oid'=>$scenDeatails->id,
             'scene'=>$scenDeatails->title,
            'id'=>$id,
-           'rtmpUrl'=>$rtmpUrl,
+           'rtmpUrl'=>$playUrl,
             'type'=>$scenDeatails->type
        );
          //pv+1
@@ -40,5 +43,8 @@ class IndexController extends Controller
         return  view('front.live_Detail',$dates);
             //return $id;
         //dd($_ENV['SITENAME']);
+    }
+    public function test(){
+
     }
 }

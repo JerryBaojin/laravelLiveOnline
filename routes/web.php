@@ -14,9 +14,7 @@
 Route::group(['middleware' => ['web'],'prefix'=>'scen','namespace'=>'Front'], function () {
     Route::any('/{id}','IndexController@index');
 });
-Route::get('/test',function (){
-    return view('front.test');
-});
+Route::get('/test','Front\IndexController@test');
 Route::get('/',function (){
     return view('error.error');
 });

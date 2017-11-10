@@ -4,7 +4,7 @@ var vue=new Vue({
     el:'#app',
     data:{
         user:'',
-         page:"/admin/scene/scenelist"
+         page:"/admin/scene/comment"
         //     page:"/admin/count/list"
     },
     mounted:function(){
@@ -17,7 +17,7 @@ var vue=new Vue({
         console.log(token)
           this.$http.post('/Api/logout',{act:'logout','_token':token}).then(function (res) {
             if (parseInt(res.body)==1){
-                alert('退出成功！')
+                alert('退出成功！');
                 window.location=location;
             }else{
                 alert('请重试！')

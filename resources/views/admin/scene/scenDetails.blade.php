@@ -9,16 +9,24 @@
     <script src="/js/vue-resource.js"></script>
     <link href="http://vjs.zencdn.net/5.20.1/video-js.css" rel="stylesheet">
     <script src="/js/video.min.js"></script>
+    <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.2.0/skins/default/aliplayer-min.css" />
+    <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.2.0/aliplayer-min.js"></script>
 </head>
 <body>
 <style>
     [v-cloak] {
         display: none;
     }
+    .prism-ErrorMessage{
+        color: white;
+        line-height: 350px;
+        text-align: center;
+    }
+
 </style>
 <div id="app" v-cloak>
     <div id="j-search" class=" pz-form pz-searchform xcy-search fn-clear">
-        <span id="j-back" class="  fn-left pz-btn btn-white"><i @click="goback" class="pz-icon icon-back1"></i> 返回</span>
+        <span id="j-back" onclick="goback()" class="  fn-left pz-btn btn-white"><i  class="pz-icon icon-back1"></i> 返回</span>
         <div class="other">
             <div id="j-more" class="item">
                 <span class="pz-btn btn-white">更多操作</span>
@@ -27,7 +35,7 @@
                         <em class="arrow"></em>
                         <em class="arrowbg"></em>
 
-                        <span class="j-delete" @click="delScene">删除现场</span>
+                        <span class="j-delete" @click="del">删除现场</span>
 
                         <span class="j-playurl" @click="viewRtpAddr">播放流地址</span>
                     </div>
@@ -162,6 +170,9 @@
 </div>
 
 <script>
+   function goback() {
+       window.history.go(-1);
+   }
     new Vue({
         delimiters:['[[', ']]'],
         el:'#app',
@@ -179,9 +190,7 @@
             }
         },
         methods:{
-            goback:function () {
-                window.history.go(-1);
-            },
+
             changePic:function (m,e) {
                 var imgUrl=window.URL.createObjectURL(e.currentTarget.files[0]);
                 this.arrs.coverPic=imgUrl;
@@ -203,18 +212,15 @@
             del:function () {
                 if(confirm('确认删除此场景吗？')){
                     this.$http.post('/Api/getDetails',{act:'delScen','id':this.id,'_token':'{{csrf_token()}}'}).then(function (res) {
-                        this.arrs=eval(res.body)[0];
-                        this.content=this.arrs.content;
+                        JSON.parse(res.body)==1?    window.history.go(-1):alert('失败！');
+
                     },function (error) {
                         console.log(error)
                     })
                 }
             },
             close:function (id) {
-                if (id=='viewScen'){
-                    var myPlayer=videojs("example_video_1");
-                    myPlayer.dispose();
-                }
+
                 this.isalive=false;
             },
             play:function () {
@@ -223,8 +229,6 @@
             },viewRtpAddr:function () {
                 this.isalive=true;
                 this.currentView='rtmpAdd';
-            },delScene:function () {
-                console.log('del');
             }
         },
         components:{
@@ -250,9 +254,28 @@
                     }else{
                         that.dir["rtmpUrl"]= rtmpUrls[0];
                     }
-                    var myPlayer=videojs("example_video_1");
-                    myPlayer.src(that.dir["rtmpUrl"]);
-                    myPlayer.load(that.dir["rtmpUrl"]);
+                    var player = new Aliplayer({
+                        id: "J_prismPlayer",
+                        autoplay: true,
+                        isLive:false,
+                        playsinline:true,
+                        width:"100%",
+                        height:"400px",
+                        controlBarVisibility:"always",
+                        useH5Prism:false,
+                        useFlashPrism:false,
+                        source:"http://220.166.83.187:8000/live/59c075f837c4f.m3u8",
+                        cover:""
+                    });
+
+                    player.on('error',function(e){
+                        var errorData = e.paramData;
+                        //隐藏
+                        var targ= document.getElementsByClassName('prism-ErrorMessage')[0];
+                        targ .style.display='none';
+                        targ.innerHTML='哎呀~摄像头被挡住了........'
+                        targ.style.display='block';
+                    });
                 }
             } ,
             rtmpAdd:{
@@ -372,13 +395,17 @@
                     <em class="pz-icon icon-close"></em>
                 </span> </div> <div class="pz-boxbody fn-w520">
                     <div class="pz-form">
-                        <div class="wrap fn-pd20 fn-fs16">
+                        <div class="wrap  fn-fs16">
                             <div id="j-viewvideo" style="width:480px;height:270px;background:#000;">
-                                <video style="width: 100%;height: 100%;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                                    <source src="rtmp://220.166.83.187:1935/hls/a" type="rtmp/flv">
-                                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-                                </video>
+                                {{--<video style="width: 100%;height: 100%;" id="example_video_1"  class="video-js vjs-big-play-centered  vjs-default-skin" controls="controls" preload="auto" width="1280" height="720" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">--}}
+                                    {{--<source src="rtmp://220.166.83.187:1935/hls/a" type="rtmp/flv">--}}
+                                    {{--<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>--}}
+                                {{--</video>--}}
+                                <div  class="prism-player" id="J_prismPlayer" style="position: absolute;left:0%;"></div>
                             </div>
+
+
+
                         </div>
                     </div>
                 </div>

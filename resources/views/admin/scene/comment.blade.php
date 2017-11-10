@@ -182,8 +182,10 @@
         },
         mounted:function () {
          this.$http.post('/Api/signedCommits',{act:'getAll','_token':'{{csrf_token()}}'}).then(function (res) {
-             this.allDates=eval('('+res.body+')');
+             console.log(res);
+             this.allDates=JSON.parse(res.body);
              this.allPage=Math.ceil(this.allDates.length/10);
+
              this.loaded=true;
          },function (e) {
              console.log(e)
@@ -253,7 +255,8 @@
                         vm.allDates.length==vm.allPage*10?'':p=vm.allDates.length-(this.logo-1)*10-1;
                     }
                     var begin = this.from;
-                    var to = this.from + p;
+                    var to;
+                    this.allpage!=1?to = this.from + p:to=vm.allDates.length-1;
                     vm.allDates.map(function (v, i, a) {
                         vm.allDates[i]['aindex'] = i;
                     });

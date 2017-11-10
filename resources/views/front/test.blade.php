@@ -7,27 +7,22 @@
     <title>Aliplayer</title>
     <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.2.0/skins/default/aliplayer-min.css" />
     <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.2.0/aliplayer-min.js"></script>
+    <script src="/js/jq.min.js"></script>
 </head>
 <body>
-<div  class="prism-player" id="J_prismPlayer" style="position: absolute;left:0%;"></div>
 
 <script>
 
-    var player = new Aliplayer({
-        id: "J_prismPlayer",
-        autoplay: false,
-        isLive:true,
-        playsinline:true,
-        width:"100%",
-        height:"400px",
-        x5_type:true,
-        x5_fullscreen:false,
-        controlBarVisibility:"always",
-        useH5Prism:true,
-        useFlashPrism:false,
-        source:"//player.alicdn.com/video/aliyunmedia.mp4",
-        cover:"http://weixin.scnjnews.com/spring/upload/active/img/20171101/1.png"
-    });
+    $(function () {
+        $.ajax({
+            type :"get",
+            url:'http://weixin.scnjnews.com/spring/implement.php',
+            dataType :"jsonp",
+            success:function (res) {
+               console.log(res)
+            }
+        })
+    })
 </script>
 </body>
 </html>
